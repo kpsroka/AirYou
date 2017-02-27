@@ -48,7 +48,7 @@ jspm_packages
 
 # WebStorm
 .idea
-splendid.iml
+AirYou.iml
 
 # Babel
 .babelrc
