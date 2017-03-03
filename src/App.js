@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FieldOfPlay from './FieldOfPlay.js';
+import FieldOfPlay from './ui/components/FieldOfPlay.js';
 
 import './App.css';
 
