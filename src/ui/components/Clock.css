@@ -1,0 +1,9 @@
+.DateTimeContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.DateTimeSpacer {
+  width: 10px;
+}
