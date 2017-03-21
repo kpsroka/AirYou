@@ -12,7 +12,8 @@ let TIME_FORMAT_OPTIONS = {
 function mapStateToProps(state) {
   return {
     displayDate: toDisplayDate(state.time.millis),
-    displayTime: toDisplayTime(state.time.millis)
+    displayTime: toDisplayTime(state.time.millis),
+    tickSpeedSymbol: String.fromCharCode(9654),
   };
 }
 
@@ -25,7 +26,10 @@ function toDisplayTime(millis) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { onTick: () => dispatch({type: 'TIME_TICK'}) };
+  return {
+    onTick: () => dispatch({type: 'TIME_TICK'}),
+    onTickChange: () => dispatch({type: 'TIME_TICK_CHANGE'})
+  };
 }
 
 const ClockComponent = connect(mapStateToProps, mapDispatchToProps)(Clock);
