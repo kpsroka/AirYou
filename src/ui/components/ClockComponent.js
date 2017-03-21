@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import Clock from './Clock.js';
 
+let MINUTE_IN_MILLIS = 60000;
+
 let DATE_FORMAT_OPTIONS = {
   year: "numeric", month: "short", day: "numeric"
 }
@@ -13,7 +15,7 @@ function mapStateToProps(state) {
   return {
     displayDate: toDisplayDate(state.time.millis),
     displayTime: toDisplayTime(state.time.millis),
-    tickSpeedSymbol: String.fromCharCode(9654),
+    tickSpeedSymbol: toTickSpeedSymbol(state.time.tick)
   };
 }
 
@@ -23,6 +25,16 @@ function toDisplayDate(millis) {
 
 function toDisplayTime(millis) {
   return new Intl.DateTimeFormat("en-US", TIME_FORMAT_OPTIONS).format(millis);
+}
+
+function toTickSpeedSymbol(tick) {
+  if (tick <= 0) {
+    return "⏸";
+  } else if (tick <= MINUTE_IN_MILLIS) {
+    return "▶";
+  } else {
+    return "⏩";
+  }
 }
 
 function mapDispatchToProps(dispatch) {

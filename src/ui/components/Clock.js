@@ -15,7 +15,7 @@ class Clock extends Component {
         <div className="DateTimeSpacer" />
         <div>{this.props.displayTime}</div>
         <div className="DateTimeSpacer" />
-        <div onClick={() => this.props.onTickChange()}>
+        <div onClick={() => {this.props.onTickChange()}}>
           {this.props.tickSpeedSymbol}
         </div>
       </div>
