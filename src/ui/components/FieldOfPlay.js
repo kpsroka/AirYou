@@ -7,10 +7,13 @@ class FieldOfPlay extends Component {
     return (
       <div className="FieldOfPlay">
         Field of Play
-        <Airport code="SFO" icon="○" position={{x: 5, y: 35}}/>
-        <Airport code="MCI" icon="○" position={{x: 45, y: 33}}/>
-        <Airport code="ATL" icon="○" position={{x: 88, y: 19}}/>
-        <Airport code="JFK" icon="○" position={{x: 92, y: 66}}/>
+        {this.props.airports.map((airport) => (
+          <Airport
+            key={airport.code}
+            code={airport.code}
+            icon="○"
+            position={airport.position} />
+        ))}
       </div>
     );
   }
