@@ -1,3 +1,5 @@
+let MINUTE_IN_MILLIS = 60000;
+
 const DefaultState = createDefaultState();
 
 function createDefaultState() {
@@ -9,7 +11,7 @@ function createDefaultState() {
 function createDefaultTime() {
   return {
     millis: Date.now(),
-    tick: 60000
+    tick: MINUTE_IN_MILLIS
   }
 }
 
