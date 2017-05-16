@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import Clock from './Clock.js';
-
-let MINUTE_IN_MILLIS = 60000;
-let SLOW_TICK = MINUTE_IN_MILLIS / 4;
+import { Time } from '../../Constants.js';
 
 
 let DATE_FORMAT_OPTIONS = {
@@ -32,7 +30,7 @@ function toDisplayTime(millis) {
 function toTickSpeedSymbol(tick) {
   if (tick <= 0) {
     return "⏸";
-  } else if (tick <= SLOW_TICK) {
+  } else if (tick <= Time.SLOW_TICK_MILLIS) {
     return "▶";
   } else {
     return "⏩";

@@ -1,6 +1,4 @@
-let MINUTE_IN_MILLIS = 60000;
-let SLOW_TICK = MINUTE_IN_MILLIS / 4;
-let FAST_TICK = MINUTE_IN_MILLIS;
+import { Time } from '../../Constants.js';
 
 const TimeReducer = (stateTime, action) => {
   switch (action.type) {
@@ -15,13 +13,13 @@ const TimeReducer = (stateTime, action) => {
 
 function getNextTick(currentTick) {
   switch (currentTick) {
-    case SLOW_TICK:
-      return FAST_TICK;
-    case FAST_TICK:
+    case Time.SLOW_TICK_MILLIS:
+      return Time.FAST_TICK_MILLIS;
+    case Time.FAST_TICK_MILLIS:
       return 0;
     case 0:
     default:
-      return SLOW_TICK;
+      return Time.SLOW_TICK_MILLIS;
   }
 }
 

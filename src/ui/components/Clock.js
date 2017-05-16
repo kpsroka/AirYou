@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './Clock.css';
+import { Time } from '../../Constants.js';
 
 class Clock extends Component {
 
   constructor(...args) {
     super(...args);
-    window.setInterval(() => { this.props.onTick() }, 250);
+    window.setInterval(() => { this.props.onTick() }, Time.TICK_PERIOD_MILLIS);
   }
 
   render() {
