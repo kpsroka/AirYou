@@ -46,10 +46,10 @@ function createAirportsMap(airports) {
 
 function createFlights() {
   return [
-    createFlight("AY", "9001", "SFO", "MCI"),
-    createFlight("BA", "101", "JFK", "ATL"),
-    createFlight("UA", "3030", "JFK", "SFO"),
-    createFlight("LH", "33", "MCI", "ATL")
+    createFlight("AY", "9001", "SFO", "MCI", 1000),
+    createFlight("BA", "101", "JFK", "ATL", 1000),
+    createFlight("UA", "3030", "JFK", "SFO", 1000),
+    createFlight("LH", "33", "MCI", "ATL", 1000)
   ]
 }
 
@@ -57,12 +57,14 @@ function createFlight(
     airlineIataCode="AY",
     flightNumber="0000",
     departureAirportCode="???",
-    arrivalAirportCode="???") {
+    arrivalAirportCode="???",
+    distanceKm=1000) {
   return {
     airlineIataCode: airlineIataCode,
     flightNumber: flightNumber,
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
+    distanceKm: distanceKm
   }
 }
 
