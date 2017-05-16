@@ -3,9 +3,13 @@ import { Time } from '../Constants.js';
 const DefaultState = createDefaultState();
 
 function createDefaultState() {
+  let airports = createAirports();
+  let airportsMap = createAirportsMap(airports);
   return {
     time: createDefaultTime(),
-    airports: createAirports(),
+    airports: airports,
+    airportsByCode: airportsMap,
+    airplanesInFlight: [],
     flights: createFlights()
   }
 }
@@ -34,6 +38,10 @@ function createAirport(code="???", positionX=50, positionY=50) {
       y: positionY
     },
   };
+}
+
+function createAirportsMap(airports) {
+  return new Map(airports.map((value, index) => [value.code, index]));
 }
 
 function createFlights() {
