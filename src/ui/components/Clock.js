@@ -5,7 +5,7 @@ class Clock extends Component {
 
   constructor(...args) {
     super(...args);
-    window.setInterval(() => { this.props.onTick() }, 1000);
+    window.setInterval(() => { this.props.onTick() }, 250);
   }
 
   render() {
