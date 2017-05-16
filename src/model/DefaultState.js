@@ -5,7 +5,8 @@ const DefaultState = createDefaultState();
 function createDefaultState() {
   return {
     time: createDefaultTime(),
-    airports: createAirports()
+    airports: createAirports(),
+    flights: createFlights()
   }
 }
 
@@ -33,6 +34,28 @@ function createAirport(code="???", positionX=50, positionY=50) {
       y: positionY
     },
   };
+}
+
+function createFlights() {
+  return [
+    createFlight("AY", "9001", "SFO", "MCI"),
+    createFlight("BA", "101", "JFK", "ATL"),
+    createFlight("UA", "3030", "JFK", "SFO"),
+    createFlight("LH", "33", "MCI", "ATL")
+  ]
+}
+
+function createFlight(
+    airlineIataCode="AY",
+    flightNumber="0000",
+    departureAirportCode="???",
+    arrivalAirportCode="???") {
+  return {
+    airlineIataCode: airlineIataCode,
+    flightNumber: flightNumber,
+    departureAirportCode: departureAirportCode,
+    arrivalAirportCode: arrivalAirportCode,
+  }
 }
 
 export default DefaultState;
