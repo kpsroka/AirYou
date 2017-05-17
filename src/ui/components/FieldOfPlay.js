@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import AirplaneInFlight from "./AirplaneInFlight.js";
 import Airport from "./Airport.js";
 import "./FieldOfPlay.css";
+import BgImage from "../../../public/US.svg";
 
 class FieldOfPlay extends Component {
   render() {
     return (
       <div className="FieldOfPlay">
+        <img className="BackgroundImage" src={BgImage} role="presentation" />
         Field of Play
         {this.props.airports.map((airport) => (
           <Airport
