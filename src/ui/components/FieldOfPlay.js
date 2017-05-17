@@ -29,11 +29,11 @@ class FieldOfPlay extends Component {
     );
   }
 
-  static findAirportPosition(departureAirportCode) {
+  findAirportPosition(departureAirportCode) {
     return this.props.airports.find((airport) => airport.code === departureAirportCode).position;
   }
 
-  static calculateFlightProgress(distanceKm, distanceRemainingM) {
+  calculateFlightProgress(distanceKm, distanceRemainingM) {
     return 100 - (100 * ((distanceRemainingM) / (distanceKm * 1000)));
   }
 }
