@@ -23,10 +23,26 @@ function createDefaultTime() {
 
 function createAirports() {
   return [
-    createAirport("SFO", 5, 35),
-    createAirport("MCI", 45, 33),
-    createAirport("ATL", 88, 19),
-    createAirport("JFK", 92, 66)
+    createAirport("SFO", 3, 59),
+    createAirport("LAX", 8, 42),
+    createAirport("PDX", 7, 89),
+    createAirport("SEA", 10, 95),
+    createAirport("SLC", 22, 62),
+    createAirport("PHX", 19, 37),
+    createAirport("DEN", 33, 67),
+    createAirport("MCI", 52, 53),
+    createAirport("DFW", 48, 30),
+    createAirport("MSP", 54, 74),
+    createAirport("ORD", 63, 65),
+    createAirport("DTW", 71, 67),
+    createAirport("MEM", 63, 44),
+    createAirport("ATL", 72, 35),
+    createAirport("MIA", 82, 6),
+    createAirport("CLT", 75, 42),
+    createAirport("PIT", 77, 61),
+    createAirport("IAD", 82, 58),
+    createAirport("BOS", 88, 73),
+    createAirport("JFK", 91, 66)
   ]
 }
 
