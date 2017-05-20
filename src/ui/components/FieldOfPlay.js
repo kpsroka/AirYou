@@ -9,7 +9,6 @@ class FieldOfPlay extends Component {
     return (
       <div className="FieldOfPlay">
         <img className="BackgroundImage" src={BgImage} role="presentation" />
-        Field of Play
         {this.props.airports.map((airport) => (
           <Airport
             key={airport.code}
