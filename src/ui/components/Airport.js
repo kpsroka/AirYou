@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import "./Airport.css";
+import BgImage from "../../../public/airport.svg";
+
 
 class Airport extends Component {
   positionToStyle(position) {
@@ -12,7 +14,7 @@ class Airport extends Component {
   render() {
     return (
       <div className="airport" style={this.positionToStyle(this.props.position)}>
-        <div>{this.props.icon}</div>
+        <img className="airportIcon" src={BgImage} role="presentation" />
         <div className="airportName">{this.props.code}</div>
       </div>
     )
