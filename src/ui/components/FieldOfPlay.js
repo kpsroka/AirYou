@@ -13,7 +13,6 @@ class FieldOfPlay extends Component {
           <Airport
             key={airport.code}
             code={airport.code}
-            icon="○"
             position={airport.position} />
         ))}
         {this.props.airplanesInFlight.map((airplane) => {
