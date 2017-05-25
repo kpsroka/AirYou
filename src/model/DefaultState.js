@@ -96,12 +96,12 @@ function createSchedules() {
 
 function createFlightSchedule(
   flightId="",
-  departureHour=0,
+  departureHours=0,
   departureMinutes=0,
   departureDaysOfWeek=[0, 1, 2, 3, 4, 5, 6]) {
   return {
     flightId: flightId,
-    departureHour: departureHour,
+    departureHours: departureHours,
     departureMinutes: departureMinutes,
     departureDaysOfWeek: departureDaysOfWeek
   }
