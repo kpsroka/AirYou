@@ -42,8 +42,8 @@ function createAirports() {
     createAirport("CLT", 75, 42),
     createAirport("PIT", 77, 61),
     createAirport("IAD", 82, 58),
-    createAirport("BOS", 88, 73),
-    createAirport("JFK", 91, 66)
+    createAirport("BOS", 91, 73),
+    createAirport("JFK", 88, 66)
   ]
 }
 
