@@ -10,7 +10,8 @@ function createDefaultState() {
     airports: airports,
     airportsByCode: airportsMap,
     airplanesInFlight: [],
-    flights: createFlights()
+    flights: createFlights(),
+    schedules: createSchedules()
   }
 }
 
@@ -81,6 +82,28 @@ function createFlight(
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
     distanceKm: distanceKm
+  }
+}
+
+function createSchedules() {
+  let now = Date.now();
+
+  return [
+    createFlightSchedule("AY9001", now.getHours() + 1, now.getMinutes()),
+    createFlightSchedule("BA101", now.getHours() + 3, 0)
+  ];
+}
+
+function createFlightSchedule(
+  flightId="",
+  departureHour=0,
+  departureMinutes=0,
+  departureDaysOfWeek=[0, 1, 2, 3, 4, 5, 6]) {
+  return {
+    flightId: flightId,
+    departureHour: departureHour,
+    departureMinutes: departureMinutes,
+    departureDaysOfWeek: departureDaysOfWeek
   }
 }
 
