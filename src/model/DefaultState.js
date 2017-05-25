@@ -86,7 +86,7 @@ function createFlight(
 }
 
 function createSchedules() {
-  let now = Date.now();
+  let now = new Date();
 
   return [
     createFlightSchedule("AY9001", now.getHours() + 1, now.getMinutes()),
