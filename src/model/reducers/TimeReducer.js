@@ -25,9 +25,51 @@ function updateTimeMillis(stateTime, newMillis) {
 }
 
 function updateAirplanesInFlight(state, timeUpdate) {
-  return updateDistanceRemaining(
+  let newAirplanesInFlight =
+    updateDistanceRemaining(
       state.airplanesInFlight,
       timeUpdate.newMillis - timeUpdate.oldMillis);
+  let newFlights = getNewFlightsFromSchedule(state.schedules, timeUpdate);
+  Array.prototype.push.apply(
+    newAirplanesInFlight,
+    launchFlightsById(state, newFlights));
+  return newAirplanesInFlight;
+}
+
+function launchFlightsById(state, flightIds) {
+  return flightIds.map((flightId) => {
+    return {
+      flight: findFlightById(state.flights, flightId),
+      distanceRemainingM: 1000 * 1000,
+      speedMps: 150
+    }
+  });
+}
+
+function findFlightById(flights, flightId) {
+  return flights.find((flight) => (flightId === `${flight.airlineIataCode}${flight.flightNumber}`));
+}
+
+function getNewFlightsFromSchedule(schedules, timeUpdate) {
+  return schedules.filter((schedule) => (
+    deltaMinutesToSchedule(schedule, timeUpdate.oldMillis) <
+    deltaMinutesToSchedule(schedule, timeUpdate.newMillis))
+  ).map((schedule) => (schedule.flightId));
+}
+
+function deltaMinutesToSchedule(schedule, millis) {
+  let delta = 0;
+  let date = new Date(millis);
+
+  delta += (schedule.departureHours - date.getHours()) * 60;
+  delta += (schedule.departureMinutes - date.getMinutes());
+
+  while (delta < 0 || schedule.departureDaysOfWeek.indexOf(date.getDay()) === -1) {
+    delta += 24 * 60;
+    date.setDate(date.getDate() + 1);
+  }
+
+  return delta;
 }
 
 function updateDistanceRemaining(airplanesInFlight, millisDelta) {
