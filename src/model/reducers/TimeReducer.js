@@ -7,7 +7,7 @@ const TimeReducer = (state, action) => {
       return {
         ...state,
         time: updateTimeMillis(state.time, timeUpdate.newMillis),
-        airplanesInFlight: updateAirplanesInFlight(state.airplanesInFlight, timeUpdate)
+        airplanesInFlight: updateAirplanesInFlight(state, timeUpdate)
       };
     case 'TIME_TICK_CHANGE':
       return {...state, time: updateTimeTick(state.time, getNextTick(state.time.tick))};
@@ -24,16 +24,22 @@ function updateTimeMillis(stateTime, newMillis) {
   return { ...stateTime, millis: newMillis };
 }
 
-function updateAirplanesInFlight(airplanesInFlight, timeUpdate) {
+function updateAirplanesInFlight(state, timeUpdate) {
+  return updateDistanceRemaining(
+      state.airplanesInFlight,
+      timeUpdate.newMillis - timeUpdate.oldMillis);
+}
+
+function updateDistanceRemaining(airplanesInFlight, millisDelta) {
   return airplanesInFlight
     .map((airplaneInFlight) => {
-      let newDistanceRemaining = airplaneInFlight.distanceRemainingM -
-        (airplaneInFlight.speedMps * (timeUpdate.newMillis - timeUpdate.oldMillis)) / 1000;
+      let newDistanceRemaining =
+        airplaneInFlight.distanceRemainingM - (airplaneInFlight.speedMps * millisDelta) / 1000;
       return {
         ...airplaneInFlight,
         distanceRemainingM: newDistanceRemaining,
       }
-  }).filter((airplaneInFlight) => airplaneInFlight.distanceRemainingM > 0);
+    }).filter((airplaneInFlight) => airplaneInFlight.distanceRemainingM > 0);
 }
 
 function updateTimeTick(stateTime, nextTick) {
