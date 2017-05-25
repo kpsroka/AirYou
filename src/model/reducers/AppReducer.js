@@ -2,15 +2,10 @@ import TimeReducer from './TimeReducer.js';
 import AirplaneInFlightReducer from './AirplaneInFlightReducer.js';
 
 const AppReducer = (state, action={}) => {
-  let newTime = TimeReducer(state, action).time;
-  let newAirplanesInFlight =
-    AirplaneInFlightReducer(state.airplanesInFlight, state.time.millis, newTime.millis, action);
+  let newState = TimeReducer(state, action);
+  newState.airplanesInFlight = AirplaneInFlightReducer(newState.airplanesInFlight, action);
 
-  return Object.assign(
-    {}, state,
-    { time: newTime },
-    { airplanesInFlight: newAirplanesInFlight }
-  )
+  return newState;
 };
 
 export default AppReducer;

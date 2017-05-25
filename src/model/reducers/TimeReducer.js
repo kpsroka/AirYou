@@ -4,9 +4,13 @@ const TimeReducer = (state, action) => {
   switch (action.type) {
     case 'TIME_TICK':
       let timeUpdate = createTimeUpdate(state.time.millis, state.time.millis + state.time.tick);
-      return updateTimeMillis(state, timeUpdate);
+      return {
+        ...state,
+        time: updateTimeMillis(state.time, timeUpdate.newMillis),
+        airplanesInFlight: updateAirplanesInFlight(state.airplanesInFlight, timeUpdate)
+      };
     case 'TIME_TICK_CHANGE':
-      return updateTimeTick(state);
+      return {...state, time: updateTimeTick(state.time, getNextTick(state.time.tick))};
     default:
       return state;
   }
@@ -16,19 +20,23 @@ function createTimeUpdate(oldMillis, newMillis) {
   return { oldMillis: oldMillis, newMillis: newMillis }
 }
 
-function updateTimeMillis(state, timeUpdate){
-  return { ...state, time: updateMillis(state.time, timeUpdate.newMillis)}
-}
-
-function updateMillis(stateTime, newMillis) {
+function updateTimeMillis(stateTime, newMillis) {
   return { ...stateTime, millis: newMillis };
 }
 
-function updateTimeTick(state) {
-  return { ...state, time: updateTick(state.time, getNextTick(state.time.tick)) };
+function updateAirplanesInFlight(airplanesInFlight, timeUpdate) {
+  return airplanesInFlight
+    .map((airplaneInFlight) => {
+      let newDistanceRemaining = airplaneInFlight.distanceRemainingM -
+        (airplaneInFlight.speedMps * (timeUpdate.newMillis - timeUpdate.oldMillis)) / 1000;
+      return {
+        ...airplaneInFlight,
+        distanceRemainingM: newDistanceRemaining,
+      }
+  }).filter((airplaneInFlight) => airplaneInFlight.distanceRemainingM > 0);
 }
 
-function updateTick(stateTime, nextTick) {
+function updateTimeTick(stateTime, nextTick) {
   return { ...stateTime, tick: nextTick };
 }
 

@@ -1,17 +1,5 @@
-const AirplaneInFlightReducer = (stateAirplanesInFlight, oldTimeMillis, newTimeMillis, action) => {
+const AirplaneInFlightReducer = (stateAirplanesInFlight, action) => {
   switch (action.type) {
-    case 'TIME_TICK': {
-      return stateAirplanesInFlight.map(
-        (airplaneInFlight) => {
-          let newDistanceRemaining =
-            airplaneInFlight.distanceRemainingM -
-            (airplaneInFlight.speedMps * (newTimeMillis - oldTimeMillis)) / 1000;
-          return {
-          ...airplaneInFlight,
-          distanceRemainingM: newDistanceRemaining,
-        }}
-      ).filter((airplaneInFlight) => airplaneInFlight.distanceRemainingM > 0);
-    }
     case 'NEW_FLIGHT':
       return [
         ...stateAirplanesInFlight,
