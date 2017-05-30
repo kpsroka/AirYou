@@ -1,14 +1,24 @@
-const AirplaneInFlightReducer = (stateAirplanesInFlight, action) => {
+/* @flow */
+
+import { type Action, type NewFlightAction } from '../Actions.js';
+import { type StateAirplaneInFlight } from '../State.js';
+
+const AirplaneInFlightReducer = (
+    stateAirplanesInFlight:Array<StateAirplaneInFlight>,
+    action:Action)
+    :Array<StateAirplaneInFlight> => {
   switch (action.type) {
-    case 'NEW_FLIGHT':
+    case 'NEW_FLIGHT': {
+      let newFlightAction = ((action: any): NewFlightAction);
       return [
         ...stateAirplanesInFlight,
         {
-          flight: action.payload,
-          distanceRemainingM: action.payload.distanceKm * 1000,
+          flight: newFlightAction.payload,
+          distanceRemainingM: newFlightAction.payload.distanceKm * 1000,
           speedMps: 150
         }
       ];
+    }
     default:
       return stateAirplanesInFlight;
   }

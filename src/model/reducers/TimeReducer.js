@@ -1,6 +1,17 @@
-import { Time } from '../../Constants.js';
+/* @flow */
 
-const TimeReducer = (state, action) => {
+import { Time } from '../../Constants.js';
+import { type Action } from '../Actions.js';
+import {
+  type State, type StateAirplaneInFlight, type StateFlight, type StateSchedule,
+  type StateTime } from '../State.js';
+
+type TimeUpdate = {
+  oldMillis:number,
+  newMillis:number
+};
+
+const TimeReducer = (state:State, action:Action):State => {
   switch (action.type) {
     case 'TIME_TICK':
       let timeUpdate = createTimeUpdate(state.time.millis, state.time.millis + state.time.tick);
@@ -16,15 +27,24 @@ const TimeReducer = (state, action) => {
   }
 };
 
-function createTimeUpdate(oldMillis, newMillis) {
+function createTimeUpdate(
+    oldMillis:number,
+    newMillis:number)
+    :TimeUpdate {
   return { oldMillis: oldMillis, newMillis: newMillis }
 }
 
-function updateTimeMillis(stateTime, newMillis) {
+function updateTimeMillis(
+    stateTime:StateTime,
+    newMillis:number)
+    :StateTime {
   return { ...stateTime, millis: newMillis };
 }
 
-function updateAirplanesInFlight(state, timeUpdate) {
+function updateAirplanesInFlight(
+    state:State,
+    timeUpdate:TimeUpdate)
+    :Array<StateAirplaneInFlight> {
   let newAirplanesInFlight =
     updateDistanceRemaining(
       state.airplanesInFlight,
@@ -36,28 +56,47 @@ function updateAirplanesInFlight(state, timeUpdate) {
   return newAirplanesInFlight;
 }
 
-function launchFlightsById(state, flightIds) {
-  return flightIds.map((flightId) => {
-    return {
-      flight: findFlightById(state.flights, flightId),
-      distanceRemainingM: 1000 * 1000,
-      speedMps: 150
+function launchFlightsById(
+    state:State,
+    flightIds:Array<string>)
+    :Array<StateAirplaneInFlight> {
+  let newFlights:Array<?StateAirplaneInFlight> = flightIds.map((flightId) => {
+    let maybeFlight:?StateFlight = findFlightById(state.flights, flightId);
+    if (maybeFlight != null) {
+      return {
+        flight: maybeFlight,
+        distanceRemainingM: 1000 * 1000,
+        speedMps: 150
+      }
+    } else {
+      return null;
     }
   });
+
+  return newFlights.filter(Boolean);
 }
 
-function findFlightById(flights, flightId) {
+function findFlightById(
+    flights:Array<StateFlight>,
+    flightId:string)
+    :?StateFlight {
   return flights.find((flight) => (flightId === `${flight.airlineIataCode}${flight.flightNumber}`));
 }
 
-function getNewFlightsFromSchedule(schedules, timeUpdate) {
+function getNewFlightsFromSchedule(
+    schedules:Array<StateSchedule>,
+    timeUpdate:TimeUpdate)
+    :Array<string> {
   return schedules.filter((schedule) => (
     deltaMinutesToSchedule(schedule, timeUpdate.oldMillis) <
     deltaMinutesToSchedule(schedule, timeUpdate.newMillis))
   ).map((schedule) => (schedule.flightId));
 }
 
-function deltaMinutesToSchedule(schedule, millis) {
+function deltaMinutesToSchedule(
+    schedule:StateSchedule,
+    millis:number)
+    :number {
   let delta = 0;
   let date = new Date(millis);
 
@@ -72,7 +111,10 @@ function deltaMinutesToSchedule(schedule, millis) {
   return delta;
 }
 
-function updateDistanceRemaining(airplanesInFlight, millisDelta) {
+function updateDistanceRemaining(
+    airplanesInFlight:Array<StateAirplaneInFlight>,
+    millisDelta:number)
+    :Array<StateAirplaneInFlight> {
   return airplanesInFlight
     .map((airplaneInFlight) => {
       let newDistanceRemaining =
@@ -84,11 +126,14 @@ function updateDistanceRemaining(airplanesInFlight, millisDelta) {
     }).filter((airplaneInFlight) => airplaneInFlight.distanceRemainingM > 0);
 }
 
-function updateTimeTick(stateTime, nextTick) {
+function updateTimeTick(
+    stateTime:StateTime,
+    nextTick:number)
+    :StateTime {
   return { ...stateTime, tick: nextTick };
 }
 
-function getNextTick(currentTick) {
+function getNextTick(currentTick:number):number {
   switch (currentTick) {
     case Time.SLOW_TICK_MILLIS:
       return Time.FAST_TICK_MILLIS;
