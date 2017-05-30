@@ -1,28 +1,74 @@
+/* @flow */
+
 import { Time } from '../Constants.js';
 
-const DefaultState = createDefaultState();
+/*::
+type State = {
+ time: StateTime,
+ airports: Array<StateAirport>,
+ airplanesInFlight: Array<StateAirplaneInFlight>,
+ flights: Array<StateFlight>,
+ schedules: Array<StateSchedule>
+}
 
-function createDefaultState() {
+type StateTime = {
+ millis: number,
+ tick: number
+};
+
+type StateAirport = {
+  code: string,
+  position: Position
+};
+
+type Position = {
+ x: number,
+ y: number
+};
+
+type StateAirplaneInFlight = {
+ flight: StateFlight,
+ distanceRemainingM: number,
+ speedMps: number
+};
+
+type StateFlight = {
+  airlineIataCode: string,
+  flightNumber: string,
+  departureAirportCode: string,
+  arrivalAirportCode: string,
+  distanceKm: number
+};
+
+type StateSchedule = {
+  flightId: string,
+  departureHours: number,
+  departureMinutes: number,
+  departureDaysOfWeek: Array<number>
+};
+*/
+
+const DefaultState /*: State */ = createDefaultState();
+
+function createDefaultState() /*: State */ {
   let airports = createAirports();
-  let airportsMap = createAirportsMap(airports);
   return {
     time: createDefaultTime(),
     airports: airports,
-    airportsByCode: airportsMap,
     airplanesInFlight: [],
     flights: createFlights(),
     schedules: createSchedules()
   }
 }
 
-function createDefaultTime() {
+function createDefaultTime() /*: StateTime */ {
   return {
     millis: Date.now(),
     tick: Time.SLOW_TICK_MILLIS
   }
 }
 
-function createAirports() {
+function createAirports() /*: Array<StateAirport> */ {
   return [
     createAirport("SFO", 3, 59),
     createAirport("LAX", 8, 42),
@@ -47,7 +93,11 @@ function createAirports() {
   ]
 }
 
-function createAirport(code="???", positionX=50, positionY=50) {
+function createAirport(
+    code/*: string */="???",
+    positionX/*: number */=50,
+    positionY/*: number */=50)
+    /*: StateAirport */ {
   return {
     code: code,
     position: {
@@ -57,11 +107,7 @@ function createAirport(code="???", positionX=50, positionY=50) {
   };
 }
 
-function createAirportsMap(airports) {
-  return new Map(airports.map((value, index) => [value.code, index]));
-}
-
-function createFlights() {
+function createFlights() /*: Array<StateFlight> */ {
   return [
     createFlight("AY", "9001", "SFO", "MCI", 1000),
     createFlight("BA", "101", "JFK", "ATL", 1000),
@@ -71,11 +117,12 @@ function createFlights() {
 }
 
 function createFlight(
-    airlineIataCode="AY",
-    flightNumber="0000",
-    departureAirportCode="???",
-    arrivalAirportCode="???",
-    distanceKm=1000) {
+    airlineIataCode/*: string */="AY",
+    flightNumber/*: string */="0000",
+    departureAirportCode/*: string */="???",
+    arrivalAirportCode/*: string */="???",
+    distanceKm/*: number */=1000)
+    /*: StateFlight */ {
   return {
     airlineIataCode: airlineIataCode,
     flightNumber: flightNumber,
@@ -85,7 +132,7 @@ function createFlight(
   }
 }
 
-function createSchedules() {
+function createSchedules() /*: Array<StateSchedule> */ {
   let now = new Date();
 
   return [
@@ -95,10 +142,10 @@ function createSchedules() {
 }
 
 function createFlightSchedule(
-  flightId="",
-  departureHours=0,
-  departureMinutes=0,
-  departureDaysOfWeek=[0, 1, 2, 3, 4, 5, 6]) {
+  flightId/*: string */="",
+  departureHours/*: number */=0,
+  departureMinutes/*: number */=0,
+  departureDaysOfWeek/*: Array<number> */=[0, 1, 2, 3, 4, 5, 6]) /*: StateSchedule */ {
   return {
     flightId: flightId,
     departureHours: departureHours,
