@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.47.0",
     "react-scripts": "0.9.2",
     "redux-devtools": "^3.3.2"
   },
