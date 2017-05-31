@@ -49,7 +49,7 @@ function updateAirplanesInFlight(
     updateDistanceRemaining(
       state.airplanesInFlight,
       timeUpdate.newMillis - timeUpdate.oldMillis);
-  let newFlights = getNewFlightsFromSchedule(state.schedules, timeUpdate);
+  let newFlights = getNewFlightsFromSchedule(state.flights, timeUpdate);
   Array.prototype.push.apply(
     newAirplanesInFlight,
     launchFlightsById(state, newFlights));
@@ -84,12 +84,12 @@ function findFlightById(
 }
 
 function getNewFlightsFromSchedule(
-    schedules:Array<StateSchedule>,
+    schedules:Array<StateFlight>,
     timeUpdate:TimeUpdate)
     :Array<string> {
-  return schedules.filter((schedule) => (
-    deltaMinutesToSchedule(schedule, timeUpdate.oldMillis) <
-    deltaMinutesToSchedule(schedule, timeUpdate.newMillis))
+  return schedules.filter((flight) => (
+    deltaMinutesToSchedule(flight.schedule, timeUpdate.oldMillis) <
+    deltaMinutesToSchedule(flight.schedule, timeUpdate.newMillis))
   ).map((schedule) => (schedule.flightId));
 }
 

@@ -4,8 +4,7 @@ export type State = {
   time:StateTime,
   airports:Array<StateAirport>,
   airplanesInFlight:Array<StateAirplaneInFlight>,
-  flights:Array<StateFlight>,
-  schedules:Array<StateSchedule>
+  flights:Array<StateFlight>
 }
 
 export type StateTime = {
@@ -34,7 +33,7 @@ export type StateFlight = {
   departureAirportCode:string,
   arrivalAirportCode:string,
   distanceKm:number,
-  schedule?:StateSchedule
+  schedule:StateSchedule
 };
 
 export type StateSchedule = {
@@ -63,13 +62,15 @@ export const CreateFlightFn = (
     flightNumber:string="0000",
     departureAirportCode:string="???",
     arrivalAirportCode:string="???",
-    distanceKm:number=1000)
+    distanceKm:number=1000,
+    schedule:StateSchedule)
     :StateFlight => {
   return {
     flightId: airlineIataCode + flightNumber,
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
-    distanceKm: distanceKm
+    distanceKm: distanceKm,
+    schedule: schedule
   }
 };
 
@@ -81,8 +82,8 @@ export const CreateFlightScheduleFn = (
     :StateSchedule => {
   return {
     flightId: flightId,
-    departureHours: departureHours,
-    departureMinutes: departureMinutes,
+    departureHours: departureHours % 24,
+    departureMinutes: departureMinutes % 60,
     departureDaysOfWeek: departureDaysOfWeek
   }
 };

@@ -2,7 +2,7 @@
 
 import { Time } from '../Constants.js';
 import {
-  type State, type StateAirport, type StateFlight, type StateSchedule, type StateTime,
+  type State, type StateAirport, type StateFlight, type StateTime,
   CreateAirportFn, CreateFlightFn, CreateFlightScheduleFn } from './State.js';
 
 const DefaultState:State = createDefaultState();
@@ -13,8 +13,7 @@ function createDefaultState():State {
     time: createDefaultTime(),
     airports: airports,
     airplanesInFlight: [],
-    flights: createFlights(),
-    schedules: createSchedules()
+    flights: createFlights()
   }
 }
 
@@ -51,20 +50,21 @@ function CreateAirportFns():Array<StateAirport> {
 }
 
 function createFlights():Array<StateFlight> {
-  return [
-    CreateFlightFn("AY", "9001", "SFO", "MCI", 1000),
-    CreateFlightFn("BA", "101", "JFK", "ATL", 1000),
-    CreateFlightFn("UA", "3030", "JFK", "SFO", 1000),
-    CreateFlightFn("LH", "33", "MCI", "ATL", 1000)
-  ]
-}
-
-function createSchedules():Array<StateSchedule> {
   let now = new Date();
 
   return [
-    CreateFlightScheduleFn("AY9001", now.getHours() + 1, now.getMinutes()),
-    CreateFlightScheduleFn("BA101", now.getHours() + 3, 0)
+    CreateFlightFn(
+        "AY", "9001", "SFO", "MCI", 1000,
+        CreateFlightScheduleFn("AY9001", now.getHours() + 1, now.getMinutes())),
+    CreateFlightFn(
+        "BA", "101", "JFK", "ATL", 1000,
+        CreateFlightScheduleFn("BA101", now.getHours() + 2, 30)),
+    CreateFlightFn(
+        "UA", "3030", "JFK", "SFO", 1000,
+        CreateFlightScheduleFn("UA3030", now.getHours() + 3, 0)),
+    CreateFlightFn(
+        "LH", "33", "MCI", "ATL", 1000,
+        CreateFlightScheduleFn("LH33", now.getHours() + 4, now.getMinutes() + 45))
   ];
 }
 

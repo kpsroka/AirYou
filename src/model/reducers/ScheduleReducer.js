@@ -1,12 +1,12 @@
 /* @flow */
 
 import { type Action, type DeleteScheduleAction } from '../Actions.js';
-import { type StateSchedule } from '../State.js';
+import { type StateFlight } from '../State.js';
 
 const ScheduleReducer = (
-    stateSchedules:Array<StateSchedule>,
+    stateSchedules:Array<StateFlight>,
     action:Action)
-    :Array<StateSchedule> => {
+    :Array<StateFlight> => {
   switch (action.type) {
     case 'DELETE_SCHEDULE': {
       let deleteScheduleAction = ((action: any): DeleteScheduleAction);

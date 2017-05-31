@@ -19,18 +19,17 @@ class ScheduleList extends Component {
   render() {
     return (
       <div className="scheduleList">
-        {this.props.flights.map((schedule) => {
-          console.log(schedule);
+        {this.props.flights.map((flight) => {
           return (
             <div
-              key={schedule.flightId}
+              key={flight.flightId}
               className="scheduleListItem">
-              <div>{schedule.flightId}</div>
-              <div>{schedule.departureHours}:{schedule.departureMinutes}</div>
-              {schedule.departureDaysOfWeek.map((dayOfWeek) =>
+              <div>{flight.flightId}</div>
+              <div>{flight.schedule.departureHours}:{flight.schedule.departureMinutes}</div>
+              {flight.schedule.departureDaysOfWeek.map((dayOfWeek) =>
                 <div>{this.getDayOfWeekName(dayOfWeek)}</div>
               )}
-              <div onClick={() => this.deleteSchedule(schedule.flightId)}>Delete</div>
+              <div onClick={() => this.deleteSchedule(flight.flightId)}>Delete</div>
             </div>
           )
         })}

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import ScheduleListControl from './ScheduleListControl.js';
 
 function mapStateToProps(state) {
-  return { flights: state.schedules };
+  return { flights: state.flights };
 }
 
 function mapDispatchToProps(dispatch) {
