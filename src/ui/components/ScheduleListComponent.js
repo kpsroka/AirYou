@@ -5,6 +5,12 @@ function mapStateToProps(state) {
   return { flights: state.schedules };
 }
 
-const ScheduleListComponent = connect(mapStateToProps)(ScheduleListControl);
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteSchedule: (flightId) => dispatch({type: 'DELETE_SCHEDULE', payload: flightId})
+  }
+}
+
+const ScheduleListComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleListControl);
 
 export default ScheduleListComponent;

@@ -10,3 +10,8 @@ export type NewFlightAction = {
   type:'NEW_FLIGHT',
   payload:StateFlight
 }
+
+export type DeleteScheduleAction = {
+  type:'DELETE_SCHEDULE',
+  payload:string
+}

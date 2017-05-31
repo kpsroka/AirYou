@@ -30,11 +30,16 @@ class ScheduleList extends Component {
               {schedule.departureDaysOfWeek.map((dayOfWeek) =>
                 <div>{this.getDayOfWeekName(dayOfWeek)}</div>
               )}
+              <div onClick={() => this.deleteSchedule(schedule.flightId)}>Delete</div>
             </div>
           )
         })}
       </div>
     );
+  }
+
+  deleteSchedule(flightId) {
+    this.props.deleteSchedule(flightId);
   }
 }
 
