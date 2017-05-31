@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ClockComponent from './ui/components/ClockComponent.js';
-import FieldOfPlayComponent from './ui/components/FieldOfPlayComponent.js';
+import ClockComponent from './ui/clock/ClockComponent.js';
+import FieldOfPlayComponent from './ui/field/FieldOfPlayComponent.js';
 import NewFlightsComponent from './ui/components/NewFlightsComponent.js';
-import ScheduleListComponent from './ui/components/ScheduleListComponent.js';
+import ScheduleListComponent from './ui/schedule/ScheduleListComponent.js';
 
 import './App.css'
 
