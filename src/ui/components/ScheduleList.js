@@ -20,9 +20,10 @@ class ScheduleList extends Component {
     return (
       <div className="scheduleList">
         {this.props.flights.map((schedule) => {
+          console.log(schedule);
           return (
             <div
-              key="{schedule.flightId}"
+              key={schedule.flightId}
               className="scheduleListItem">
               <span>{schedule.flightId}</span>
               <span>{schedule.departureHours}:{schedule.departureMinutes}</span>

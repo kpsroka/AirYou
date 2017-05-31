@@ -1,7 +1,19 @@
 .scheduleList {
-
+  position: fixed;
+  left: 100px;
+  right: 100px;
+  top: 80px;
+  bottom: 80px;
+  border: 1px dotted #0a4;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0.85;
+  background-color: black;
 }
 
 .scheduleListItem {
-
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
