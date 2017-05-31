@@ -32,9 +32,11 @@ export type StateAirplaneInFlight = {
 export type StateFlight = {
   airlineIataCode:string,
   flightNumber:string,
+  flightId?:string,
   departureAirportCode:string,
   arrivalAirportCode:string,
-  distanceKm:number
+  distanceKm:number,
+  schedule?:StateSchedule
 };
 
 export type StateSchedule = {
