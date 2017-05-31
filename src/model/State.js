@@ -30,9 +30,7 @@ export type StateAirplaneInFlight = {
 };
 
 export type StateFlight = {
-  airlineIataCode:string,
-  flightNumber:string,
-  flightId?:string,
+  flightId:string,
   departureAirportCode:string,
   arrivalAirportCode:string,
   distanceKm:number,
@@ -63,13 +61,12 @@ export const CreateAirportFn = (
 export const CreateFlightFn = (
     airlineIataCode:string="AY",
     flightNumber:string="0000",
-    departureAirportCode:string ="???",
-    arrivalAirportCode:string ="???",
+    departureAirportCode:string="???",
+    arrivalAirportCode:string="???",
     distanceKm:number=1000)
     :StateFlight => {
   return {
-    airlineIataCode: airlineIataCode,
-    flightNumber: flightNumber,
+    flightId: airlineIataCode + flightNumber,
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
     distanceKm: distanceKm

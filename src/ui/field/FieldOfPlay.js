@@ -16,10 +16,9 @@ class FieldOfPlay extends Component {
             position={airport.position} />
         ))}
         {this.props.airplanesInFlight.map((airplane) => {
-          let airplaneKey = `${airplane.flight.airlineIataCode}${airplane.flight.flightNumber}`;
           return <AirplaneInFlight
-            key={airplaneKey}
-            flightId={airplaneKey}
+            key={airplane.flight.flightId}
+            flightId={airplane.flight.flightId}
             departurePosition={this.findAirportPosition(airplane.flight.departureAirportCode)}
             arrivalPosition={this.findAirportPosition(airplane.flight.arrivalAirportCode)}
             flightProgressPct={this.calculateFlightProgress(airplane.flight.distanceKm, airplane.distanceRemainingM)}

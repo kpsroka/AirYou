@@ -80,7 +80,7 @@ function findFlightById(
     flights:Array<StateFlight>,
     flightId:string)
     :?StateFlight {
-  return flights.find((flight) => (flightId === `${flight.airlineIataCode}${flight.flightNumber}`));
+  return flights.find((flight) => (flightId === flight.flightId));
 }
 
 function getNewFlightsFromSchedule(
