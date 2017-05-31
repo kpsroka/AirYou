@@ -25,10 +25,10 @@ class ScheduleList extends Component {
             <div
               key={schedule.flightId}
               className="scheduleListItem">
-              <span>{schedule.flightId}</span>
-              <span>{schedule.departureHours}:{schedule.departureMinutes}</span>
+              <div>{schedule.flightId}</div>
+              <div>{schedule.departureHours}:{schedule.departureMinutes}</div>
               {schedule.departureDaysOfWeek.map((dayOfWeek) =>
-                <span>{this.getDayOfWeekName(dayOfWeek)}</span>
+                <div>{this.getDayOfWeekName(dayOfWeek)}</div>
               )}
             </div>
           )
