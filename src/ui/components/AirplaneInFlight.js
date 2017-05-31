@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./AirplaneInFlight.css";
+import BgImage from "../../../public/plane.svg";
 
 class AirplaneInFlight extends Component {
   positionToXYCoords(departurePosition, arrivalPosition, flightProgressPct) {
@@ -23,7 +24,12 @@ class AirplaneInFlight extends Component {
     return (
       <div className="airplaneInFlight"
            style={this.positionToXYCoords(this.props.departurePosition, this.props.arrivalPosition, this.props.flightProgressPct)}>
-        <div style={this.positionToRotation(this.props.departurePosition, this.props.arrivalPosition)}>▻</div>
+
+        <img
+            className="airplaneIcon"
+            style={this.positionToRotation(this.props.departurePosition, this.props.arrivalPosition)}
+            src={BgImage}
+            role="presentation" />
         <div className="flightId">{this.props.flightId}</div>
       </div>
     )
