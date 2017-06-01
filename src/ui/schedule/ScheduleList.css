@@ -17,3 +17,12 @@
   justify-content: space-around;
   flex-direction: row;
 }
+
+.activeDayOfWeek {
+  color: #0a4;
+}
+
+.inactiveDayOfWeek {
+  color: #562;
+  text-decoration: line-through;
+}

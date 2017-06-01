@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import "./ScheduleList.css";
 
+let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
+
 class ScheduleList extends Component {
+  getDayOfWeekTag(dayOfWeek, schedule) {
+    let tagClassName = (schedule.departureDaysOfWeek.indexOf(dayOfWeek) === -1)
+        ? "inactiveDayOfWeek" : "activeDayOfWeek";
+    return (
+        <span className={tagClassName}>{this.getDayOfWeekName(dayOfWeek)}</span>
+    );
+  }
+
   getDayOfWeekName(dayOfWeek) {
     // TODO: replace with proper formatting function call.
     switch (dayOfWeek) {
-      case 0: return "Mon";
-      case 1: return "Tue";
-      case 2: return "Wed";
-      case 3: return "Thu";
-      case 4: return "Fri";
-      case 5: return "Sat";
-      case 6: return "Sun";
-      default: return "???";
+      case 0: return "M";
+      case 1: return "T";
+      case 2: return "W";
+      case 3: return "T";
+      case 4: return "F";
+      case 5: return "S";
+      case 6: return "S";
+      default: return "?";
     }
   }
 
@@ -26,9 +36,11 @@ class ScheduleList extends Component {
               className="scheduleListItem">
               <div>{flight.flightId}</div>
               <div>{flight.schedule.departureHours}:{flight.schedule.departureMinutes}</div>
-              {flight.schedule.departureDaysOfWeek.map((dayOfWeek) =>
-                <div>{this.getDayOfWeekName(dayOfWeek)}</div>
-              )}
+              <div>
+                {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
+                  this.getDayOfWeekTag(dayOfWeek, flight.schedule)
+                ))}
+              </div>
               <div onClick={() => this.deleteSchedule(flight.flightId)}>Delete</div>
             </div>
           )
