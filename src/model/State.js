@@ -2,7 +2,6 @@
 
 export type State = {
   time:StateTime,
-  airports:Array<StateAirport>,
   airplanesInFlight:Array<StateAirplaneInFlight>,
   flights:Array<StateFlight>
 }
@@ -10,16 +9,6 @@ export type State = {
 export type StateTime = {
   millis:number,
   tick:number
-};
-
-export type StateAirport = {
-  code:string,
-  position:Position
-};
-
-export type Position = {
-  x:number,
-  y:number
 };
 
 export type StateAirplaneInFlight = {
@@ -41,20 +30,6 @@ export type StateSchedule = {
   departureHours:number,
   departureMinutes:number,
   departureDaysOfWeek:Array<number>
-};
-
-export const CreateAirportFn = (
-    code:string="???",
-    positionX:number=50,
-    positionY:number=50)
-    :StateAirport => {
-  return {
-    code: code,
-    position: {
-      x: positionX,
-      y: positionY
-    },
-  };
 };
 
 export const CreateFlightFn = (

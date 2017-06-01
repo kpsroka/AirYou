@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AIRPORTS } from '../../model/Airports.js'
 import AirplaneInFlight from "./AirplaneInFlight.js";
 import Airport from "./Airport.js";
 import "./FieldOfPlay.css";
@@ -9,7 +10,7 @@ class FieldOfPlay extends Component {
     return (
       <div className="FieldOfPlay">
         <img className="BackgroundImage" src={BgImage} role="presentation" />
-        {this.props.airports.map((airport) => (
+        {AIRPORTS.map((airport) => (
           <Airport
             key={airport.code}
             code={airport.code}
@@ -29,7 +30,7 @@ class FieldOfPlay extends Component {
   }
 
   findAirportPosition(departureAirportCode) {
-    return this.props.airports.find((airport) => airport.code === departureAirportCode).position;
+    return AIRPORTS.find((airport) => airport.code === departureAirportCode).position;
   }
 
   calculateFlightProgress(distanceKm, distanceRemainingM) {
