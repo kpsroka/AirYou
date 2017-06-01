@@ -1,11 +1,10 @@
 /* @flow */
 
+import { type Position } from './Position.js';
+
 export type Airport = {
   code:string,
-  position:{
-    x:number,
-    y:number
-  }
+  position:Position
 };
 
 export const AIRPORTS = [

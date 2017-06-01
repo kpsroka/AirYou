@@ -1,5 +1,8 @@
 /* @flow */
 
+import { type Position, distanceBetween } from './Position.js';
+import { AIRPORTS } from './Airports.js';
+
 export type State = {
   time:StateTime,
   airplanesInFlight:Array<StateAirplaneInFlight>,
@@ -33,21 +36,27 @@ export type StateSchedule = {
 };
 
 export const CreateFlightFn = (
-    airlineIataCode:string="AY",
-    flightNumber:string="0000",
-    departureAirportCode:string="???",
-    arrivalAirportCode:string="???",
-    distanceKm:number=1000,
+    airlineIataCode:string,
+    flightNumber:string,
+    departureAirportCode:string,
+    arrivalAirportCode:string,
     schedule:StateSchedule)
     :StateFlight => {
   return {
     flightId: airlineIataCode + flightNumber,
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
-    distanceKm: distanceKm,
+    distanceKm:
+        distanceBetween(
+            getAirportPosition(departureAirportCode),
+            getAirportPosition(arrivalAirportCode)),
     schedule: schedule
   }
 };
+
+function getAirportPosition(airportCode:string):Position {
+  return AIRPORTS.find((airport) => (airport.code === airportCode)).position;
+}
 
 export const CreateFlightScheduleFn = (
     flightId:string="",
