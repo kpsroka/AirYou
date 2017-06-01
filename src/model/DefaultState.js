@@ -61,7 +61,7 @@ function createFlights():Array<StateFlight> {
         CreateFlightScheduleFn("BA101", now.getHours() + 2, 30)),
     CreateFlightFn(
         "UA", "3030", "JFK", "SFO", 1000,
-        CreateFlightScheduleFn("UA3030", now.getHours() + 3, 0)),
+        CreateFlightScheduleFn("UA3030", now.getHours() + 3, 0, [0,1,2,3,4])),
     CreateFlightFn(
         "LH", "33", "MCI", "ATL", 1000,
         CreateFlightScheduleFn("LH33", now.getHours() + 4, now.getMinutes() + 45))
