@@ -35,6 +35,7 @@ class ScheduleList extends Component {
               key={flight.flightId}
               className="scheduleListItem">
               <div>{flight.flightId}</div>
+              <div>{flight.departureAirportCode}-{flight.arrivalAirportCode}</div>
               <div>{flight.schedule.departureHours}:{flight.schedule.departureMinutes}</div>
               <div>
                 {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
