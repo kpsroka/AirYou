@@ -5,7 +5,7 @@ import { AIRPORTS } from '../../model/Airports.js';
 function mapStateToProps(state) {
   return {
     airplanesInFlight: state.airplanesInFlight.map((airplane) => {
-      let flight = state.flights.find((flight) => (flight.flightId === airplane.flightCode));
+      let flight = state.flights.find((flight) => (flight.flightCode === airplane.flightCode));
       return {
         flightCode: airplane.flightCode,
         position: getAirplanePosition(flight, airplane.distanceRemainingM),

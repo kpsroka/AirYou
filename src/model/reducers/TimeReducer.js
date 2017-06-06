@@ -52,19 +52,19 @@ function updateAirplanesInFlight(
   let newFlights = getNewFlightsFromSchedule(state.flights, timeUpdate);
   Array.prototype.push.apply(
     newAirplanesInFlight,
-    launchFlightsById(state, newFlights));
+    launchFlightsByCodes(state, newFlights));
   return newAirplanesInFlight;
 }
 
-function launchFlightsById(
+function launchFlightsByCodes(
     state:State,
-    flightIds:Array<string>)
+    flightCodes:Array<string>)
     :Array<StateAirplaneInFlight> {
-  let newFlights:Array<?StateAirplaneInFlight> = flightIds.map((flightId) => {
-    let maybeFlight:?StateFlight = findFlightById(state.flights, flightId);
+  let newFlights:Array<?StateAirplaneInFlight> = flightCodes.map((flightId) => {
+    let maybeFlight:?StateFlight = findFlightByCode(state.flights, flightId);
     if (maybeFlight != null) {
       return {
-        flightCode: maybeFlight.flightId,
+        flightCode: maybeFlight.flightCode,
         distanceRemainingM: 1000 * 1000,
         speedMps: 150
       }
@@ -76,11 +76,11 @@ function launchFlightsById(
   return newFlights.filter(Boolean);
 }
 
-function findFlightById(
+function findFlightByCode(
     flights:Array<StateFlight>,
-    flightId:string)
+    flightCode:string)
     :?StateFlight {
-  return flights.find((flight) => (flightId === flight.flightId));
+  return flights.find((flight) => (flightCode === flight.flightCode));
 }
 
 function getNewFlightsFromSchedule(
@@ -90,7 +90,7 @@ function getNewFlightsFromSchedule(
   return schedules.filter((flight) => (
     deltaMinutesToSchedule(flight.schedule, timeUpdate.oldMillis) <
     deltaMinutesToSchedule(flight.schedule, timeUpdate.newMillis))
-  ).map((schedule) => (schedule.flightId));
+  ).map((schedule) => (schedule.flightCode));
 }
 
 function deltaMinutesToSchedule(

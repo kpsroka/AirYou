@@ -3,12 +3,6 @@
 import { type Position, distanceBetween } from './Position.js';
 import { AIRPORTS } from './Airports.js';
 
-export type State = {
-  time:StateTime,
-  airplanesInFlight:Array<StateAirplaneInFlight>,
-  flights:Array<StateFlight>
-}
-
 export type StateTime = {
   millis:number,
   tick:number
@@ -20,20 +14,26 @@ export type StateAirplaneInFlight = {
   speedMps:number
 };
 
+export type StateSchedule = {
+  flightCode:string,
+  departureHours:number,
+  departureMinutes:number,
+  departureDaysOfWeek:Array<number>
+};
+
 export type StateFlight = {
-  flightId:string,
+  flightCode:string,
   departureAirportCode:string,
   arrivalAirportCode:string,
   distanceKm:number,
   schedule:StateSchedule
 };
 
-export type StateSchedule = {
-  flightId:string,
-  departureHours:number,
-  departureMinutes:number,
-  departureDaysOfWeek:Array<number>
-};
+export type State = {
+  time:StateTime,
+  airplanesInFlight:Array<StateAirplaneInFlight>,
+  flights:Array<StateFlight>
+}
 
 export const CreateFlightFn = (
     airlineIataCode:string,
@@ -43,7 +43,7 @@ export const CreateFlightFn = (
     schedule:StateSchedule)
     :StateFlight => {
   return {
-    flightId: airlineIataCode + flightNumber,
+    flightCode: airlineIataCode + flightNumber,
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
     distanceKm:
@@ -59,13 +59,13 @@ function getAirportPosition(airportCode:string):Position {
 }
 
 export const CreateFlightScheduleFn = (
-    flightId:string="",
+    flightCode:string="",
     departureHours:number=0,
     departureMinutes:number=0,
     departureDaysOfWeek:Array<number>=[0, 1, 2, 3, 4, 5, 6])
     :StateSchedule => {
   return {
-    flightId: flightId,
+    flightCode: flightCode,
     departureHours: departureHours % 24,
     departureMinutes: departureMinutes % 60,
     departureDaysOfWeek: departureDaysOfWeek

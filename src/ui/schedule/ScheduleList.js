@@ -32,9 +32,9 @@ class ScheduleList extends Component {
         {this.props.flights.map((flight) => {
           return (
             <div
-              key={flight.flightId}
+              key={flight.flightCode}
               className="scheduleListItem">
-              <div>{flight.flightId}</div>
+              <div>{flight.flightCode}</div>
               <div>{flight.departureAirportCode}-{flight.arrivalAirportCode}</div>
               <div>{flight.schedule.departureHours}:{flight.schedule.departureMinutes}</div>
               <div>
@@ -42,7 +42,7 @@ class ScheduleList extends Component {
                   this.getDayOfWeekTag(dayOfWeek, flight.schedule)
                 ))}
               </div>
-              <div onClick={() => this.deleteSchedule(flight.flightId)}>Delete</div>
+              <div onClick={() => this.deleteSchedule(flight.flightCode)}>Delete</div>
             </div>
           )
         })}

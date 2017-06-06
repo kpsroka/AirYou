@@ -25,7 +25,7 @@ class AirplaneInFlight extends Component {
             style={this.rotationToCssTransform(this.props.airplane.rotation)}
             src={BgImage}
             role="presentation" />
-        <div className="flightId">{this.props.flightId}</div>
+        <div className="flightCode">{this.props.airplane.flightCode}</div>
       </div>
     )
   }

@@ -11,7 +11,7 @@ const ScheduleReducer = (
     case 'DELETE_SCHEDULE': {
       let deleteScheduleAction = ((action: any): DeleteScheduleAction);
       let flightId = deleteScheduleAction.payload;
-      let scheduleIndex = stateSchedules.findIndex((element) => (element.flightId === flightId));
+      let scheduleIndex = stateSchedules.findIndex((element) => (element.flightCode === flightId));
       if (scheduleIndex > -1) {
         let newStateSchedules = stateSchedules.slice();
         newStateSchedules.splice(scheduleIndex, 1);
