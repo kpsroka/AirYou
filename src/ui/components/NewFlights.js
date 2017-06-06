@@ -11,9 +11,9 @@ class FieldOfPlay extends Component {
             return (
               <NewFlightButton
                 key={flight.flightId}
-                flight={flight}
+                flightCode={flight.flightId}
                 buttonText={buttonText}
-                createNewFlight={() => this.props.createNewFlight(flight)}
+                createNewFlight={(flightCode) => this.props.createNewFlight(flightCode)}
               />
             )
           })}

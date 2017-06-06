@@ -64,7 +64,6 @@ function launchFlightsById(
     let maybeFlight:?StateFlight = findFlightById(state.flights, flightId);
     if (maybeFlight != null) {
       return {
-        flight: maybeFlight,
         flightCode: maybeFlight.flightId,
         distanceRemainingM: 1000 * 1000,
         speedMps: 150

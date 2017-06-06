@@ -15,7 +15,6 @@ export type StateTime = {
 };
 
 export type StateAirplaneInFlight = {
-  flight:StateFlight,
   flightCode:string,
   distanceRemainingM:number,
   speedMps:number
