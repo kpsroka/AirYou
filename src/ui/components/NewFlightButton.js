@@ -5,7 +5,7 @@ class NewFlightButton extends Component {
   render() {
     return (
       <button className="newFlightButton" onClick={() => this.props.createNewFlight(this.props.flight)}>
-        {this.props.flight.flightId} {this.props.flight.departureAirportCode}-{this.props.flight.arrivalAirportCode}
+        {this.props.buttonText}
       </button>
     )
   }
