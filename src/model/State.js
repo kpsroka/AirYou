@@ -15,7 +15,6 @@ export type StateAirplaneInFlight = {
 };
 
 export type StateSchedule = {
-  flightCode:string,
   departureHours:number,
   departureMinutes:number,
   departureDaysOfWeek:Array<number>
@@ -59,13 +58,11 @@ function getAirportPosition(airportCode:string):Position {
 }
 
 export const CreateFlightScheduleFn = (
-    flightCode:string="",
-    departureHours:number=0,
-    departureMinutes:number=0,
-    departureDaysOfWeek:Array<number>=[0, 1, 2, 3, 4, 5, 6])
+    departureHours:number = 0,
+    departureMinutes:number = 0,
+    departureDaysOfWeek:number = [0, 1, 2, 3, 4, 5, 6])
     :StateSchedule => {
   return {
-    flightCode: flightCode,
     departureHours: departureHours % 24,
     departureMinutes: departureMinutes % 60,
     departureDaysOfWeek: departureDaysOfWeek

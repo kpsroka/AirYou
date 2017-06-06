@@ -3,8 +3,8 @@ import { CreateFlightFn, CreateFlightScheduleFn } from '../State.js';
 
 it("ScheduleReducer removes schedule with matching flight code", () => {
   let flights = [
-      CreateFlightFn("XX", "101", "JFK", "ORD", CreateFlightScheduleFn("XX101", 1, 1)),
-      CreateFlightFn("XX", "102", "ORD", "JFK", CreateFlightScheduleFn("XX102", 12, 12))
+      CreateFlightFn("XX", "101", "JFK", "ORD", CreateFlightScheduleFn(1, 1)),
+      CreateFlightFn("XX", "102", "ORD", "JFK", CreateFlightScheduleFn(12, 12))
   ];
 
   let newFlights = ScheduleReducer(flights, {type:'DELETE_SCHEDULE', payload:'XX101'});

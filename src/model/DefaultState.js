@@ -26,10 +26,10 @@ function createFlights():Array<StateFlight> {
   let now = new Date();
 
   return [
-    CreateFlightFn("AY", "9001", "SFO", "MCI", CreateFlightScheduleFn("AY9001", now.getHours() + 1, now.getMinutes())),
-    CreateFlightFn("BA", "101", "JFK", "ATL", CreateFlightScheduleFn("BA101", now.getHours() + 2, 30)),
-    CreateFlightFn("UA", "3030", "JFK", "SFO", CreateFlightScheduleFn("UA3030", now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
-    CreateFlightFn("LH", "33", "MCI", "ATL", CreateFlightScheduleFn("LH33", now.getHours() + 4, now.getMinutes() + 45))
+    CreateFlightFn("AY", "9001", "SFO", "MCI", CreateFlightScheduleFn(now.getHours() + 1, now.getMinutes())),
+    CreateFlightFn("BA", "101", "JFK", "ATL", CreateFlightScheduleFn(now.getHours() + 2, 30)),
+    CreateFlightFn("UA", "3030", "JFK", "SFO", CreateFlightScheduleFn(now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
+    CreateFlightFn("LH", "33", "MCI", "ATL", CreateFlightScheduleFn(now.getHours() + 4, now.getMinutes() + 45))
   ];
 }
 

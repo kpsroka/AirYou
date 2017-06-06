@@ -20,7 +20,7 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   let state = DefaultState;
   state.airplanesInFlight = [
     {
-      flight: CreateFlightFn("AB", "123", "SFO", "LAX", CreateFlightScheduleFn("AB123", 0, 0)),
+      flight: CreateFlightFn("AB", "123", "SFO", "LAX", CreateFlightScheduleFn(0, 0)),
       flightCode: "AB123",
       distanceRemainingM: 100,
       speedMps: 250
