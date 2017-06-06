@@ -7,7 +7,8 @@ class FieldOfPlay extends Component {
     return (
       <div className="NewFlights">
         {this.props.flights.map((flight) => {
-            let buttonText = `${flight.flightCode} ${flight.departureAirportCode}-${flight.arrivalAirportCode}`;
+            let buttonText = `${flight.flightCode} ` +
+                `${flight.route.departureAirportCode}-${flight.route.arrivalAirportCode}`;
             return (
               <NewFlightButton
                 key={flight.flightCode}

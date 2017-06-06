@@ -16,9 +16,9 @@ function mapStateToProps(state) {
 }
 
 function getAirplanePosition(flight, distanceRemainingM) {
-  let departurePosition = findAirportPosition(flight.departureAirportCode);
-  let arrivalPosition = findAirportPosition(flight.arrivalAirportCode);
-  let progressPct = calculateFlightProgress(flight.distanceKm, distanceRemainingM);
+  let departurePosition = findAirportPosition(flight.route.departureAirportCode);
+  let arrivalPosition = findAirportPosition(flight.route.arrivalAirportCode);
+  let progressPct = calculateFlightProgress(flight.route.distanceKm, distanceRemainingM);
 
   return positionToXYCoords(departurePosition, arrivalPosition, progressPct);
 }
@@ -39,8 +39,8 @@ function positionToXYCoords(departurePosition, arrivalPosition, flightProgressPc
 }
 
 function getAirplaneRotation(flight) {
-  let departurePosition = findAirportPosition(flight.departureAirportCode);
-  let arrivalPosition = findAirportPosition(flight.arrivalAirportCode);
+  let departurePosition = findAirportPosition(flight.route.departureAirportCode);
+  let arrivalPosition = findAirportPosition(flight.route.arrivalAirportCode);
   return positionToRotation(departurePosition, arrivalPosition);
 }
 

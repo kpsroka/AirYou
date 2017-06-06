@@ -17,7 +17,7 @@ const AirplaneInFlightReducer = (
           ...stateAirplanesInFlight,
           {
             flightCode: flight.flightCode,
-            distanceRemainingM: flight.distanceKm * 1000,
+            distanceRemainingM: flight.route.distanceKm * 1000,
             speedMps: 150
           }
         ];
