@@ -5,20 +5,20 @@ import { AIRPORTS } from '../../model/Airports.js';
 function mapStateToProps(state) {
   return {
     airplanesInFlight: state.airplanesInFlight.map((airplane) => {
-      let flight = state.flights.find((flight) => (flight.flightCode === airplane.flightCode));
+      console.log(airplane);
       return {
         flightCode: airplane.flightCode,
-        position: getAirplanePosition(flight, airplane.distanceRemainingM),
-        rotation: getAirplaneRotation(flight)
+        position: getAirplanePosition(airplane.route, airplane.distanceRemainingM),
+        rotation: getAirplaneRotation(airplane.route)
       };
     })
   };
 }
 
-function getAirplanePosition(flight, distanceRemainingM) {
-  let departurePosition = findAirportPosition(flight.route.departureAirportCode);
-  let arrivalPosition = findAirportPosition(flight.route.arrivalAirportCode);
-  let progressPct = calculateFlightProgress(flight.route.distanceKm, distanceRemainingM);
+function getAirplanePosition(route, distanceRemainingM) {
+  let departurePosition = findAirportPosition(route.departureAirportCode);
+  let arrivalPosition = findAirportPosition(route.arrivalAirportCode);
+  let progressPct = calculateFlightProgress(route.distanceKm, distanceRemainingM);
 
   return positionToXYCoords(departurePosition, arrivalPosition, progressPct);
 }
@@ -38,9 +38,9 @@ function positionToXYCoords(departurePosition, arrivalPosition, flightProgressPc
   }
 }
 
-function getAirplaneRotation(flight) {
-  let departurePosition = findAirportPosition(flight.route.departureAirportCode);
-  let arrivalPosition = findAirportPosition(flight.route.arrivalAirportCode);
+function getAirplaneRotation(route) {
+  let departurePosition = findAirportPosition(route.departureAirportCode);
+  let arrivalPosition = findAirportPosition(route.arrivalAirportCode);
   return positionToRotation(departurePosition, arrivalPosition);
 }
 

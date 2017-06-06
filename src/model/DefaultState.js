@@ -3,7 +3,7 @@
 import { Time } from '../Constants.js';
 import {
   type State, type StateFlight, type StateTime,
-  CreateFlightFn, CreateFlightScheduleFn } from './State.js';
+  CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from './State.js';
 
 const DefaultState:State = createDefaultState();
 
@@ -26,10 +26,22 @@ function createFlights():Array<StateFlight> {
   let now = new Date();
 
   return [
-    CreateFlightFn("AY", "9001", "SFO", "MCI", CreateFlightScheduleFn(now.getHours() + 1, now.getMinutes())),
-    CreateFlightFn("BA", "101", "JFK", "ATL", CreateFlightScheduleFn(now.getHours() + 2, 30)),
-    CreateFlightFn("UA", "3030", "JFK", "SFO", CreateFlightScheduleFn(now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
-    CreateFlightFn("LH", "33", "MCI", "ATL", CreateFlightScheduleFn(now.getHours() + 4, now.getMinutes() + 45))
+    CreateFlightFn(
+        "AY", "9001",
+        CreateRouteFn("SFO", "MCI"),
+        CreateFlightScheduleFn(now.getHours() + 1, now.getMinutes())),
+    CreateFlightFn(
+        "BA", "101",
+        CreateRouteFn("JFK", "ATL"),
+        CreateFlightScheduleFn(now.getHours() + 2, 30)),
+    CreateFlightFn(
+        "UA", "3030",
+        CreateRouteFn("JFK", "SFO"),
+        CreateFlightScheduleFn(now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
+    CreateFlightFn(
+        "LH", "33",
+        CreateRouteFn("MCI", "ATL"),
+        CreateFlightScheduleFn(now.getHours() + 4, now.getMinutes() + 45))
   ];
 }
 

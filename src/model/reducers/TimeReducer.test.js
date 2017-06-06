@@ -1,7 +1,7 @@
 import TimeReducer from './TimeReducer.js';
 import DefaultState from '../DefaultState.js';
 import { Time } from '../../Constants.js';
-import { CreateFlightFn, CreateFlightScheduleFn } from '../State.js';
+import { CreateRouteFn } from '../State.js';
 
 it("TimeReducer updates time according to tick on TIME_TICK", () => {
   let state = DefaultState;
@@ -20,8 +20,8 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   let state = DefaultState;
   state.airplanesInFlight = [
     {
-      flight: CreateFlightFn("AB", "123", "SFO", "LAX", CreateFlightScheduleFn(0, 0)),
       flightCode: "AB123",
+      route: CreateRouteFn("SFO", "LAX"),
       distanceRemainingM: 100,
       speedMps: 250
     }
@@ -31,8 +31,7 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   let newState = TimeReducer(state, {type: 'TIME_TICK'});
   expect(newState.airplanesInFlight).toHaveLength(1);
   expect(newState.airplanesInFlight[0]).toEqual({
-    flight: state.airplanesInFlight[0].flight,
-    flightCode: state.airplanesInFlight[0].flightCode,
+    ...state.airplanesInFlight[0],
     distanceRemainingM: 75,
     speedMps: 250
   });
