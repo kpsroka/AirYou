@@ -21,6 +21,7 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   state.airplanesInFlight = [
     {
       flight: CreateFlightFn("AB", "123", "SFO", "LAX", CreateFlightScheduleFn("AB123", 0, 0)),
+      flightCode: "AB123",
       distanceRemainingM: 100,
       speedMps: 250
     }
@@ -31,6 +32,7 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   expect(newState.airplanesInFlight).toHaveLength(1);
   expect(newState.airplanesInFlight[0]).toEqual({
     flight: state.airplanesInFlight[0].flight,
+    flightCode: state.airplanesInFlight[0].flightCode,
     distanceRemainingM: 75,
     speedMps: 250
   });

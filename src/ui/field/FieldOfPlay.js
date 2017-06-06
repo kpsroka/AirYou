@@ -18,23 +18,13 @@ class FieldOfPlay extends Component {
         ))}
         {this.props.airplanesInFlight.map((airplane) => {
           return <AirplaneInFlight
-            key={airplane.flight.flightId}
-            flightId={airplane.flight.flightId}
-            departurePosition={this.findAirportPosition(airplane.flight.departureAirportCode)}
-            arrivalPosition={this.findAirportPosition(airplane.flight.arrivalAirportCode)}
-            flightProgressPct={this.calculateFlightProgress(airplane.flight.distanceKm, airplane.distanceRemainingM)}
+            key={airplane.flightCode}
+            airplane={airplane}
+            flightId={airplane.flightCode}
           />
         })}
       </div>
     );
-  }
-
-  findAirportPosition(departureAirportCode) {
-    return AIRPORTS.find((airport) => airport.code === departureAirportCode).position;
-  }
-
-  calculateFlightProgress(distanceKm, distanceRemainingM) {
-    return 100 - (100 * ((distanceRemainingM) / (distanceKm * 1000)));
   }
 }
 

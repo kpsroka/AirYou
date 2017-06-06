@@ -65,6 +65,7 @@ function launchFlightsById(
     if (maybeFlight != null) {
       return {
         flight: maybeFlight,
+        flightCode: maybeFlight.flightId,
         distanceRemainingM: 1000 * 1000,
         speedMps: 150
       }

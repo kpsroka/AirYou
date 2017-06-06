@@ -3,31 +3,26 @@ import "./AirplaneInFlight.css";
 import BgImage from "../../../public/plane.svg";
 
 class AirplaneInFlight extends Component {
-  positionToXYCoords(departurePosition, arrivalPosition, flightProgressPct) {
-    let x = departurePosition.x + (arrivalPosition.x - departurePosition.x) * (flightProgressPct / 100);
-    let y = departurePosition.y + (arrivalPosition.y - departurePosition.y) * (flightProgressPct / 100);
+  positionToCssOffset(position) {
     return {
-      bottom: y + "%",
-      left: x + "%"
+      bottom: position.y + "%",
+      left: position.x + "%"
     };
   }
 
-  positionToRotation(departurePosition, arrivalPosition) {
-    let tan =
-      -1 * Math.atan2(arrivalPosition.y - departurePosition.y, arrivalPosition.x - departurePosition.x) * 180 / Math.PI;
+  rotationToCssTransform(rotation) {
     return {
-      transform: `rotate(${tan}deg)`
+      transform: `rotate(${rotation}deg)`
     }
   }
 
   render() {
     return (
       <div className="airplaneInFlight"
-           style={this.positionToXYCoords(this.props.departurePosition, this.props.arrivalPosition, this.props.flightProgressPct)}>
-
+           style={this.positionToCssOffset(this.props.airplane.position)}>
         <img
             className="airplaneIcon"
-            style={this.positionToRotation(this.props.departurePosition, this.props.arrivalPosition)}
+            style={this.rotationToCssTransform(this.props.airplane.rotation)}
             src={BgImage}
             role="presentation" />
         <div className="flightId">{this.props.flightId}</div>
