@@ -17,4 +17,3 @@ it("ScheduleReducer removes schedule with matching flight code", () => {
   let newestFlights = ScheduleReducer(newFlights, {type:'DELETE_SCHEDULE', payload:'XX102'});
   expect(newestFlights).toHaveLength(0);
 });
-
