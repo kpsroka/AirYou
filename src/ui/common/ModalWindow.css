@@ -5,9 +5,6 @@
   top: 80px;
   bottom: 80px;
   border: 1px dotted #0a4;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   background-color: black;
 }
 
