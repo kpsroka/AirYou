@@ -29,6 +29,7 @@ class ScheduleList extends Component {
   render() {
     return (
       <div className="scheduleList">
+        <div className="scheduleListClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
         {this.props.flights.map((flight) => {
           return (
             <div

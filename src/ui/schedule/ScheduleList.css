@@ -12,6 +12,22 @@
   background-color: black;
 }
 
+.scheduleListClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.scheduleListClose:hover {
+  background-color: darkolivegreen;
+  color: black;
+}
+
 .scheduleListItem {
   color: #0a4;
   display: flex;

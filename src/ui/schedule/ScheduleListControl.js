@@ -24,7 +24,11 @@ class ScheduleListControl extends Component {
   maybeRenderScheduleList() {
     if (this.state.scheduleListVisible) {
       return (
-          <ScheduleList flights={this.props.flights} deleteSchedule={this.props.deleteSchedule} />
+          <ScheduleList
+              flights={this.props.flights}
+              deleteSchedule={this.props.deleteSchedule}
+              onCloseWindowRequest={() => this.toggleScheduleList()}
+          />
       )
     } else {
       return "";
