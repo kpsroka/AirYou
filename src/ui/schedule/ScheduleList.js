@@ -13,17 +13,9 @@ class ScheduleList extends Component {
   }
 
   getDayOfWeekName(dayOfWeek) {
-    // TODO: replace with proper formatting function call.
-    switch (dayOfWeek) {
-      case 0: return "M";
-      case 1: return "T";
-      case 2: return "W";
-      case 3: return "T";
-      case 4: return "F";
-      case 5: return "S";
-      case 6: return "S";
-      default: return "?";
-    }
+    let timeFormatOptions = { weekday: "narrow" };
+    /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
+    return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
 
   render() {
@@ -37,7 +29,7 @@ class ScheduleList extends Component {
               className="scheduleListItem">
               <div>{flight.flightCode}</div>
               <div>{flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}</div>
-              <div>{flight.schedule.departureHours}:{flight.schedule.departureMinutes}</div>
+              <div>{this.formatTime(flight.schedule.departureHours, flight.schedule.departureMinutes)}</div>
               <div>
                 {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
                   this.getDayOfWeekTag(dayOfWeek, flight.schedule)
@@ -53,6 +45,12 @@ class ScheduleList extends Component {
 
   deleteSchedule(flightId) {
     this.props.deleteSchedule(flightId);
+  }
+
+  formatTime(hours, minutes) {
+    let timeFormatOptions = { hour: "2-digit", minute: "2-digit" };
+    return Intl.DateTimeFormat("en-US", timeFormatOptions)
+        .format(((hours * 24) + (minutes)) * 1000 * 60);
   }
 }
 
