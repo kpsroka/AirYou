@@ -18,6 +18,14 @@
   flex-direction: row;
 }
 
+.scheduleListItemFlightCode,
+.scheduleListItemRoute,
+.scheduleListItemDepartureTime {
+  width: 80px;
+  text-align: left;
+  font-family: monospace;
+}
+
 .activeDayOfWeek {
   color: #0a4;
 }
