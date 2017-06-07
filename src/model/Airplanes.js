@@ -36,7 +36,7 @@ export function getAirplaneSpeedMps(airplaneShortName:string):number {
   }
 }
 
-export const AIRPLANES = [
+const AIRPLANES = [
   createAirplane("AirCart", "800", "A800", 15000, 700, 905),
   createAirplane("AirCart", "406", "A406", 14400, 440, 890),
   createAirplane("AirCart", "402", "A402", 14800, 420, 890),
