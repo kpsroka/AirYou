@@ -54,7 +54,7 @@ class ScheduleList extends Component {
   formatTime(hours, minutes) {
     let timeFormatOptions = { hour: "2-digit", minute: "2-digit" };
     return Intl.DateTimeFormat("en-US", timeFormatOptions)
-        .format(((hours * 24) + (minutes)) * 1000 * 60);
+        .format(new Date(2017, 0, 1, hours, minutes));
   }
 }
 
