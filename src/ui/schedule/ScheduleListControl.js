@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ScheduleList from "./ScheduleList.js";
+import ScheduleEditor from "./ScheduleEditor.js";
 import "./ScheduleListControl.css";
 
 class ScheduleListControl extends Component {
   constructor(props) {
     super(props);
-    this.state = {scheduleListVisible: false};
+    this.state = {scheduleListVisible: false, flightUnderEdition: null};
   }
 
   render() {
@@ -29,6 +30,7 @@ class ScheduleListControl extends Component {
             Schedules
           </button>
           {this.maybeRenderScheduleList(renderScheduleList)}
+          {this.maybeRenderScheduleEditor()}
         </div>
     )
   }
@@ -38,7 +40,8 @@ class ScheduleListControl extends Component {
       return (
             <ScheduleList
                 flights={this.props.flights}
-                deleteSchedule={this.props.deleteSchedule}
+                onDeleteSchedule={this.props.deleteSchedule}
+                onEditSchedule={(flightCode) => this.editSchedule(flightCode)}
                 onCloseWindowRequest={() => this.toggleScheduleList()}
             />
       )
@@ -46,9 +49,29 @@ class ScheduleListControl extends Component {
       return "";
     }
   }
+  maybeRenderScheduleEditor() {
+    let flight =
+        this.props.flights.find((flight) => (flight.flightCode === this.state.flightUnderEdition));
+    if (flight) {
+      return (
+          <ScheduleEditor
+              flight={flight}
+              onCloseWindowRequest={() => this.editSchedule(null)} />
+      )
+    } else {
+      return "";
+    }
+  }
+
+  editSchedule(flightCode) {
+    this.setState({flightUnderEdition: flightCode});
+  }
 
   toggleScheduleList() {
-    this.setState((prevState) => ({scheduleListVisible: !prevState.scheduleListVisible}));
+    this.setState((prevState) => ({
+      scheduleListVisible: !prevState.scheduleListVisible,
+      flightUnderEdition: null
+    }));
   }
 }
 

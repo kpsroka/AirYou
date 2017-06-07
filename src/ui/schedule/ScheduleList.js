@@ -26,7 +26,8 @@ class ScheduleList extends Component {
                   this.getDayOfWeekTag(dayOfWeek, flight.schedule)
                 ))}
               </div>
-              <div onClick={() => this.deleteSchedule(flight.flightCode)}>Delete</div>
+              <div onClick={() => this.props.onEditSchedule(flight.flightCode)}>Edit</div>
+              <div onClick={() => this.props.onDeleteSchedule(flight.flightCode)}>Delete</div>
             </div>
           )
         })}
