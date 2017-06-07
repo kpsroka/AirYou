@@ -5,6 +5,7 @@ import { type Action } from '../Actions.js';
 import {
   type State, type StateAirplaneInFlight, type StateFlight, type StateSchedule,
   type StateTime } from '../State.js';
+import { getAirplaneSpeedMps } from '../Airplanes.js';
 
 type TimeUpdate = {
   oldMillis:number,
@@ -65,9 +66,10 @@ function launchFlightsByCodes(
     if (maybeFlight != null) {
       return {
         flightCode: maybeFlight.flightCode,
+        airplane: maybeFlight.airplane,
         route: maybeFlight.route,
         distanceRemainingM: maybeFlight.route.distanceKm * 1000,
-        speedMps: 150
+        speedMps: getAirplaneSpeedMps(maybeFlight.airplane),
       }
     } else {
       return null;

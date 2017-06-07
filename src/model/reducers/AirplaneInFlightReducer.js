@@ -2,6 +2,7 @@
 
 import { type Action, type NewFlightAction } from '../Actions.js';
 import { type StateAirplaneInFlight, type StateFlight } from '../State.js';
+import { getAirplaneSpeedMps } from '../Airplanes.js';
 
 const AirplaneInFlightReducer = (
     stateAirplanesInFlight:Array<StateAirplaneInFlight>,
@@ -17,9 +18,10 @@ const AirplaneInFlightReducer = (
           ...stateAirplanesInFlight,
           {
             flightCode: flight.flightCode,
+            airplane: flight.airplane,
             route: flight.route,
             distanceRemainingM: flight.route.distanceKm * 1000,
-            speedMps: 150
+            speedMps: getAirplaneSpeedMps(flight.airplane)
           }
         ];
       } else {
