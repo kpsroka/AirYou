@@ -11,6 +11,17 @@
   background-color: black;
 }
 
+.scheduleListClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px;
+}
+
 .scheduleListItem {
   color: #0a4;
   display: flex;
