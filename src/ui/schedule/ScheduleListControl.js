@@ -9,6 +9,18 @@ class ScheduleListControl extends Component {
   }
 
   render() {
+    if (this.state.scheduleListVisible) {
+      return (
+          <div className="scheduleListWrapper">
+            {this.renderInnerContent(true)}
+          </div>
+      );
+    } else {
+      return this.renderInnerContent(false);
+    }
+  }
+
+  renderInnerContent(renderScheduleList) {
     return (
         <div className="scheduleListControl">
           <button
@@ -16,19 +28,19 @@ class ScheduleListControl extends Component {
               onClick={() => {this.toggleScheduleList()}}>
             Schedules
           </button>
-          {this.maybeRenderScheduleList()}
+          {this.maybeRenderScheduleList(renderScheduleList)}
         </div>
     )
   }
 
-  maybeRenderScheduleList() {
-    if (this.state.scheduleListVisible) {
+  maybeRenderScheduleList(renderScheduleList=false) {
+    if (renderScheduleList) {
       return (
-          <ScheduleList
-              flights={this.props.flights}
-              deleteSchedule={this.props.deleteSchedule}
-              onCloseWindowRequest={() => this.toggleScheduleList()}
-          />
+            <ScheduleList
+                flights={this.props.flights}
+                deleteSchedule={this.props.deleteSchedule}
+                onCloseWindowRequest={() => this.toggleScheduleList()}
+            />
       )
     } else {
       return "";

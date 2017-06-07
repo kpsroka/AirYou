@@ -4,6 +4,32 @@
   left: 10px;
 }
 
+.scheduleListWrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0.85;
+}
+
+.scheduleListClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.scheduleListClose:hover {
+  background-color: darkolivegreen;
+  color: black;
+}
+
 .scheduleListToggleButton {
 
 }
