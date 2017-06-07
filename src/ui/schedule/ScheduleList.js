@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import "./ScheduleList.css";
+import '../common/ModalWindow.css';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
 class ScheduleList extends Component {
   render() {
     return (
-      <div className="scheduleList">
-        <div className="scheduleListClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
+      <div className="modalWindow scheduleList">
+        <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
         {this.props.flights.map((flight) => {
           return (
             <div

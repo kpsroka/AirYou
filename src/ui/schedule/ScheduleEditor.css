@@ -1,23 +1,2 @@
 .scheduleEditor {
-  position: fixed;
-  left: 100px;
-  right: 100px;
-  top: 80px;
-  bottom: 80px;
-  border: 1px dotted #0a4;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: black;
-}
-
-.scheduleEditorClose {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 12px;
-  height: 12px;
-  display: inline-flex;
-  align-items: center;
-  padding: 6px;
 }
