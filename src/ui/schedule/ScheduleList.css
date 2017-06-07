@@ -18,6 +18,10 @@
   flex-direction: row;
 }
 
+.scheduleListItem:hover {
+  background-color: #031;
+}
+
 .scheduleListItemFlightCode,
 .scheduleListItemAirplaneShortName,
 .scheduleListItemRoute,
