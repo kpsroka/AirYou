@@ -40,7 +40,7 @@ class ScheduleList extends Component {
     let tagClassName = (schedule.departureDaysOfWeek.indexOf(dayOfWeek) === -1)
         ? "inactiveDayOfWeek" : "activeDayOfWeek";
     return (
-        <span className={tagClassName}>{this.getDayOfWeekName(dayOfWeek)}</span>
+        <span key={dayOfWeek} className={tagClassName}>{this.getDayOfWeekName(dayOfWeek)}</span>
     );
   }
 
