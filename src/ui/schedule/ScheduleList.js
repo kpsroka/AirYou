@@ -14,6 +14,7 @@ class ScheduleList extends Component {
               key={flight.flightCode}
               className="scheduleListItem">
               <div className="scheduleListItemFlightCode">{flight.flightCode}</div>
+              <div className="scheduleListItemAirplaneShortName">{flight.airplane}</div>
               <div className="scheduleListItemRoute">
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
               </div>

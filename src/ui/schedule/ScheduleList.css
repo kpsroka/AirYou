@@ -19,6 +19,7 @@
 }
 
 .scheduleListItemFlightCode,
+.scheduleListItemAirplaneShortName,
 .scheduleListItemRoute,
 .scheduleListItemDepartureTime {
   width: 80px;
