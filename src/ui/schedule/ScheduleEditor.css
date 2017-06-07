@@ -1,2 +1,32 @@
 .scheduleEditor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.scheduleEditorRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 4px 8px;
+}
+
+.scheduleEditorLabel {
+  width: 180px;
+  margin-right: 20px;
+}
+
+.scheduleEditorValue {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.scheduleEditorDepartureDayBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2px;
 }
