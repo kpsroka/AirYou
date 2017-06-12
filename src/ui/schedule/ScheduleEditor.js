@@ -9,10 +9,7 @@ class ScheduleEditor extends React.Component {
     return (
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">Airline</div>
-            <div className="scheduleEditorLabel">{this.props.flight.flightCode}</div>
-          </div>
+          <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">Flight number</div>
             <div className="scheduleEditorLabel">{this.props.flight.flightCode}</div>

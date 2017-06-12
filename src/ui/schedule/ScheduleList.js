@@ -9,6 +9,7 @@ class ScheduleList extends Component {
     return (
       <div className="modalWindow scheduleList">
         <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
+        <div className="modalWindowTitle">AirYou flight schedules</div>
         {this.props.flights.map((flight) => {
           return (
             <div
