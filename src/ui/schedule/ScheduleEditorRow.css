@@ -1,14 +1,18 @@
-
 .scheduleEditorRow {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   margin: 4px 8px;
+  flex-shrink: 0;
 }
 
 .scheduleEditorRow:hover {
   background-color: #031;
+}
+
+.scheduleEditorRow > div {
+  flex: 1;
 }
 
 .scheduleEditorLabel {
@@ -23,9 +27,18 @@
   width: 240px;
 }
 
-.scheduleEditorEditButton {
+.scheduleEditorButton {
   font-weight: bold;
   display: flex;
   align-items: center;
+  flex-direction: column;
   padding-left: 6px;
+}
+
+.scheduleEditorButton > div {
+  flex: 1;
+}
+
+.hidden {
+  visibility: hidden;
 }

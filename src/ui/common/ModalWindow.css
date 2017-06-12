@@ -6,6 +6,7 @@
   bottom: 80px;
   border: 1px dotted #0a4;
   background-color: black;
+  overflow-y: auto;
 }
 
 .modalWindowTitle {
