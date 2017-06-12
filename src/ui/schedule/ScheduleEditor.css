@@ -12,6 +12,10 @@
   margin: 4px 8px;
 }
 
+.scheduleEditorRow:hover {
+  background-color: #031;
+}
+
 .scheduleEditorLabel {
   width: 180px;
   margin-right: 20px;
@@ -20,7 +24,15 @@
 .scheduleEditorValue {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  width: 240px;
+}
+
+.scheduleEditorEditButton {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
 }
 
 .scheduleEditorDepartureDayBlock {

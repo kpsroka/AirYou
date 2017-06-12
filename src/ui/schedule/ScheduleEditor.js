@@ -12,27 +12,32 @@ class ScheduleEditor extends React.Component {
           <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">Flight number</div>
-            <div className="scheduleEditorLabel">{this.props.flight.flightCode}</div>
+            <div className="scheduleEditorValue">{this.props.flight.flightCode}</div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">From</div>
-            <div className="scheduleEditorLabel">{this.props.flight.route.departureAirportCode}</div>
+            <div className="scheduleEditorValue">{this.props.flight.route.departureAirportCode}</div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">To</div>
-            <div className="scheduleEditorLabel">{this.props.flight.route.arrivalAirportCode}</div>
+            <div className="scheduleEditorValue">{this.props.flight.route.arrivalAirportCode}</div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">Airplane model</div>
-            <div className="scheduleEditorLabel">{this.props.flight.airplane}</div>
+            <div className="scheduleEditorValue">{this.props.flight.airplane}</div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">Departure time</div>
-            <div className="scheduleEditorLabel">
+            <div className="scheduleEditorValue">
               {this.formatTime(
                   this.props.flight.schedule.departureHours,
                   this.props.flight.schedule.departureMinutes)}
             </div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
           <div className="scheduleEditorRow">
             <div className="scheduleEditorLabel">Departs on</div>
@@ -41,6 +46,7 @@ class ScheduleEditor extends React.Component {
                   this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
               ))}
             </div>
+            <div className="scheduleEditorEditButton">✍</div>
           </div>
         </div>
     )
