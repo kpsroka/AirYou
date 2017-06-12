@@ -1,4 +1,5 @@
 import React from 'react';
+import ScheduleEditorRow from './ScheduleEditorRow.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 
@@ -10,44 +11,18 @@ class ScheduleEditor extends React.Component {
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">Flight number</div>
-            <div className="scheduleEditorValue">{this.props.flight.flightCode}</div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">From</div>
-            <div className="scheduleEditorValue">{this.props.flight.route.departureAirportCode}</div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">To</div>
-            <div className="scheduleEditorValue">{this.props.flight.route.arrivalAirportCode}</div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">Airplane model</div>
-            <div className="scheduleEditorValue">{this.props.flight.airplane}</div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">Departure time</div>
-            <div className="scheduleEditorValue">
-              {this.formatTime(
-                  this.props.flight.schedule.departureHours,
-                  this.props.flight.schedule.departureMinutes)}
-            </div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
-          <div className="scheduleEditorRow">
-            <div className="scheduleEditorLabel">Departs on</div>
-            <div className="scheduleEditorValue">
-              {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                  this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
-              ))}
-            </div>
-            <div className="scheduleEditorEditButton">✍</div>
-          </div>
+          <ScheduleEditorRow label="Flight number" value={this.props.flight.flightCode}/>
+          <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
+          <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
+          <ScheduleEditorRow label="Airplane model" value={this.props.flight.airplane}/>
+          <ScheduleEditorRow label="Departure time"
+                             value={this.formatTime(
+                                 this.props.flight.schedule.departureHours,
+                                 this.props.flight.schedule.departureMinutes)}/>
+          <ScheduleEditorRow label="Departs on"
+                             value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
+                                 this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
+                             ))}/>
         </div>
     )
   }
