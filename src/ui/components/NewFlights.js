@@ -2,7 +2,7 @@ import React from 'react';
 import NewFlightButton from "./NewFlightButton.js";
 import "./NewFlights.css";
 
-class FieldOfPlay extends React.Component {
+class NewFlights extends React.Component {
   render() {
     return (
       <div className="NewFlights">
@@ -23,4 +23,4 @@ class FieldOfPlay extends React.Component {
   }
 }
 
-export default FieldOfPlay;
+export default NewFlights;
