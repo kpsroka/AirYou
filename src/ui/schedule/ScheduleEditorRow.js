@@ -22,11 +22,11 @@ class ScheduleEditorRow extends React.Component {
           <div>✍</div>
           <div>EDIT</div>
         </div>
-        <div className={this.getSaveButtonClassNames()}>
+        <div className={this.getSaveButtonClassNames()} onClick={() => this.onSaveButtonClick()}>
           <div>✓</div>
           <div>SAVE</div>
         </div>
-        <div className={this.getCancelButtonClassNames()}>
+        <div className={this.getCancelButtonClassNames()} onClick={() => this.onAbortButtonClick()}>
           <div>✖</div>
           <div>ABORT</div>
         </div>
@@ -57,6 +57,18 @@ class ScheduleEditorRow extends React.Component {
       return this.props.editComponent;
     }
     return this.props.value;
+  }
+
+  onSaveButtonClick() {
+    if (this.props.saveable) {
+      this.setEditMode(false);
+      this.props.onSave();
+    }
+  }
+
+  onAbortButtonClick() {
+    this.setEditMode(false);
+    this.props.onAbort();
   }
 }
 

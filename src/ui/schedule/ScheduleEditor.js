@@ -29,8 +29,11 @@ class ScheduleEditor extends React.Component {
                   <ScheduleFlightCodeEditor
                       airlineIataCode={getAirlineIataCode(this.props.flight.flightCode)}
                       initialValue={getFlightNumber(this.props.flight.flightCode)}
-                      onInputChange={(input) => this.updateInputState({flightNumber: input})}/>
+                      onInputChange={(input) => this.updateInputState({flightNumber: input})}
+                      />
               }
+              onSave={() => this.integrateChanges({flightNumber: this.state.flightNumber})}
+              onAbort={() => this.updateInputState({flightNumber: getFlightNumber(this.props.flight.flightCode)})}
           />
           <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
           <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
@@ -62,6 +65,15 @@ class ScheduleEditor extends React.Component {
     return String(oldFlightCode) === String(newFlightCode)
         || this.props.canIntegrateFlight(
             Object.assign({}, this.props.flight, {flightCode: newFlightCode}));
+  }
+
+  integrateChanges() {
+    let flight = Object.assign(
+        {},
+        this.props.flight,
+        { flightCode: getAirlineIataCode(this.props.flight.flightCode) + this.state.input.flightNumber }
+    );
+    this.props.onSaveSchedule(flight);
   }
 
   formatTime(hours, minutes) {

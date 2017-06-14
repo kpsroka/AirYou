@@ -56,6 +56,7 @@ class ScheduleListControl extends React.Component {
           <ScheduleEditor
               flight={this.props.flights[this.state.flightUnderEdition]}
               canIntegrateFlight={(newFlight) => this.props.canIntegrateFlight(newFlight)}
+              onSaveSchedule={(flight) => this.props.saveSchedule(this.state.flightUnderEdition, flight)}
               onCloseWindowRequest={() => this.editSchedule(null)} />
       )
     } else {
