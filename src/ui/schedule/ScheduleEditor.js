@@ -56,10 +56,12 @@ class ScheduleEditor extends React.Component {
   }
 
   canIntegrateFlightNumber() {
-    let oldFlightCode = getFlightNumber(this.props.flight.flightCode);
-    let newFlightCode = this.state.input.flightNumber;
+    let oldFlightCode = this.props.flight.flightCode;
+    let newFlightCode = getAirlineIataCode(oldFlightCode) + this.state.input.flightNumber;
 
-    return String(oldFlightCode) === String(newFlightCode);
+    return String(oldFlightCode) === String(newFlightCode)
+        || this.props.canIntegrateFlight(
+            Object.assign({}, this.props.flight, {flightCode: newFlightCode}));
   }
 
   formatTime(hours, minutes) {
