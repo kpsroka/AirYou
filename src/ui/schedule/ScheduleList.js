@@ -1,5 +1,5 @@
 import React from 'react';
-import "./ScheduleList.css";
+import './ScheduleList.css';
 import '../common/ModalWindow.css';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];

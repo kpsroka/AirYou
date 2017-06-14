@@ -1,9 +1,9 @@
 import React from 'react';
 import { AIRPORTS } from '../../model/Airports.js'
-import AirplaneInFlight from "./AirplaneInFlight.js";
-import Airport from "./Airport.js";
-import "./FieldOfPlay.css";
-import BgImage from "../../../public/US.svg";
+import AirplaneInFlight from './AirplaneInFlight.js';
+import Airport from './Airport.js';
+import './FieldOfPlay.css';
+import BgImage from '../../../public/US.svg';
 
 class FieldOfPlay extends React.Component {
   render() {

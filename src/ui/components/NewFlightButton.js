@@ -1,5 +1,5 @@
 import React from 'react';
-import "./NewFlightButton.css";
+import './NewFlightButton.css';
 
 class NewFlightButton extends React.Component {
   render() {

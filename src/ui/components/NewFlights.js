@@ -1,6 +1,6 @@
 import React from 'react';
-import NewFlightButton from "./NewFlightButton.js";
-import "./NewFlights.css";
+import NewFlightButton from './NewFlightButton.js';
+import './NewFlights.css';
 
 class NewFlights extends React.Component {
   render() {

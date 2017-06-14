@@ -1,6 +1,6 @@
 import React from 'react';
-import "./Airport.css";
-import BgImage from "../../../public/airport.svg";
+import './Airport.css';
+import BgImage from '../../../public/airport.svg';
 
 
 class Airport extends React.Component {

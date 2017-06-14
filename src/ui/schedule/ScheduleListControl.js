@@ -1,7 +1,7 @@
 import React from 'react';
-import ScheduleList from "./ScheduleList.js";
-import ScheduleEditor from "./ScheduleEditor.js";
-import "./ScheduleListControl.css";
+import ScheduleList from './ScheduleList.js';
+import ScheduleEditor from './ScheduleEditor.js';
+import './ScheduleListControl.css';
 
 class ScheduleListControl extends React.Component {
   constructor(props) {
