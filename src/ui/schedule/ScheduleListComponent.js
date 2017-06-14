@@ -10,7 +10,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteSchedule: (index) => dispatch({type: 'DELETE_SCHEDULE', payload: index})
+    deleteSchedule: (index) => dispatch({type: 'DELETE_SCHEDULE', payload: index}),
+    saveSchedule: (index, flight) => dispatch({
+        type: 'SAVE_SCHEDULE',
+        payload: {index: index, flight: flight}
+    })
   }
 }
 
