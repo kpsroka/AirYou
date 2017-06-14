@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NewFlightButton from "./NewFlightButton.js";
 import "./NewFlights.css";
 
-class FieldOfPlay extends Component {
+class FieldOfPlay extends React.Component {
   render() {
     return (
       <div className="NewFlights">

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./AirplaneInFlight.css";
 import BgImage from "../../../public/plane.svg";
 
-class AirplaneInFlight extends Component {
+class AirplaneInFlight extends React.Component {
   positionToCssOffset(position) {
     return {
       bottom: position.y + "%",

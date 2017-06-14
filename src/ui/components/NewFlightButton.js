@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./NewFlightButton.css";
 
-class NewFlightButton extends Component {
+class NewFlightButton extends React.Component {
   render() {
     return (
       <button className="newFlightButton"

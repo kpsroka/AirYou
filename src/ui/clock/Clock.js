@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Clock.css';
 import { Time } from '../../Constants.js';
 
-class Clock extends Component {
+class Clock extends React.Component {
 
   constructor(...args) {
     super(...args);

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./Airport.css";
 import BgImage from "../../../public/airport.svg";
 
 
-class Airport extends Component {
+class Airport extends React.Component {
   positionToStyle(position) {
     return {
       bottom: position.y + "%",

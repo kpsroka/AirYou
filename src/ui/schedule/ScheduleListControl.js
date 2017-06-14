@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ScheduleList from "./ScheduleList.js";
 import ScheduleEditor from "./ScheduleEditor.js";
 import "./ScheduleListControl.css";
 
-class ScheduleListControl extends Component {
+class ScheduleListControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {scheduleListVisible: false, flightUnderEdition: null};
