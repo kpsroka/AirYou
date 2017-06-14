@@ -41,7 +41,7 @@ class ScheduleListControl extends React.Component {
             <ScheduleList
                 flights={this.props.flights}
                 onDeleteSchedule={this.props.deleteSchedule}
-                onEditSchedule={(flightCode) => this.editSchedule(flightCode)}
+                onEditSchedule={(flightIndex) => this.editSchedule(flightIndex)}
                 onCloseWindowRequest={() => this.toggleScheduleList()}
             />
       )
@@ -50,12 +50,11 @@ class ScheduleListControl extends React.Component {
     }
   }
   maybeRenderScheduleEditor() {
-    let flight =
-        this.props.flights.find((flight) => (flight.flightCode === this.state.flightUnderEdition));
-    if (flight) {
+    if (this.state.flightUnderEdition !== null &&
+        this.props.flights[this.state.flightUnderEdition]) {
       return (
           <ScheduleEditor
-              flight={flight}
+              flight={this.props.flights[this.state.flightUnderEdition]}
               onCloseWindowRequest={() => this.editSchedule(null)} />
       )
     } else {
@@ -63,8 +62,8 @@ class ScheduleListControl extends React.Component {
     }
   }
 
-  editSchedule(flightCode) {
-    this.setState({flightUnderEdition: flightCode});
+  editSchedule(flightIndex) {
+    this.setState({flightUnderEdition: flightIndex});
   }
 
   toggleScheduleList() {

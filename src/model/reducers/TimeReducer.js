@@ -83,7 +83,7 @@ function findFlightByCode(
     flights:Array<StateFlight>,
     flightCode:string)
     :?StateFlight {
-  return flights.find((flight) => (flightCode === flight.flightCode));
+  return flights.find((flight) => (flight && flightCode === flight.flightCode));
 }
 
 function getNewFlightsFromSchedule(

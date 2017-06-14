@@ -10,7 +10,7 @@ class ScheduleList extends React.Component {
       <div className="modalWindow scheduleList">
         <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
         <div className="modalWindowTitle">AirYou flight schedules</div>
-        {this.props.flights.map((flight) => {
+        {this.props.flights.map((flight, index) => {
           return (
             <div
               key={flight.flightCode}
@@ -28,8 +28,8 @@ class ScheduleList extends React.Component {
                   this.getDayOfWeekTag(dayOfWeek, flight.schedule)
                 ))}
               </div>
-              <div onClick={() => this.props.onEditSchedule(flight.flightCode)}>Edit</div>
-              <div onClick={() => this.props.onDeleteSchedule(flight.flightCode)}>Delete</div>
+              <div onClick={() => this.props.onEditSchedule(index)}>Edit</div>
+              <div onClick={() => this.props.onDeleteSchedule(index)}>Delete</div>
             </div>
           )
         })}
@@ -51,8 +51,8 @@ class ScheduleList extends React.Component {
     return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
 
-  deleteSchedule(flightId) {
-    this.props.deleteSchedule(flightId);
+  deleteSchedule(index) {
+    this.props.deleteSchedule(index);
   }
 
   formatTime(hours, minutes) {

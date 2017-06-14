@@ -7,13 +7,14 @@ it("ScheduleReducer removes schedule with matching flight code", () => {
       CreateFlightFn("XX", "102", CreateRouteFn("ORD", "JFK"), CreateFlightScheduleFn(12, 12))
   ];
 
-  let newFlights = ScheduleReducer(flights, {type:'DELETE_SCHEDULE', payload:'XX101'});
-  expect(newFlights).toHaveLength(1);
-  expect(newFlights[0]).toEqual(flights[1]);
+  let newFlights = ScheduleReducer(flights, {type:'DELETE_SCHEDULE', payload:0});
+  expect(newFlights).toHaveLength(2);
+  expect(newFlights[0]).toBeUndefined();
 
-  let newerFlights =  ScheduleReducer(newFlights, {type:'DELETE_SCHEDULE', payload:'YY999'});
+  let newerFlights = ScheduleReducer(newFlights, {type:'DELETE_SCHEDULE', payload:3});
   expect(newerFlights).toEqual(newFlights);
 
-  let newestFlights = ScheduleReducer(newFlights, {type:'DELETE_SCHEDULE', payload:'XX102'});
-  expect(newestFlights).toHaveLength(0);
+  let newestFlights = ScheduleReducer(newFlights, {type:'DELETE_SCHEDULE', payload:1});
+  expect(newestFlights).toHaveLength(2);
+  expect(newestFlights).toEqual([,,]);
 });

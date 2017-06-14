@@ -11,5 +11,5 @@ export type NewFlightAction = {
 
 export type DeleteScheduleAction = {
   type:'DELETE_SCHEDULE',
-  payload:string
+  payload:number
 }
