@@ -51,6 +51,9 @@ class ScheduleEditorRow extends React.Component {
   }
 
   renderValue() {
+    if (this.state.editMode && this.props.editComponent) {
+      return this.props.editComponent;
+    }
     return this.props.value;
   }
 }

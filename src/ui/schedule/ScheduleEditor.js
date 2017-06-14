@@ -1,5 +1,6 @@
 import React from 'react';
 import ScheduleEditorRow from './ScheduleEditorRow.js';
+import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 
@@ -11,7 +12,14 @@ class ScheduleEditor extends React.Component {
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
-          <ScheduleEditorRow label="Flight number" value={this.props.flight.flightCode}/>
+          <ScheduleEditorRow label="Flight number"
+                             value={this.props.flight.flightCode}
+                             editComponent={
+                                <ScheduleFlightCodeEditor
+                                    airlineIataCode={this.getAirlineIataCode(this.props.flight.flightCode)}
+                                    initialValue={this.getFlightNumber(this.props.flight.flightCode)}/>
+                             }
+          />
           <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
           <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
           <ScheduleEditorRow label="Airplane model" value={this.props.flight.airplane}/>
@@ -47,6 +55,14 @@ class ScheduleEditor extends React.Component {
     let timeFormatOptions = { weekday: "short" };
     /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
     return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
+  }
+
+  getAirlineIataCode(flightCode) {
+    return flightCode.slice(0, 2);
+  }
+
+  getFlightNumber(flightCode) {
+    return flightCode.slice(2);
   }
 }
 
