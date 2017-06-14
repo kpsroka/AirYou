@@ -11,6 +11,7 @@ class ScheduleFlightCodeEditor extends React.Component {
                  type="number"
                  autoComplete="off"
                  defaultValue={this.props.initialValue}
+                 onInput={(inputEvent) => {this.props.onInputChange(inputEvent.target.value)}}
           />
         </div>
     )

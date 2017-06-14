@@ -39,7 +39,9 @@ class ScheduleEditorRow extends React.Component {
   }
 
   getSaveButtonClassNames() {
-    return "scheduleEditorButton" + (this.state.editMode ? "" : " hidden");
+    return "scheduleEditorButton" +
+        (this.state.editMode ? "" : " hidden") +
+        (this.props.saveable ? "" : " disabled");
   }
 
   getCancelButtonClassNames() {

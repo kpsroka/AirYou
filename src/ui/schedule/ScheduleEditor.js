@@ -7,18 +7,30 @@ import '../common/ModalWindow.css';
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
 class ScheduleEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: {
+        flightNumber: getFlightNumber(this.props.flight.flightCode),
+      }
+    };
+  }
+
   render() {
     return (
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
-          <ScheduleEditorRow label="Flight number"
-                             value={this.props.flight.flightCode}
-                             editComponent={
-                                <ScheduleFlightCodeEditor
-                                    airlineIataCode={this.getAirlineIataCode(this.props.flight.flightCode)}
-                                    initialValue={this.getFlightNumber(this.props.flight.flightCode)}/>
-                             }
+          <ScheduleEditorRow
+              label="Flight number"
+              value={this.props.flight.flightCode}
+              saveable={this.canIntegrateInput()}
+              editComponent={
+                  <ScheduleFlightCodeEditor
+                      airlineIataCode={getAirlineIataCode(this.props.flight.flightCode)}
+                      initialValue={getFlightNumber(this.props.flight.flightCode)}
+                      onInputChange={(input) => this.updateInputState({flightNumber: input})}/>
+              }
           />
           <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
           <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
@@ -33,6 +45,21 @@ class ScheduleEditor extends React.Component {
                              ))}/>
         </div>
     )
+  }
+
+  updateInputState(partialInputState) {
+    this.setState((prevState) => ({input: Object.assign({}, prevState.input, partialInputState)}));
+  }
+
+  canIntegrateInput() {
+    return this.canIntegrateFlightNumber();
+  }
+
+  canIntegrateFlightNumber() {
+    let oldFlightCode = getFlightNumber(this.props.flight.flightCode);
+    let newFlightCode = this.state.input.flightNumber;
+
+    return String(oldFlightCode) === String(newFlightCode);
   }
 
   formatTime(hours, minutes) {
@@ -56,14 +83,14 @@ class ScheduleEditor extends React.Component {
     /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
     return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
+}
 
-  getAirlineIataCode(flightCode) {
-    return flightCode.slice(0, 2);
-  }
+function getAirlineIataCode(flightCode) {
+  return flightCode.slice(0, 2);
+}
 
-  getFlightNumber(flightCode) {
-    return flightCode.slice(2);
-  }
+function getFlightNumber(flightCode) {
+  return flightCode.slice(2);
 }
 
 export default ScheduleEditor;

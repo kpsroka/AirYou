@@ -42,3 +42,7 @@
 .hidden {
   visibility: hidden;
 }
+
+.disabled {
+  color: #444;
+}
