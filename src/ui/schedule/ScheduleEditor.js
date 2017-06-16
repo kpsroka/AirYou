@@ -70,7 +70,10 @@ class ScheduleEditor extends React.Component {
     let flight = Object.assign(
         {},
         this.props.flight,
-        {flightCode: AirlineIataCode + this.state.input.flightNumber}
+        {
+          flightCode: AirlineIataCode + this.state.input.flightNumber,
+          flightNumber: this.state.input.flightNumber
+        }
     );
     this.props.onSaveSchedule(flight);
   }
