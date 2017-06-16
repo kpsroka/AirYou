@@ -23,7 +23,6 @@ export type StateRoute = {
 }
 
 export type StateAirplaneInFlight = {
-  flightCode:string,
   flightNumber:string,
   airplane:string,
   route:StateRoute,
@@ -101,7 +100,6 @@ function getAirplaneSpeedMps(airplaneShortName:string):number {
 
 export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
   return {
-    flightCode: flight.flightCode,
     flightNumber: flight.flightNumber,
     airplane: flight.airplane,
     route: flight.route,
