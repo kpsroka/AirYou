@@ -3,9 +3,9 @@
 import { Time } from '../../Constants.js';
 import { type Action } from '../Actions.js';
 import {
+  CreateAirplaneInFlightFn,
   type State, type StateAirplaneInFlight, type StateFlight, type StateSchedule,
   type StateTime } from '../State.js';
-import { getAirplaneSpeedMps } from '../Airplanes.js';
 
 type TimeUpdate = {
   oldMillis:number,
@@ -64,14 +64,7 @@ function launchFlightsByCodes(
   let newFlights:Array<?StateAirplaneInFlight> = flightCodes.map((flightId) => {
     let maybeFlight:?StateFlight = findFlightByCode(state.flights, flightId);
     if (maybeFlight != null) {
-      return {
-        flightCode: maybeFlight.flightCode,
-        flightNumber: maybeFlight.flightNumber,
-        airplane: maybeFlight.airplane,
-        route: maybeFlight.route,
-        distanceRemainingM: maybeFlight.route.distanceKm * 1000,
-        speedMps: getAirplaneSpeedMps(maybeFlight.airplane),
-      }
+      return CreateAirplaneInFlightFn(maybeFlight);
     } else {
       return null;
     }

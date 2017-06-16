@@ -2,6 +2,7 @@
 
 import { type Position, distanceBetween } from './Position.js';
 import { type Airport, AIRPORTS } from './Airports.js';
+import { type Airplane, AIRPLANES } from './Airplanes.js';
 import { AirlineIataCode } from '../Constants.js';
 
 export type StateTime = {
@@ -88,3 +89,23 @@ export const CreateFlightScheduleFn = (
     departureDaysOfWeek: departureDaysOfWeek
   };
 };
+
+export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
+  return {
+    flightCode: flight.flightCode,
+    flightNumber: flight.flightNumber,
+    airplane: flight.airplane,
+    route: flight.route,
+    distanceRemainingM: flight.route.distanceKm * 1000,
+    speedMps: getAirplaneSpeedMps(flight.airplane),
+  }
+};
+
+function getAirplaneSpeedMps(airplaneShortName:string):number {
+  let airplane:?Airplane = AIRPLANES.find((plane) => (plane.shortName === airplaneShortName));
+  if (airplane) {
+    return airplane.speedKmph / 3.6;
+  } else {
+    return 250;
+  }
+}
