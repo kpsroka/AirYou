@@ -1,5 +1,6 @@
 import React from 'react';
 import NewFlightButton from './NewFlightButton.js';
+import { AirlineIataCode } from '../../Constants.js';
 import './NewFlights.css';
 
 class NewFlights extends React.Component {
@@ -7,7 +8,7 @@ class NewFlights extends React.Component {
     return (
       <div className="NewFlights">
         {this.props.flights.map((flight, index) => {
-            let buttonText = `${flight.flightCode} ` +
+            let buttonText = `${AirlineIataCode}${flight.flightNumber} ` +
                 `${flight.route.departureAirportCode}-${flight.route.arrivalAirportCode}`;
             return (
               <NewFlightButton
