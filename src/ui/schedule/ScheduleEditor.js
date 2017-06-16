@@ -18,13 +18,14 @@ class ScheduleEditor extends React.Component {
   }
 
   render() {
+    let flightCode = `${AirlineIataCode}${this.props.flight.flightNumber}`;
     return (
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
-          <div className="modalWindowTitle">AirYou flight {this.props.flight.flightCode}</div>
+          <div className="modalWindowTitle">AirYou flight {flightCode}</div>
           <ScheduleEditorRow
               label="Flight number"
-              value={this.props.flight.flightCode}
+              value={flightCode}
               saveable={this.canIntegrateInput()}
               editComponent={
                   <ScheduleFlightCodeEditor
@@ -59,11 +60,11 @@ class ScheduleEditor extends React.Component {
   }
 
   canIntegrateFlightNumber() {
-    let oldFlightCode = this.props.flight.flightCode;
-    let newFlightCode = AirlineIataCode + this.state.input.flightNumber;
-    return String(oldFlightCode) === String(newFlightCode)
+    let oldFlightNumber = this.props.flight.flightNumber;
+    let newFlightNumber = this.state.input.flightNumber;
+    return String(oldFlightNumber) === String(newFlightNumber)
         || this.props.canIntegrateFlight(
-            Object.assign({}, this.props.flight, {flightCode: newFlightCode}));
+            Object.assign({}, this.props.flight, {flightNumber: newFlightNumber}));
   }
 
   integrateChanges() {

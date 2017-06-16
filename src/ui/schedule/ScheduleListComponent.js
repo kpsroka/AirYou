@@ -19,11 +19,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function canIntegrateFlight(state, newFlight) {
-  return !hasFlight(state.flights, newFlight.flightCode);
+  return !hasFlight(state.flights, newFlight.flightNumber);
 }
 
-function hasFlight(flights, flightCode) {
-  return Boolean(flights.find((flight) => (flight && flight.flightCode === flightCode)));
+function hasFlight(flights, flightNumber) {
+  return Boolean(flights.find((flight) => (flight && flight.flightNumber === flightNumber)));
 }
 
 const ScheduleListComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleListControl);

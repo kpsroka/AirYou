@@ -1,6 +1,7 @@
 import React from 'react';
 import './ScheduleList.css';
 import '../common/ModalWindow.css';
+import { AirlineIataCode } from '../../Constants.js';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
@@ -15,7 +16,7 @@ class ScheduleList extends React.Component {
             <div
               key={flight.flightCode}
               className="scheduleListItem">
-              <div className="scheduleListItemFlightCode">{flight.flightCode}</div>
+              <div className="scheduleListItemFlightCode">{AirlineIataCode}{flight.flightNumber}</div>
               <div className="scheduleListItemAirplaneShortName">{flight.airplane}</div>
               <div className="scheduleListItemRoute">
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
