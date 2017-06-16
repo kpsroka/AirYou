@@ -1,7 +1,7 @@
 /* @flow */
 
 import { type Position, distanceBetween } from './Position.js';
-import { AIRPORTS } from './Airports.js';
+import { type Airport, AIRPORTS } from './Airports.js';
 import { AirlineIataCode } from '../Constants.js';
 
 export type StateTime = {
@@ -73,7 +73,8 @@ export const CreateFlightFn = (
 };
 
 function getAirportPosition(airportCode:string):Position {
-  return AIRPORTS.find((airport) => (airport.code === airportCode)).position;
+  let maybeAirport:?Airport = AIRPORTS.find((airport) => (airport.code === airportCode));
+  return maybeAirport ? maybeAirport.position : { x: 0, y: 0 };
 }
 
 export const CreateFlightScheduleFn = (
