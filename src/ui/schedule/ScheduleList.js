@@ -14,7 +14,7 @@ class ScheduleList extends React.Component {
         {this.props.flights.map((flight, index) => {
           return (
             <div
-              key={flight.flightCode}
+              key={index}
               className="scheduleListItem">
               <div className="scheduleListItemFlightCode">{AirlineIataCode}{flight.flightNumber}</div>
               <div className="scheduleListItemAirplaneShortName">{flight.airplane}</div>
