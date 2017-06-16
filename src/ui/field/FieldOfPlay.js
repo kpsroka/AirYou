@@ -18,7 +18,7 @@ class FieldOfPlay extends React.Component {
         ))}
         {this.props.airplanesInFlight.map((airplane) => {
           return <AirplaneInFlight
-            key={airplane.flightCode}
+            key={airplane.flightNumber}
             airplane={airplane}
           />
         })}

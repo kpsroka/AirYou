@@ -1,6 +1,7 @@
 import React from 'react';
 import './AirplaneInFlight.css';
 import BgImage from '../../../public/plane.svg';
+import { AirlineIataCode } from '../../Constants.js';
 
 class AirplaneInFlight extends React.Component {
   positionToCssOffset(position) {
@@ -25,7 +26,7 @@ class AirplaneInFlight extends React.Component {
             style={this.rotationToCssTransform(this.props.airplane.rotation)}
             src={BgImage}
             role="presentation" />
-        <div className="flightCode">{this.props.airplane.flightCode}</div>
+        <div className="flightCode">{AirlineIataCode}{this.props.airplane.flightNumber}</div>
       </div>
     )
   }

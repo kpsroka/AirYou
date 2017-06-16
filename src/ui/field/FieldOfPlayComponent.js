@@ -6,7 +6,7 @@ function mapStateToProps(state) {
   return {
     airplanesInFlight: state.airplanesInFlight.map((airplane) => {
       return {
-        flightCode: airplane.flightCode,
+        flightNumber: airplane.flightNumber,
         position: getAirplanePosition(airplane.route, airplane.distanceRemainingM),
         rotation: getAirplaneRotation(airplane.route)
       };
