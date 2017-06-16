@@ -26,7 +26,7 @@ class ScheduleEditor extends React.Component {
           <ScheduleEditorRow
               label="Flight number"
               value={flightCode}
-              saveable={this.canIntegrateInput()}
+              saveable={this.canIntegrateFlightNumber()}
               editComponent={
                   <ScheduleFlightCodeEditor
                       initialValue={this.props.flight.flightNumber}
@@ -55,16 +55,11 @@ class ScheduleEditor extends React.Component {
     this.setState((prevState) => ({input: Object.assign({}, prevState.input, partialInputState)}));
   }
 
-  canIntegrateInput() {
-    return this.canIntegrateFlightNumber();
-  }
-
   canIntegrateFlightNumber() {
     let oldFlightNumber = this.props.flight.flightNumber;
     let newFlightNumber = this.state.input.flightNumber;
     return String(oldFlightNumber) === String(newFlightNumber)
-        || this.props.canIntegrateFlight(
-            Object.assign({}, this.props.flight, {flightNumber: newFlightNumber}));
+        || this.props.canIntegrateFlightNumber(newFlightNumber);
   }
 
   integrateChanges() {

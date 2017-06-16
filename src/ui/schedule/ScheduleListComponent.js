@@ -4,7 +4,8 @@ import ScheduleListControl from './ScheduleListControl.js';
 function mapStateToProps(state) {
   return {
     flights: state.flights,
-    canIntegrateFlight: (flight) => (canIntegrateFlight(state, flight)),
+    canIntegrateFlightNumber:
+        (newFlightNumber) => canIntegrateFlightNumber(state, newFlightNumber)
   };
 }
 
@@ -18,8 +19,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-function canIntegrateFlight(state, newFlight) {
-  return !hasFlight(state.flights, newFlight.flightNumber);
+function canIntegrateFlightNumber(state, newFlightNumber) {
+  return !hasFlight(state.flights, newFlightNumber);
 }
 
 function hasFlight(flights, flightNumber) {
