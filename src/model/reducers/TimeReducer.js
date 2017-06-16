@@ -2,8 +2,7 @@
 
 import { Time } from '../../Constants.js';
 import { type Action } from '../Actions.js';
-import {
-  CreateAirplaneInFlightFn,
+import { CreateAirplaneInFlightFn,
   type State, type StateAirplaneInFlight, type StateFlight, type StateSchedule,
   type StateTime } from '../State.js';
 
