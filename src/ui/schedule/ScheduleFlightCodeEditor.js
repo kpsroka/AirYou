@@ -1,11 +1,12 @@
 import React from 'react';
 import './ScheduleFlightCodeEditor.css';
+import { AirlineIataCode } from '../../Constants.js';
 
 class ScheduleFlightCodeEditor extends React.Component {
   render() {
     return (
         <div>
-          <span>{this.props.airlineIataCode}</span>
+          <span>{AirlineIataCode}</span>
           <input className="flightNumberInput"
                  id="flightNumber"
                  type="number"

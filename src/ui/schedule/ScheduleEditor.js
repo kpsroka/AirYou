@@ -3,6 +3,7 @@ import ScheduleEditorRow from './ScheduleEditorRow.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
+import { AirlineIataCode } from '../../Constants.js';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
@@ -11,7 +12,7 @@ class ScheduleEditor extends React.Component {
     super(props);
     this.state = {
       input: {
-        flightNumber: getFlightNumber(this.props.flight.flightCode),
+        flightNumber: this.props.flight.flightNumber,
       }
     };
   }
@@ -27,13 +28,12 @@ class ScheduleEditor extends React.Component {
               saveable={this.canIntegrateInput()}
               editComponent={
                   <ScheduleFlightCodeEditor
-                      airlineIataCode={getAirlineIataCode(this.props.flight.flightCode)}
-                      initialValue={getFlightNumber(this.props.flight.flightCode)}
+                      initialValue={this.props.flight.flightNumber}
                       onInputChange={(input) => this.updateInputState({flightNumber: input})}
                       />
               }
               onSave={() => this.integrateChanges({flightNumber: this.state.flightNumber})}
-              onAbort={() => this.updateInputState({flightNumber: getFlightNumber(this.props.flight.flightCode)})}
+              onAbort={() => this.updateInputState({flightNumber: this.props.flight.flightNumber})}
           />
           <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
           <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
@@ -60,8 +60,7 @@ class ScheduleEditor extends React.Component {
 
   canIntegrateFlightNumber() {
     let oldFlightCode = this.props.flight.flightCode;
-    let newFlightCode = getAirlineIataCode(oldFlightCode) + this.state.input.flightNumber;
-
+    let newFlightCode = AirlineIataCode + this.state.input.flightNumber;
     return String(oldFlightCode) === String(newFlightCode)
         || this.props.canIntegrateFlight(
             Object.assign({}, this.props.flight, {flightCode: newFlightCode}));
@@ -71,7 +70,7 @@ class ScheduleEditor extends React.Component {
     let flight = Object.assign(
         {},
         this.props.flight,
-        { flightCode: getAirlineIataCode(this.props.flight.flightCode) + this.state.input.flightNumber }
+        {flightCode: AirlineIataCode + this.state.input.flightNumber}
     );
     this.props.onSaveSchedule(flight);
   }
@@ -99,12 +98,5 @@ class ScheduleEditor extends React.Component {
   }
 }
 
-function getAirlineIataCode(flightCode) {
-  return flightCode.slice(0, 2);
-}
-
-function getFlightNumber(flightCode) {
-  return flightCode.slice(2);
-}
 
 export default ScheduleEditor;
