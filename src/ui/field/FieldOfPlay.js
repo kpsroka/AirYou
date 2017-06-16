@@ -20,7 +20,6 @@ class FieldOfPlay extends React.Component {
           return <AirplaneInFlight
             key={airplane.flightCode}
             airplane={airplane}
-            flightId={airplane.flightCode}
           />
         })}
       </div>
