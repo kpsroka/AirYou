@@ -42,6 +42,26 @@ it("TimeReducer updates airplanes in flight on TIME_TICK", () => {
   expect(newerState.airplanesInFlight).toHaveLength(0);
 });
 
+/* Call to TimeReducer fails -- insfratstructure problem
+it("TimeReducer launches scheduled flights", () => {
+  let now = new Date();
+
+  let state = DefaultState;
+  state.time.millis = now.millis - 999;
+  state.time.tick = 1000;
+
+  state.flights = [
+      CreateFlightFn(
+          "999", AIRPLANES[0].shortName, CreateRouteFn(AIRPORTS[0].code, AIRPORTS[1].code),
+          CreateFlightScheduleFn(now.getHours(), now.getMinutes()))
+  ];
+  state.airplanesInFlight = [];
+
+  let newState = TimeReducer(state, {type: 'TIME_TICK'});
+  expect(newState.airplanesInFlight).toEqual([CreateAirplaneInFlightFn(state.flights[0])]);
+});
+*/
+
 it("TimeReducer changes slow tick to fast on TIME_TICK_CHANGE", () => {
   let state = DefaultState;
   state.time.tick = Time.SLOW_TICK_MILLIS;

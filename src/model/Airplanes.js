@@ -9,7 +9,7 @@ export type Airplane = {
   speedKmph:number
 }
 
-const AIRPLANES = [
+export const AIRPLANES = [
   createAirplane("AirCart", "800", "A800", 15000, 700, 905),
   createAirplane("AirCart", "406", "A406", 14400, 440, 890),
   createAirplane("AirCart", "402", "A402", 14800, 420, 890),
@@ -43,14 +43,5 @@ function createAirplane(
     rangeKm: rangeKm,
     maxOccupancy: maxOccupancy,
     speedKmph: speedKmph
-  }
-}
-
-export function getAirplaneSpeedMps(airplaneShortName:string):number {
-  let airplane:?Airplane = AIRPLANES.find((plane) => (plane.shortName === airplaneShortName));
-  if (airplane) {
-    return airplane.speedKmph / 3.6;
-  } else {
-    return 250;
   }
 }

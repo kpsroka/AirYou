@@ -90,17 +90,6 @@ export const CreateFlightScheduleFn = (
   };
 };
 
-export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
-  return {
-    flightCode: flight.flightCode,
-    flightNumber: flight.flightNumber,
-    airplane: flight.airplane,
-    route: flight.route,
-    distanceRemainingM: flight.route.distanceKm * 1000,
-    speedMps: getAirplaneSpeedMps(flight.airplane),
-  }
-};
-
 function getAirplaneSpeedMps(airplaneShortName:string):number {
   let airplane:?Airplane = AIRPLANES.find((plane) => (plane.shortName === airplaneShortName));
   if (airplane) {
@@ -109,3 +98,14 @@ function getAirplaneSpeedMps(airplaneShortName:string):number {
     return 250;
   }
 }
+
+export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
+  return {
+    flightCode: flight.flightCode,
+    flightNumber: flight.flightNumber,
+    airplane: flight.airplane,
+    route: flight.route,
+    distanceRemainingM: flight.route.distanceKm * 1000,
+    speedMps: getAirplaneSpeedMps(flight.airplane),
+  };
+};
