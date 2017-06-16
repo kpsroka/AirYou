@@ -49,19 +49,18 @@ function updateAirplanesInFlight(
     updateDistanceRemaining(
       state.airplanesInFlight,
       timeUpdate.newMillis - timeUpdate.oldMillis);
-  let newFlights = getNewFlightsFromSchedule(state.flights, timeUpdate);
   Array.prototype.push.apply(
     newAirplanesInFlight,
-    launchFlightsByCodes(state, newFlights));
+    launchFlightsByIndices(state, getNewFlightsFromSchedule(state.flights, timeUpdate)));
   return newAirplanesInFlight;
 }
 
-function launchFlightsByCodes(
+function launchFlightsByIndices(
     state:State,
-    flightCodes:Array<string>)
+    flightIndices:Array<number>)
     :Array<StateAirplaneInFlight> {
-  let newFlights:Array<?StateAirplaneInFlight> = flightCodes.map((flightId) => {
-    let maybeFlight:?StateFlight = findFlightByCode(state.flights, flightId);
+  let newFlights:Array<?StateAirplaneInFlight> = flightIndices.map((flightIndex) => {
+    let maybeFlight:?StateFlight = state.flights[flightIndex];
     if (maybeFlight != null) {
       return CreateAirplaneInFlightFn(maybeFlight);
     } else {
@@ -72,21 +71,20 @@ function launchFlightsByCodes(
   return newFlights.filter(Boolean);
 }
 
-function findFlightByCode(
-    flights:Array<StateFlight>,
-    flightCode:string)
-    :?StateFlight {
-  return flights.find((flight) => (flight && flightCode === flight.flightCode));
-}
-
 function getNewFlightsFromSchedule(
     schedules:Array<StateFlight>,
     timeUpdate:TimeUpdate)
     :Array<string> {
-  return schedules.filter((flight) => (
-    deltaMinutesToSchedule(flight.schedule, timeUpdate.oldMillis) <
-    deltaMinutesToSchedule(flight.schedule, timeUpdate.newMillis))
-  ).map((schedule) => (schedule.flightCode));
+  return schedules.map((flight, flightIndex) => {
+        if (
+            deltaMinutesToSchedule(flight.schedule, timeUpdate.oldMillis) <
+            deltaMinutesToSchedule(flight.schedule, timeUpdate.newMillis)) {
+          return flightIndex;
+        } else {
+          return undefined;
+        }
+      }
+  ).filter((item) => (typeof item === 'number'));
 }
 
 function deltaMinutesToSchedule(
