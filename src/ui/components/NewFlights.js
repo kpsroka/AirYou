@@ -6,15 +6,15 @@ class NewFlights extends React.Component {
   render() {
     return (
       <div className="NewFlights">
-        {this.props.flights.map((flight) => {
+        {this.props.flights.map((flight, index) => {
             let buttonText = `${flight.flightCode} ` +
                 `${flight.route.departureAirportCode}-${flight.route.arrivalAirportCode}`;
             return (
               <NewFlightButton
-                key={flight.flightCode}
-                flightCode={flight.flightCode}
+                key={index}
+                flightIndex={index}
                 buttonText={buttonText}
-                createNewFlight={(flightCode) => this.props.createNewFlight(flightCode)}
+                createNewFlight={(flightIndex) => this.props.createNewFlight(flightIndex)}
               />
             )
           })}

@@ -8,7 +8,7 @@ export type Action = {
 
 export type NewFlightAction = {
   type:'NEW_FLIGHT',
-  payload:string
+  payload:number
 }
 
 export type DeleteScheduleAction = {

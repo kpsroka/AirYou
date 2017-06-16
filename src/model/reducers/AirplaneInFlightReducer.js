@@ -12,7 +12,7 @@ const AirplaneInFlightReducer = (
   switch (action.type) {
     case 'NEW_FLIGHT': {
       let newFlightAction = ((action: any): NewFlightAction);
-      let flight = stateFlights.find((flight) => (flight.flightCode === newFlightAction.payload));
+      let flight = stateFlights[newFlightAction.payload];
       if (flight) {
         return [
           ...stateAirplanesInFlight,

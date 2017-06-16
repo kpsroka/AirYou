@@ -5,7 +5,7 @@ class NewFlightButton extends React.Component {
   render() {
     return (
       <button className="newFlightButton"
-              onClick={() => this.props.createNewFlight(this.props.flightCode)}>
+              onClick={() => this.props.createNewFlight(this.props.flightIndex)}>
         {this.props.buttonText}
       </button>
     )

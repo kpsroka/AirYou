@@ -7,7 +7,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createNewFlight: (flightCode) => dispatch({type: 'NEW_FLIGHT', payload: flightCode})
+    createNewFlight: (flightIndex) => dispatch({type: 'NEW_FLIGHT', payload: flightIndex})
   }
 }
 
