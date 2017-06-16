@@ -2,6 +2,7 @@
 
 import { type Position, distanceBetween } from './Position.js';
 import { AIRPORTS } from './Airports.js';
+import { AirlineIataCode } from '../Constants.js';
 
 export type StateTime = {
   millis:number,
@@ -55,14 +56,13 @@ export const CreateRouteFn = (
 };
 
 export const CreateFlightFn = (
-    airlineIataCode:string,
     flightNumber:string,
     airplane:string,
     route:StateRoute,
     schedule:StateSchedule)
     :StateFlight => {
   return {
-    flightCode: airlineIataCode + flightNumber,
+    flightCode: AirlineIataCode + flightNumber,
     airplane: airplane,
     route: route,
     schedule: schedule

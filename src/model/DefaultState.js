@@ -27,19 +27,19 @@ function createFlights():Array<StateFlight> {
 
   return [
     CreateFlightFn(
-        "AY", "33", "E901",
+        "33", "E901",
         CreateRouteFn("MCI", "ATL"),
         CreateFlightScheduleFn(now.getHours() + 4, now.getMinutes() + 45)),
     CreateFlightFn(
-        "AY", "101", "A210",
+        "101", "A210",
         CreateRouteFn("JFK", "ATL"),
         CreateFlightScheduleFn(now.getHours() + 2, 30)),
     CreateFlightFn(
-        "AY", "3030", "B73",
+        "3030", "B73",
         CreateRouteFn("JFK", "SFO"),
         CreateFlightScheduleFn(now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
     CreateFlightFn(
-        "AY", "9001", "A210",
+        "9001", "A210",
         CreateRouteFn("SFO", "MCI"),
         CreateFlightScheduleFn(now.getHours() + 1, now.getMinutes())),
   ];
