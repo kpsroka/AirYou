@@ -11,9 +11,7 @@ class ScheduleEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: {
-        flightNumber: this.props.flight.flightNumber,
-      }
+      input: this.props.flight
     };
   }
 
