@@ -66,6 +66,7 @@ function launchFlightsByCodes(
     if (maybeFlight != null) {
       return {
         flightCode: maybeFlight.flightCode,
+        flightNumber: maybeFlight.flightNumber,
         airplane: maybeFlight.airplane,
         route: maybeFlight.route,
         distanceRemainingM: maybeFlight.route.distanceKm * 1000,

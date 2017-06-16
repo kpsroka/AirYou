@@ -23,6 +23,7 @@ export type StateRoute = {
 
 export type StateAirplaneInFlight = {
   flightCode:string,
+  flightNumber:string,
   airplane:string,
   route:StateRoute,
   distanceRemainingM:number,
@@ -31,6 +32,7 @@ export type StateAirplaneInFlight = {
 
 export type StateFlight = {
   flightCode:string,
+  flightNumber:string,
   airplane:string,
   schedule:StateSchedule,
   route:StateRoute
@@ -63,6 +65,7 @@ export const CreateFlightFn = (
     :StateFlight => {
   return {
     flightCode: AirlineIataCode + flightNumber,
+    flightNumber: flightNumber,
     airplane: airplane,
     route: route,
     schedule: schedule
