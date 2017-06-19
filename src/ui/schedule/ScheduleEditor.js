@@ -1,4 +1,5 @@
 import React from 'react';
+import ScheduleAirportEditor from './ScheduleAirportEditor.js';
 import ScheduleEditorRow from './ScheduleEditorRow.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
@@ -31,11 +32,53 @@ class ScheduleEditor extends React.Component {
                       onInputChange={(input) => this.updateInputState({flightNumber: input})}
                       />
               }
-              onSave={() => this.integrateChanges({flightNumber: this.state.flightNumber})}
+              onSave={() => this.integrateChanges({flightNumber: this.state.input.flightNumber})}
               onAbort={() => this.updateInputState({flightNumber: this.props.flight.flightNumber})}
           />
-          <ScheduleEditorRow label="From" value={this.props.flight.route.departureAirportCode}/>
-          <ScheduleEditorRow label="To" value={this.props.flight.route.arrivalAirportCode}/>
+          <ScheduleEditorRow
+              label="From"
+              value={this.props.flight.route.departureAirportCode}
+              editComponent={
+                <ScheduleAirportEditor
+                    initialValue={this.props.flight.route.departureAirportCode}
+                    onInputChange={(input) => this.updateInputState(
+                        {route: {
+                            ...this.state.input.route,
+                            departureAirportCode: input}})}
+                    />
+              }
+              saveable={true}
+              onSave={() => this.integrateChanges(
+                  {route: {
+                    ...this.props.flight.route,
+                    departureAirportCode: this.state.input.route.departureAirportCode}})}
+              onAbort={() => this.updateInputState(
+                  {route: {
+                    ...this.state.input.route,
+                    departureAirportCode: this.props.flight.route.departureAirportCode}})}
+          />
+          <ScheduleEditorRow
+              label="To"
+              value={this.props.flight.route.arrivalAirportCode}
+              editComponent={
+                <ScheduleAirportEditor
+                    initialValue={this.props.flight.route.arrivalAirportCode}
+                    onInputChange={(input) => this.updateInputState(
+                        {route: {
+                            ...this.state.input.route,
+                            arrivalAirportCode: input}})}
+                    />
+              }
+              saveable={true}
+              onSave={() => this.integrateChanges(
+                  {route: {
+                    ...this.props.flight.route,
+                    arrivalAirportCode: this.state.input.route.arrivalAirportCode}})}
+              onAbort={() => this.updateInputState(
+                  {route: {
+                    ...this.state.input.route,
+                    arrivalAirportCode: this.props.flight.route.arrivalAirportCode}})}
+          />
           <ScheduleEditorRow label="Airplane model" value={this.props.flight.airplane}/>
           <ScheduleEditorRow label="Departure time"
                              value={this.formatTime(
@@ -60,12 +103,8 @@ class ScheduleEditor extends React.Component {
         || this.props.canIntegrateFlightNumber(newFlightNumber);
   }
 
-  integrateChanges() {
-    let flight = Object.assign(
-        {},
-        this.props.flight,
-        {flightNumber: this.state.input.flightNumber}
-    );
+  integrateChanges(changes) {
+    let flight = Object.assign({}, this.props.flight, changes);
     this.props.onSaveSchedule(flight);
   }
 
