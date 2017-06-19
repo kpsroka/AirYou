@@ -5,6 +5,7 @@ import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 import { AirlineIataCode } from '../../Constants.js';
+import Objects from '../../aux/Objects.js';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
@@ -76,39 +77,14 @@ class ScheduleEditor extends React.Component {
     )
   }
 
-  updateObject(object, path, value) {
-    if (!Array.isArray(path)) {
-      throw new ObjectUpdateException(`Path is not an array: ${path}`);
-    }
-
-    if (path.length === 0) {
-      return value;
-    } else {
-      let newObject = Object.assign({}, object);
-      newObject[path[0]] = this.updateObject(object[path[0]], path.slice(1), value);
-      return newObject;
-    }
-  }
-
-  getObjectValueByPath(object, path) {
-    let value = object;
-    for (let i = 0; i < path.length; i++) {
-      value = value[path[i]];
-    }
-    return value;
-  }
-
   updateInput(inputPathArray, inputValue) {
     this.setState(
-        (prevState) => ({input: this.updateObject(prevState.input, inputPathArray, inputValue)}));
+        (prevState) => (
+            {input: Objects.updateObject(prevState.input, inputPathArray, inputValue)}));
   }
 
   resetInput(inputPath) {
-    if (!Array.isArray(inputPath)) {
-      throw new ObjectUpdateException(`Path is not an array: ${inputPath}`);
-    }
-
-    this.updateInput(inputPath, this.getObjectValueByPath(this.props.flight, inputPath));
+    this.updateInput(inputPath, Objects.getObjectValueByPath(this.props.flight, inputPath));
   }
 
   canIntegrateFlightNumber() {
@@ -120,10 +96,10 @@ class ScheduleEditor extends React.Component {
 
   integrateInput(inputPath) {
     let newFlight =
-        this.updateObject(
+        Objects.updateObject(
             this.props.flight,
             inputPath,
-            this.getObjectValueByPath(this.state.input, inputPath));
+            Objects.getObjectValueByPath(this.state.input, inputPath));
     this.props.onSaveSchedule(newFlight);
   }
 
@@ -148,11 +124,6 @@ class ScheduleEditor extends React.Component {
     /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
     return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
-}
-
-function ObjectUpdateException(message) {
-  this.message = message;
-  this.name = "ObjectUpdateException";
 }
 
 export default ScheduleEditor;
