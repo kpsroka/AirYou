@@ -29,11 +29,11 @@ class ScheduleEditor extends React.Component {
               editComponent={
                   <ScheduleFlightCodeEditor
                       initialValue={this.props.flight.flightNumber}
-                      onInputChange={(input) => this.updateInputState({flightNumber: input})}
+                      onInputChange={(input) => this.updateInput(["flightNumber"], input)}
                       />
               }
-              onSave={() => this.integrateChanges({flightNumber: this.state.input.flightNumber})}
-              onAbort={() => this.updateInputState({flightNumber: this.props.flight.flightNumber})}
+              onSave={() => this.integrateInput(["flightNumber"])}
+              onAbort={() => this.resetInput(["flightNumber"])}
           />
           <ScheduleEditorRow
               label="From"
@@ -41,21 +41,13 @@ class ScheduleEditor extends React.Component {
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.departureAirportCode}
-                    onInputChange={(input) => this.updateInputState(
-                        {route: {
-                            ...this.state.input.route,
-                            departureAirportCode: input}})}
+                    onInputChange={
+                      (input) => this.updateInput(["route", "departureAirportCode"], input)}
                     />
               }
               saveable={true}
-              onSave={() => this.integrateChanges(
-                  {route: {
-                    ...this.props.flight.route,
-                    departureAirportCode: this.state.input.route.departureAirportCode}})}
-              onAbort={() => this.updateInputState(
-                  {route: {
-                    ...this.state.input.route,
-                    departureAirportCode: this.props.flight.route.departureAirportCode}})}
+              onSave={() => this.integrateInput(["route", "departureAirportCode"])}
+              onAbort={() => this.resetInput(["route", "departureAirportCode"])}
           />
           <ScheduleEditorRow
               label="To"
@@ -63,21 +55,13 @@ class ScheduleEditor extends React.Component {
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.arrivalAirportCode}
-                    onInputChange={(input) => this.updateInputState(
-                        {route: {
-                            ...this.state.input.route,
-                            arrivalAirportCode: input}})}
+                    onInputChange={
+                      (input) => this.updateInput(["route", "arrivalAirportCode"], input)}
                     />
               }
               saveable={true}
-              onSave={() => this.integrateChanges(
-                  {route: {
-                    ...this.props.flight.route,
-                    arrivalAirportCode: this.state.input.route.arrivalAirportCode}})}
-              onAbort={() => this.updateInputState(
-                  {route: {
-                    ...this.state.input.route,
-                    arrivalAirportCode: this.props.flight.route.arrivalAirportCode}})}
+              onSave={() => this.integrateInput(["route", "arrivalAirportCode"])}
+              onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}
           />
           <ScheduleEditorRow label="Airplane model" value={this.props.flight.airplane}/>
           <ScheduleEditorRow label="Departure time"
@@ -92,8 +76,39 @@ class ScheduleEditor extends React.Component {
     )
   }
 
-  updateInputState(partialInputState) {
-    this.setState((prevState) => ({input: Object.assign({}, prevState.input, partialInputState)}));
+  updateObject(object, path, value) {
+    if (!Array.isArray(path)) {
+      throw new ObjectUpdateException(`Path is not an array: ${path}`);
+    }
+
+    if (path.length === 0) {
+      return value;
+    } else {
+      let newObject = Object.assign({}, object);
+      newObject[path[0]] = this.updateObject(object[path[0]], path.slice(1), value);
+      return newObject;
+    }
+  }
+
+  getObjectValueByPath(object, path) {
+    let value = object;
+    for (let i = 0; i < path.length; i++) {
+      value = value[path[i]];
+    }
+    return value;
+  }
+
+  updateInput(inputPathArray, inputValue) {
+    this.setState(
+        (prevState) => ({input: this.updateObject(prevState.input, inputPathArray, inputValue)}));
+  }
+
+  resetInput(inputPath) {
+    if (!Array.isArray(inputPath)) {
+      throw new ObjectUpdateException(`Path is not an array: ${inputPath}`);
+    }
+
+    this.updateInput(inputPath, this.getObjectValueByPath(this.props.flight, inputPath));
   }
 
   canIntegrateFlightNumber() {
@@ -103,9 +118,13 @@ class ScheduleEditor extends React.Component {
         || this.props.canIntegrateFlightNumber(newFlightNumber);
   }
 
-  integrateChanges(changes) {
-    let flight = Object.assign({}, this.props.flight, changes);
-    this.props.onSaveSchedule(flight);
+  integrateInput(inputPath) {
+    let newFlight =
+        this.updateObject(
+            this.props.flight,
+            inputPath,
+            this.getObjectValueByPath(this.state.input, inputPath));
+    this.props.onSaveSchedule(newFlight);
   }
 
   formatTime(hours, minutes) {
@@ -131,5 +150,9 @@ class ScheduleEditor extends React.Component {
   }
 }
 
+function ObjectUpdateException(message) {
+  this.message = message;
+  this.name = "ObjectUpdateException";
+}
 
 export default ScheduleEditor;
