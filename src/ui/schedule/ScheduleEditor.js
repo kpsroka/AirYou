@@ -46,7 +46,7 @@ class ScheduleEditor extends React.Component {
                       (input) => this.updateInput(["route", "departureAirportCode"], input)}
                     />
               }
-              saveable={true}
+              saveable={this.state.input.route.departureAirportCode !== this.props.flight.route.arrivalAirportCode}
               onSave={() => this.integrateInput(["route", "departureAirportCode"])}
               onAbort={() => this.resetInput(["route", "departureAirportCode"])}
           />
@@ -60,7 +60,7 @@ class ScheduleEditor extends React.Component {
                       (input) => this.updateInput(["route", "arrivalAirportCode"], input)}
                     />
               }
-              saveable={true}
+              saveable={this.state.input.route.arrivalAirportCode !== this.props.flight.route.departureAirportCode}
               onSave={() => this.integrateInput(["route", "arrivalAirportCode"])}
               onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}
           />
