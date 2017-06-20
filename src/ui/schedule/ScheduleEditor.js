@@ -1,4 +1,5 @@
 import React from 'react';
+import ScheduleAirplaneEditor from './ScheduleAirplaneEditor.js';
 import ScheduleAirportEditor from './ScheduleAirportEditor.js';
 import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
@@ -41,6 +42,7 @@ class ScheduleEditor extends React.Component {
               path={["airplaneIndex"]}
               valueRender={(airplaneIndex) => (
                   `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
+              editComponent={<ScheduleAirplaneEditor/>}
               />
           <ScheduleEditorRowComponent
               label="Departure time"
