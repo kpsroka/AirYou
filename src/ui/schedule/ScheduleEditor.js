@@ -39,7 +39,8 @@ class ScheduleEditor extends React.Component {
               label="Airplane model"
               flightIndex={this.props.flightIndex}
               path={["airplaneIndex"]}
-              valueRender={(airplaneIndex) => AIRPLANES[airplaneIndex].shortName}
+              valueRender={(airplaneIndex) => (
+                  `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
               />
           <ScheduleEditorRowComponent
               label="Departure time"
