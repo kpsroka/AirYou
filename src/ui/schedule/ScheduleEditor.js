@@ -39,26 +39,24 @@ class ScheduleEditor extends React.Component {
               value={this.props.flight.airplane}/>
           <ScheduleEditorRowComponent
               label="Departure time"
-              value={this.formatTime(
-                  this.props.flight.schedule.departureTime.hours,
-                  this.props.flight.schedule.departureTime.minutes)}/>
+              value={this.formatTime(this.props.flight.schedule.departureTime)}/>
           <ScheduleEditorRowComponent
               label="Departs on"
               value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                  this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
+                  this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule.departureDaysOfWeek)
                ))}/>
         </div>
     )
   }
 
-  formatTime(hours, minutes) {
+  formatTime(time) {
     let timeFormatOptions = {hour: "2-digit", minute: "2-digit"};
     return Intl.DateTimeFormat("en-US", timeFormatOptions)
-        .format(new Date(2017, 0, 1, hours, minutes));
+        .format(new Date(2017, 0, 1, time.hours, time.minutes));
   }
 
-  getDayOfWeekTag(dayOfWeek, schedule) {
-    let departsOnThisDay = (schedule.departureDaysOfWeek.indexOf(dayOfWeek) !== -1);
+  getDayOfWeekTag(dayOfWeek, departureDaysOfWeek) {
+    let departsOnThisDay = (departureDaysOfWeek.indexOf(dayOfWeek) !== -1);
     return (
         <div key={dayOfWeek} className="scheduleEditorDepartureDayBlock">
           <div>{this.getDayOfWeekName(dayOfWeek)}</div>
