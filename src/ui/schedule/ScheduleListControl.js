@@ -56,6 +56,7 @@ class ScheduleListControl extends React.Component {
       return (
           <ScheduleEditor
               flight={flight}
+              flightIndex={this.state.flightUnderEdition}
               canIntegrateFlightNumber={
                 (newFlightNumber) => this.props.canIntegrateFlightNumber(newFlightNumber)}
               onSaveSchedule={

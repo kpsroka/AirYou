@@ -1,6 +1,6 @@
 import React from 'react';
 import ScheduleAirportEditor from './ScheduleAirportEditor.js';
-import ScheduleEditorRow from './ScheduleEditorRow.js';
+import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
@@ -23,9 +23,10 @@ class ScheduleEditor extends React.Component {
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">AirYou flight {flightCode}</div>
-          <ScheduleEditorRow
+          <ScheduleEditorRowComponent
               label="Flight number"
-              value={flightCode}
+              flightIndex={this.props.flightIndex}
+              value={() => (flightCode)}
               saveable={this.canIntegrateFlightNumber()}
               editComponent={
                   <ScheduleFlightCodeEditor
@@ -36,9 +37,10 @@ class ScheduleEditor extends React.Component {
               onSave={() => this.integrateInput(["flightNumber"])}
               onAbort={() => this.resetInput(["flightNumber"])}
           />
-          <ScheduleEditorRow
+          <ScheduleEditorRowComponent
               label="From"
-              value={this.props.flight.route.departureAirportCode}
+              flightIndex={this.props.flightIndex}
+              value={(flight) => (flight.route.departureAirportCode)}
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.departureAirportCode}
@@ -50,9 +52,10 @@ class ScheduleEditor extends React.Component {
               onSave={() => this.integrateInput(["route", "departureAirportCode"])}
               onAbort={() => this.resetInput(["route", "departureAirportCode"])}
           />
-          <ScheduleEditorRow
+          <ScheduleEditorRowComponent
               label="To"
-              value={this.props.flight.route.arrivalAirportCode}
+              flightIndex={this.props.flightIndex}
+              value={(flight) => (flight.route.arrivalAirportCode)}
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.arrivalAirportCode}
@@ -64,15 +67,17 @@ class ScheduleEditor extends React.Component {
               onSave={() => this.integrateInput(["route", "arrivalAirportCode"])}
               onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}
           />
-          <ScheduleEditorRow label="Airplane model" value={this.props.flight.airplane}/>
-          <ScheduleEditorRow label="Departure time"
-                             value={this.formatTime(
-                                 this.props.flight.schedule.departureHours,
-                                 this.props.flight.schedule.departureMinutes)}/>
-          <ScheduleEditorRow label="Departs on"
-                             value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                                 this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
-                             ))}/>
+          <ScheduleEditorRowComponent label="Airplane model" value={this.props.flight.airplane}/>
+          <ScheduleEditorRowComponent
+              label="Departure time"
+              value={this.formatTime(
+                  this.props.flight.schedule.departureHours,
+                  this.props.flight.schedule.departureMinutes)}/>
+          <ScheduleEditorRowComponent
+              label="Departs on"
+              value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
+                  this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule)
+               ))}/>
         </div>
     )
   }
