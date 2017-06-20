@@ -29,11 +29,7 @@ class ScheduleEditor extends React.Component {
               path={["flightNumber"]}
               valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
               saveable={this.canIntegrateFlightNumber()}
-              editComponent={
-                  <ScheduleFlightCodeEditor
-                      initialValue={this.props.flight.flightNumber}
-                      />
-              }
+              editComponent={<ScheduleFlightCodeEditor />}
               onInputChange={(input) => this.updateInput(["flightNumber"], input)}
               onAbort={() => this.resetInput(["flightNumber"])}
           />
@@ -41,11 +37,7 @@ class ScheduleEditor extends React.Component {
               label="From"
               flightIndex={this.props.flightIndex}
               path={["route", "departureAirportCode"]}
-              editComponent={
-                <ScheduleAirportEditor
-                    initialValue={this.props.flight.route.departureAirportCode}
-                    />
-              }
+              editComponent={<ScheduleAirportEditor />}
               saveable={this.state.input.route.departureAirportCode !== this.props.flight.route.arrivalAirportCode}
               onInputChange={(input) => this.updateInput(["route", "departureAirportCode"], input)}
               onAbort={() => this.resetInput(["route", "departureAirportCode"])}
@@ -54,11 +46,7 @@ class ScheduleEditor extends React.Component {
               label="To"
               flightIndex={this.props.flightIndex}
               path={["route", "arrivalAirportCode"]}
-              editComponent={
-                <ScheduleAirportEditor
-                    initialValue={this.props.flight.route.arrivalAirportCode}
-                    />
-              }
+              editComponent={<ScheduleAirportEditor />}
               saveable={this.state.input.route.arrivalAirportCode !== this.props.flight.route.departureAirportCode}
               onInputChange={(input) => this.updateInput(["route", "arrivalAirportCode"], input)}
               onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}

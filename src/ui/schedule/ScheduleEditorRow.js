@@ -5,7 +5,7 @@ class ScheduleEditorRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: undefined,
+      input: this.props.value,
       editMode: false,
       validInput: true,
     }
@@ -59,7 +59,8 @@ class ScheduleEditorRow extends React.Component {
         onInputChange: (input) => {
           this.setState({input: input});
           this.props.onInputChange(input);
-        }
+        },
+        initialValue: this.props.value
       });
     }
     if (typeof this.props.valueRender === "function") {
@@ -82,7 +83,9 @@ class ScheduleEditorRow extends React.Component {
   }
 
   isSaveable() {
-    return this.props.saveable && this.state.input !== undefined;
+    return this.props.saveable &&
+        this.state.input !== undefined &&
+        this.state.input !== this.props.value;
   }
 
   onAbortButtonClick() {
