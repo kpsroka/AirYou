@@ -12,10 +12,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     deleteSchedule: (index) => dispatch({type: 'DELETE_SCHEDULE', payload: index}),
-    integrateSchedule: (index, propertyPath, propertyValue) => dispatch({
-      type: 'INTEGRATE_SCHEDULE',
-      payload: {flightIndex: index, propertyPath: propertyPath, propertyValue: propertyValue}
-    })
   }
 }
 

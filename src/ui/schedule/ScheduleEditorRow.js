@@ -5,6 +5,7 @@ class ScheduleEditorRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      input: undefined,
       editMode: false,
       validInput: true,
     }
@@ -41,7 +42,7 @@ class ScheduleEditorRow extends React.Component {
   getSaveButtonClassNames() {
     return "scheduleEditorButton" +
         (this.state.editMode ? "" : " hidden") +
-        (this.props.saveable ? "" : " disabled");
+        (this.isSaveable() ? "" : " disabled");
   }
 
   getCancelButtonClassNames() {
@@ -54,21 +55,31 @@ class ScheduleEditorRow extends React.Component {
 
   renderValue() {
     if (this.state.editMode && this.props.editComponent) {
-      return this.props.editComponent;
+      return React.cloneElement(this.props.editComponent, {
+        onInputChange: (input) => {
+          this.setState({input: input});
+          this.props.onInputChange(input);
+        }
+      });
     }
     return this.props.value;
   }
 
   onSaveButtonClick() {
-    if (this.props.saveable) {
+    if (this.isSaveable()) {
       this.setEditMode(false);
       if (this.props.flightIndex !== undefined &&
           this.props.path !== undefined &&
           this.state.input !== undefined) {
         this.props.integrateSchedule(this.props.flightIndex, this.props.path, this.state.input);
+      } else {
+        this.props.onSave();
       }
-      this.props.onSave();
     }
+  }
+
+  isSaveable() {
+    return this.props.saveable && this.state.input !== undefined;
   }
 
   onAbortButtonClick() {
