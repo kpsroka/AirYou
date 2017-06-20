@@ -83,9 +83,9 @@ class ScheduleEditorRow extends React.Component {
   }
 
   isSaveable() {
-    return this.props.saveable &&
-        this.state.input !== undefined &&
-        this.state.input !== this.props.value;
+    return this.state.input !== undefined &&
+        this.state.input !== this.props.value &&
+        (this.props.canIntegrate === undefined || this.props.canIntegrate(this.state.input));
   }
 
   onAbortButtonClick() {

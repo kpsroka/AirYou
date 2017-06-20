@@ -28,7 +28,6 @@ class ScheduleEditor extends React.Component {
               flightIndex={this.props.flightIndex}
               path={["flightNumber"]}
               valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
-              saveable={this.canIntegrateFlightNumber()}
               editComponent={<ScheduleFlightCodeEditor />}
               onInputChange={(input) => this.updateInput(["flightNumber"], input)}
               onAbort={() => this.resetInput(["flightNumber"])}
@@ -38,7 +37,6 @@ class ScheduleEditor extends React.Component {
               flightIndex={this.props.flightIndex}
               path={["route", "departureAirportCode"]}
               editComponent={<ScheduleAirportEditor />}
-              saveable={this.state.input.route.departureAirportCode !== this.props.flight.route.arrivalAirportCode}
               onInputChange={(input) => this.updateInput(["route", "departureAirportCode"], input)}
               onAbort={() => this.resetInput(["route", "departureAirportCode"])}
           />
@@ -47,7 +45,6 @@ class ScheduleEditor extends React.Component {
               flightIndex={this.props.flightIndex}
               path={["route", "arrivalAirportCode"]}
               editComponent={<ScheduleAirportEditor />}
-              saveable={this.state.input.route.arrivalAirportCode !== this.props.flight.route.departureAirportCode}
               onInputChange={(input) => this.updateInput(["route", "arrivalAirportCode"], input)}
               onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}
           />
@@ -77,10 +74,7 @@ class ScheduleEditor extends React.Component {
   }
 
   canIntegrateFlightNumber() {
-    let oldFlightNumber = this.props.flight.flightNumber;
-    let newFlightNumber = this.state.input.flightNumber;
-    return String(oldFlightNumber) === String(newFlightNumber)
-        || this.props.canIntegrateFlightNumber(newFlightNumber);
+    return this.props.canIntegrateFlightNumber(this.state.input.flightNumber);
   }
 
   formatTime(hours, minutes) {
