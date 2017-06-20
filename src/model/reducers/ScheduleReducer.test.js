@@ -19,18 +19,30 @@ it("ScheduleReducer removes schedule with given index", () => {
   expect(newestFlights).toEqual([,,]);
 });
 
-it("ScheduleReducer saves provided schedule", () => {
+it("ScheduleReducer integrates provided input", () => {
   let flights = [
     CreateFlightFn("101", CreateRouteFn("JFK", "ORD"), CreateFlightScheduleFn(1, 1)),
     CreateFlightFn("102", CreateRouteFn("ORD", "JFK"), CreateFlightScheduleFn(12, 12)),
     CreateFlightFn("103", CreateRouteFn("MIA", "BOS"), CreateFlightScheduleFn(2, 2))
   ];
 
-  let newFlight = CreateFlightFn("399", CreateRouteFn("BOS", "MIA"), CreateFlightScheduleFn(15, 15));
+  let newFlight = Object.assign({}, flights[1]);
+  newFlight.route.departureAirportCode = "BOS";
+  newFlight.flightNumber = "333";
 
-  let updatedFlights = ScheduleReducer(
-      flights,
-      {type:'SAVE_SCHEDULE', payload:{index:1,flight:newFlight}});
+
+  let updatedFlights =
+      ScheduleReducer(
+        ScheduleReducer(
+          flights,
+          {
+            type:'INTEGRATE_SCHEDULE',
+            payload:{flightIndex:1,propertyPath:["flightNumber"],propertyValue:"333"}
+          }),
+        {
+          type:'INTEGRATE_SCHEDULE',
+          payload:{flightIndex:1,propertyPath:["route", "departureAirportCode"],propertyValue:"BOS"}
+        });
 
   expect(updatedFlights).toEqual([flights[0], newFlight, flights[2]]);
 });

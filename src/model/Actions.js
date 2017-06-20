@@ -16,10 +16,11 @@ export type DeleteScheduleAction = {
   payload:number
 }
 
-export type SaveScheduleAction = {
-  type:'SAVE_SCHEDULE',
+export type IntegrateScheduleAction = {
+  type:'INTEGRATE_SCHEDULE',
   payload: {
-    index:number,
-    flight:StateFlight
+    flightIndex:number,
+    propertyPath:Array<string>,
+    propertyValue:any
   }
 }

@@ -100,12 +100,10 @@ class ScheduleEditor extends React.Component {
   }
 
   integrateInput(inputPath) {
-    let newFlight =
-        Objects.updateObject(
-            this.props.flight,
-            inputPath,
-            Objects.getObjectValueByPath(this.state.input, inputPath));
-    this.props.onSaveSchedule(newFlight);
+    this.props.onIntegrateSchedule(
+        this.props.flightIndex,
+        inputPath,
+        Objects.getObjectValueByPath(this.state.input, inputPath));
   }
 
   formatTime(hours, minutes) {

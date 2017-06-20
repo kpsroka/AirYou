@@ -1,7 +1,9 @@
 /* @flow */
 
-import { type Action, type DeleteScheduleAction, type SaveScheduleAction } from '../Actions.js';
+import { type Action, type DeleteScheduleAction, type IntegrateScheduleAction }
+    from '../Actions.js';
 import { type StateFlight } from '../State.js';
+import Objects from '../../aux/Objects.js';
 
 const ScheduleReducer = (
     stateSchedules:Array<StateFlight>,
@@ -15,11 +17,15 @@ const ScheduleReducer = (
       delete newSchedules[flightIndex];
       return newSchedules;
     }
-    case 'SAVE_SCHEDULE': {
-      let saveScheduleAction = ((action: any): SaveScheduleAction);
-      let flightIndex = saveScheduleAction.payload.index;
+    case 'INTEGRATE_SCHEDULE': {
+      let integrateScheduleAction = ((action: any): IntegrateScheduleAction);
+      let newFlight =
+          Objects.updateObject(
+              stateSchedules[integrateScheduleAction.payload.flightIndex],
+              integrateScheduleAction.payload.propertyPath,
+              integrateScheduleAction.payload.propertyValue);
       let newSchedules = stateSchedules.slice();
-      newSchedules[flightIndex] = saveScheduleAction.payload.flight;
+      newSchedules[integrateScheduleAction.payload.flightIndex] = newFlight;
       return newSchedules;
     }
     default:
