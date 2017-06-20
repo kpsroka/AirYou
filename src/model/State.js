@@ -9,9 +9,13 @@ export type StateTime = {
   tick:number
 };
 
+export type StateClockTime = {
+  hours:number,
+  minutes:number
+}
+
 export type StateSchedule = {
-  departureHours:number,
-  departureMinutes:number,
+  departureTime:StateClockTime,
   departureDaysOfWeek:Array<number>
 };
 
@@ -80,8 +84,10 @@ export const CreateFlightScheduleFn = (
     departureDaysOfWeek:Array<number> = [0, 1, 2, 3, 4, 5, 6])
     :StateSchedule => {
   return {
-    departureHours: departureHours % 24,
-    departureMinutes: departureMinutes % 60,
+    departureTime: {
+      hours: departureHours % 24,
+      minutes: departureMinutes % 60
+    },
     departureDaysOfWeek: departureDaysOfWeek
   };
 };

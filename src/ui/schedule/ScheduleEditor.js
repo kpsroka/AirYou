@@ -40,8 +40,8 @@ class ScheduleEditor extends React.Component {
           <ScheduleEditorRowComponent
               label="Departure time"
               value={this.formatTime(
-                  this.props.flight.schedule.departureHours,
-                  this.props.flight.schedule.departureMinutes)}/>
+                  this.props.flight.schedule.departureTime.hours,
+                  this.props.flight.schedule.departureTime.minutes)}/>
           <ScheduleEditorRowComponent
               label="Departs on"
               value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (

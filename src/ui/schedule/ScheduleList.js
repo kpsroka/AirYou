@@ -22,7 +22,7 @@ class ScheduleList extends React.Component {
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
               </div>
               <div className="scheduleListItemDepartureTime">
-                {this.formatTime(flight.schedule.departureHours, flight.schedule.departureMinutes)}
+                {this.formatTime(flight.schedule.departureTime.hours, flight.schedule.departureTime.minutes)}
               </div>
               <div>
                 {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (

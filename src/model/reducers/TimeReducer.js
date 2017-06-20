@@ -74,17 +74,17 @@ function launchFlightsByIndices(
 function getNewFlightsFromSchedule(
     schedules:Array<StateFlight>,
     timeUpdate:TimeUpdate)
-    :Array<string> {
+    :Array<number> {
   return schedules.map((flight, flightIndex) => {
         if (
             deltaMinutesToSchedule(flight.schedule, timeUpdate.oldMillis) <
             deltaMinutesToSchedule(flight.schedule, timeUpdate.newMillis)) {
           return flightIndex;
         } else {
-          return undefined;
+          return NaN;
         }
       }
-  ).filter((item) => (typeof item === 'number'));
+  ).filter(item => !Number.isNaN(item));
 }
 
 function deltaMinutesToSchedule(
@@ -94,8 +94,8 @@ function deltaMinutesToSchedule(
   let delta = 0;
   let date = new Date(millis);
 
-  delta += (schedule.departureHours - date.getHours()) * 60;
-  delta += (schedule.departureMinutes - date.getMinutes());
+  delta += (schedule.departureTime.hours - date.getHours()) * 60;
+  delta += (schedule.departureTime.minutes - date.getMinutes());
 
   while (delta < 0 || schedule.departureDaysOfWeek.indexOf(date.getDay()) === -1) {
     delta += 24 * 60;
