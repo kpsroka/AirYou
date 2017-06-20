@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import ScheduleEditorRow from './ScheduleEditorRow.js';
-import Objects from '../../aux/Objects.js';
 
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
@@ -11,15 +10,15 @@ function mapStateToProps(state, ownProps) {
   return Object.assign({}, ownProps, extraProps);
 }
 
-function integrateInput(inputPath) {
-  let newFlight =
-      Objects.updateObject(
-          this.props.flight,
-          inputPath,
-          Objects.getObjectValueByPath(this.state.input, inputPath));
-  this.props.onSaveSchedule(newFlight);
+function mapDispatchToProps(dispatch) {
+  return {
+    integrateSchedule: (index, path, value) => dispatch({
+      type: 'INTEGRATE_SCHEDULE',
+      payload: {flightIndex: index, propertyPath: path, propertyValue: value}
+    })
+  }
 }
 
-const ScheduleEditorRowComponent = connect(mapStateToProps)(ScheduleEditorRow);
+const ScheduleEditorRowComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleEditorRow);
 
 export default ScheduleEditorRowComponent;
