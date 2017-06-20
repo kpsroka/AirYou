@@ -2,7 +2,7 @@
 
 import { type Position, distanceBetween } from './Position.js';
 import { type Airport, AIRPORTS } from './Airports.js';
-import { type Airplane, AIRPLANES } from './Airplanes.js';
+import { AIRPLANES } from './Airplanes.js';
 
 export type StateTime = {
   millis:number,
@@ -27,7 +27,7 @@ export type StateRoute = {
 
 export type StateAirplaneInFlight = {
   flightNumber:string,
-  airplane:string,
+  airplaneIndex:number,
   route:StateRoute,
   distanceRemainingM:number,
   speedMps:number
@@ -35,7 +35,7 @@ export type StateAirplaneInFlight = {
 
 export type StateFlight = {
   flightNumber:string,
-  airplane:string,
+  airplaneIndex:number,
   schedule:StateSchedule,
   route:StateRoute
 };
@@ -61,13 +61,13 @@ export const CreateRouteFn = (
 
 export const CreateFlightFn = (
     flightNumber:string,
-    airplane:string,
+    airplaneShortName:string,
     route:StateRoute,
     schedule:StateSchedule)
     :StateFlight => {
   return {
     flightNumber: flightNumber,
-    airplane: airplane,
+    airplaneIndex: AIRPLANES.findIndex(airplane => airplane.shortName === airplaneShortName),
     route: route,
     schedule: schedule
   }
@@ -92,21 +92,16 @@ export const CreateFlightScheduleFn = (
   };
 };
 
-function getAirplaneSpeedMps(airplaneShortName:string):number {
-  let airplane:?Airplane = AIRPLANES.find((plane) => (plane.shortName === airplaneShortName));
-  if (airplane) {
-    return airplane.speedKmph / 3.6;
-  } else {
-    return 250;
-  }
+function getAirplaneSpeedMps(airplaneIndex:number):number {
+  return AIRPLANES[airplaneIndex].speedKmph / 3.6;
 }
 
 export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
   return {
     flightNumber: flight.flightNumber,
-    airplane: flight.airplane,
+    airplaneIndex: flight.airplaneIndex,
     route: flight.route,
     distanceRemainingM: flight.route.distanceKm * 1000,
-    speedMps: getAirplaneSpeedMps(flight.airplane),
+    speedMps: getAirplaneSpeedMps(flight.airplaneIndex),
   };
 };

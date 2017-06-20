@@ -10,7 +10,8 @@ const integrateChecks = {
         input !== flights[flightIndex].route.departureAirportCode),
     departureAirportCode: (flights, flightIndex, input) => (
         input !== flights[flightIndex].route.arrivalAirportCode),
-  }
+  },
+  airplaneIndex: (flights, flightIndex, input) => true,
 };
 
 function mapStateToProps(state, ownProps) {

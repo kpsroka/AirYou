@@ -5,6 +5,7 @@ import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 import { AirlineIataCode } from '../../Constants.js';
+import { AIRPLANES } from '../../model/Airplanes.js';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
@@ -36,7 +37,10 @@ class ScheduleEditor extends React.Component {
           />
           <ScheduleEditorRowComponent
               label="Airplane model"
-              value={this.props.flight.airplane}/>
+              flightIndex={this.props.flightIndex}
+              path={["airplaneIndex"]}
+              valueRender={(airplaneIndex) => AIRPLANES[airplaneIndex].shortName}
+              />
           <ScheduleEditorRowComponent
               label="Departure time"
               value={this.formatTime(this.props.flight.schedule.departureTime)}/>
