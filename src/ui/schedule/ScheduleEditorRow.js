@@ -75,8 +75,6 @@ class ScheduleEditorRow extends React.Component {
           this.props.path !== undefined &&
           this.state.input !== undefined) {
         this.props.integrateSchedule(this.props.flightIndex, this.props.path, this.state.input);
-      } else {
-        this.props.onSave();
       }
     }
   }
