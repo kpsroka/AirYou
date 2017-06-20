@@ -27,7 +27,7 @@ class ScheduleEditor extends React.Component {
               label="Flight number"
               flightIndex={this.props.flightIndex}
               path={["flightNumber"]}
-              value={() => (flightCode)}
+              valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
               saveable={this.canIntegrateFlightNumber()}
               editComponent={
                   <ScheduleFlightCodeEditor
@@ -41,7 +41,6 @@ class ScheduleEditor extends React.Component {
               label="From"
               flightIndex={this.props.flightIndex}
               path={["route", "departureAirportCode"]}
-              value={(flight) => (flight.route.departureAirportCode)}
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.departureAirportCode}
@@ -55,7 +54,6 @@ class ScheduleEditor extends React.Component {
               label="To"
               flightIndex={this.props.flightIndex}
               path={["route", "arrivalAirportCode"]}
-              value={(flight) => (flight.route.arrivalAirportCode)}
               editComponent={
                 <ScheduleAirportEditor
                     initialValue={this.props.flight.route.arrivalAirportCode}

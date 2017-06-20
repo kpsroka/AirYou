@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import ScheduleEditorRow from './ScheduleEditorRow.js';
+import Objects from '../../aux/Objects.js';
 
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
-  if (ownProps.flightIndex !== undefined && typeof ownProps.value === "function") {
+  if (ownProps.flightIndex !== undefined && ownProps.value === undefined) {
     let flight = state.flights[ownProps.flightIndex];
-    extraProps.value = ownProps.value(flight);
+    extraProps.value = Objects.getObjectValueByPath(flight, ownProps.path);
   }
   return Object.assign({}, ownProps, extraProps);
 }

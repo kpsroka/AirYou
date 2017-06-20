@@ -62,6 +62,9 @@ class ScheduleEditorRow extends React.Component {
         }
       });
     }
+    if (typeof this.props.valueRender === "function") {
+      return this.props.valueRender(this.props.value);
+    }
     return this.props.value;
   }
 
