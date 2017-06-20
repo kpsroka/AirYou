@@ -5,18 +5,10 @@ import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 import { AirlineIataCode } from '../../Constants.js';
-import Objects from '../../aux/Objects.js';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
 class ScheduleEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: this.props.flight
-    };
-  }
-
   render() {
     let flightCode = `${AirlineIataCode}${this.props.flight.flightNumber}`;
     return (
@@ -28,27 +20,23 @@ class ScheduleEditor extends React.Component {
               flightIndex={this.props.flightIndex}
               path={["flightNumber"]}
               valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
-              editComponent={<ScheduleFlightCodeEditor />}
-              onInputChange={(input) => this.updateInput(["flightNumber"], input)}
-              onAbort={() => this.resetInput(["flightNumber"])}
+              editComponent={<ScheduleFlightCodeEditor/>}
           />
           <ScheduleEditorRowComponent
               label="From"
               flightIndex={this.props.flightIndex}
               path={["route", "departureAirportCode"]}
-              editComponent={<ScheduleAirportEditor />}
-              onInputChange={(input) => this.updateInput(["route", "departureAirportCode"], input)}
-              onAbort={() => this.resetInput(["route", "departureAirportCode"])}
+              editComponent={<ScheduleAirportEditor/>}
           />
           <ScheduleEditorRowComponent
               label="To"
               flightIndex={this.props.flightIndex}
               path={["route", "arrivalAirportCode"]}
-              editComponent={<ScheduleAirportEditor />}
-              onInputChange={(input) => this.updateInput(["route", "arrivalAirportCode"], input)}
-              onAbort={() => this.resetInput(["route", "arrivalAirportCode"])}
+              editComponent={<ScheduleAirportEditor/>}
           />
-          <ScheduleEditorRowComponent label="Airplane model" value={this.props.flight.airplane}/>
+          <ScheduleEditorRowComponent
+              label="Airplane model"
+              value={this.props.flight.airplane}/>
           <ScheduleEditorRowComponent
               label="Departure time"
               value={this.formatTime(
@@ -61,20 +49,6 @@ class ScheduleEditor extends React.Component {
                ))}/>
         </div>
     )
-  }
-
-  updateInput(inputPathArray, inputValue) {
-    this.setState(
-        (prevState) => (
-            {input: Objects.updateObject(prevState.input, inputPathArray, inputValue)}));
-  }
-
-  resetInput(inputPath) {
-    this.updateInput(inputPath, Objects.getObjectValueByPath(this.props.flight, inputPath));
-  }
-
-  canIntegrateFlightNumber() {
-    return this.props.canIntegrateFlightNumber(this.state.input.flightNumber);
   }
 
   formatTime(hours, minutes) {

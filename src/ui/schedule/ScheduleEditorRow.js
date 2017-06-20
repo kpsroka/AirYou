@@ -58,7 +58,6 @@ class ScheduleEditorRow extends React.Component {
       return React.cloneElement(this.props.editComponent, {
         onInputChange: (input) => {
           this.setState({input: input});
-          this.props.onInputChange(input);
         },
         initialValue: this.props.value
       });
@@ -90,7 +89,6 @@ class ScheduleEditorRow extends React.Component {
 
   onAbortButtonClick() {
     this.setEditMode(false);
-    this.props.onAbort();
   }
 }
 
