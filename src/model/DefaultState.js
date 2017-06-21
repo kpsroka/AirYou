@@ -37,7 +37,7 @@ function createFlights():Array<StateFlight> {
     CreateFlightFn(
         "3030", "B73",
         CreateRouteFn("JFK", "SFO"),
-        CreateFlightScheduleFn(now.getHours() + 3, 0, [0, 1, 2, 3, 4])),
+        CreateFlightScheduleFn(now.getHours() + 3, 0, [false, true, true, true, true, true, false])),
     CreateFlightFn(
         "9001", "A210",
         CreateRouteFn("SFO", "MCI"),

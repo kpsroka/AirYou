@@ -14,7 +14,6 @@ class ScheduleDaysOfWeekEditor extends React.Component {
   }
 
   getDayOfWeekTag(dayOfWeek, departureDaysOfWeek) {
-    let departsOnThisDay = (departureDaysOfWeek.indexOf(dayOfWeek) !== -1);
     return (
         <div key={dayOfWeek} className="scheduleEditorDayBlock">
           <div>{this.getDayOfWeekName(dayOfWeek)}</div>
@@ -22,7 +21,7 @@ class ScheduleDaysOfWeekEditor extends React.Component {
               type="checkbox"
               id={dayOfWeek}
               disabled={this.props.disabled}
-              defaultChecked={departsOnThisDay} />
+              defaultChecked={departureDaysOfWeek[dayOfWeek]} />
         </div>
     );
   }

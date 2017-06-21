@@ -97,7 +97,7 @@ function deltaMinutesToSchedule(
   delta += (schedule.departureTime.hours - date.getHours()) * 60;
   delta += (schedule.departureTime.minutes - date.getMinutes());
 
-  while (delta < 0 || schedule.departureDaysOfWeek.indexOf(date.getDay()) === -1) {
+  while (delta < 0 || !schedule.departureDaysOfWeek[date.getDay()]) {
     delta += 24 * 60;
     date.setDate(date.getDate() + 1);
   }

@@ -39,8 +39,8 @@ class ScheduleList extends React.Component {
   }
 
   getDayOfWeekTag(dayOfWeek, schedule) {
-    let tagClassName = (schedule.departureDaysOfWeek.indexOf(dayOfWeek) === -1)
-        ? "inactiveDayOfWeek" : "activeDayOfWeek";
+    let tagClassName = schedule.departureDaysOfWeek[dayOfWeek] ?
+        "activeDayOfWeek" : "inactiveDayOfWeek";
     return (
         <span key={dayOfWeek} className={tagClassName}>{this.getDayOfWeekName(dayOfWeek)}</span>
     );

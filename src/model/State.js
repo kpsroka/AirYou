@@ -16,7 +16,7 @@ export type StateClockTime = {
 
 export type StateSchedule = {
   departureTime:StateClockTime,
-  departureDaysOfWeek:Array<number>
+  departureDaysOfWeek:Array<boolean>
 };
 
 export type StateRoute = {
@@ -81,7 +81,7 @@ function getAirportPosition(airportCode:string):Position {
 export const CreateFlightScheduleFn = (
     departureHours:number = 0,
     departureMinutes:number = 0,
-    departureDaysOfWeek:Array<number> = [0, 1, 2, 3, 4, 5, 6])
+    departureDaysOfWeek:Array<boolean> = [true, true, true, true, true, true, true])
     :StateSchedule => {
   return {
     departureTime: {
