@@ -11,6 +11,12 @@ const integrateChecks = {
     departureAirportCode: (flights, flightIndex, input) => (
         input !== flights[flightIndex].route.arrivalAirportCode),
   },
+  schedule: {
+    departureTime: (flights, flightIndex, input) => {
+      return input.hours >= 0 && input.hours < 24 &&
+              input.minutes >= 0 && input.minutes < 60;
+    }
+  },
   airplaneIndex: (flights, flightIndex, input) => true,
 };
 

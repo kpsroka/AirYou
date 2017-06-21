@@ -1,6 +1,7 @@
 import React from 'react';
 import ScheduleAirplaneEditor from './ScheduleAirplaneEditor.js';
 import ScheduleAirportEditor from './ScheduleAirportEditor.js';
+import ScheduleClockTimeEditor from './ScheduleClockTimeEditor.js';
 import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import './ScheduleEditor.css';
@@ -46,7 +47,11 @@ class ScheduleEditor extends React.Component {
               />
           <ScheduleEditorRowComponent
               label="Departure time"
-              value={this.formatTime(this.props.flight.schedule.departureTime)}/>
+              flightIndex={this.props.flightIndex}
+              path={["schedule", "departureTime"]}
+              valueRender={(time) => this.formatTime(time)}
+              editComponent={<ScheduleClockTimeEditor />}
+          />
           <ScheduleEditorRowComponent
               label="Departs on"
               value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (

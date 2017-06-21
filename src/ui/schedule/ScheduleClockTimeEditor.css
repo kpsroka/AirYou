@@ -1,0 +1,9 @@
+.scheduleClockTimeEditor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.scheduleClockTimeEditor > input {
+  width: 24px;
+}
