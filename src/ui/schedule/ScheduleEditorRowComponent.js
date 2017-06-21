@@ -15,6 +15,9 @@ const integrateChecks = {
     departureTime: (flights, flightIndex, input) => {
       return input.hours >= 0 && input.hours < 24 &&
               input.minutes >= 0 && input.minutes < 60;
+    },
+    departureDaysOfWeek: (flights, flightIndex, input) => {
+      return input.includes(true);
     }
   },
   airplaneIndex: (flights, flightIndex, input) => true,

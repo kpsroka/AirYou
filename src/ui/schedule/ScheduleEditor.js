@@ -53,10 +53,12 @@ class ScheduleEditor extends React.Component {
           />
           <ScheduleEditorRowComponent
               label="Departs on"
-              value={this.props.flight.schedule.departureDaysOfWeek}
+              flightIndex={this.props.flightIndex}
+              path={["schedule", "departureDaysOfWeek"]}
               valueRender={(input) => (
                   <ScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
               )}
+              editComponent={<ScheduleDaysOfWeekEditor />}
           />
         </div>
     )
