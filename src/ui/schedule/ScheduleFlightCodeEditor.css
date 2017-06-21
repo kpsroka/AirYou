@@ -1,10 +1,4 @@
 .flightNumberInput {
-  border-width: 0 0 1px 0;
-  border-color: #0a4;
-  background-color: transparent;
   width: 48px;
-  color: #0a4;
-  font-size: 16px;
   margin-left: 6px;
-  text-align: center;
 }
