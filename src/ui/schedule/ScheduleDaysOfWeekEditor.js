@@ -18,7 +18,11 @@ class ScheduleDaysOfWeekEditor extends React.Component {
     return (
         <div key={dayOfWeek} className="scheduleEditorDayBlock">
           <div>{this.getDayOfWeekName(dayOfWeek)}</div>
-          <input type="checkbox" id={dayOfWeek} disabled="disabled" checked={departsOnThisDay}/>
+          <input
+              type="checkbox"
+              id={dayOfWeek}
+              disabled={this.props.disabled}
+              defaultChecked={departsOnThisDay} />
         </div>
     );
   }
