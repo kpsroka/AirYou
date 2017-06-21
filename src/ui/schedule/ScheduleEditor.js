@@ -2,14 +2,13 @@ import React from 'react';
 import ScheduleAirplaneEditor from './ScheduleAirplaneEditor.js';
 import ScheduleAirportEditor from './ScheduleAirportEditor.js';
 import ScheduleClockTimeEditor from './ScheduleClockTimeEditor.js';
+import ScheduleDaysOfWeekEditor from './ScheduleDaysOfWeekEditor.js';
 import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
-import './ScheduleEditor.css';
-import '../common/ModalWindow.css';
 import { AirlineIataCode } from '../../Constants.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
-
-let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
+import './ScheduleEditor.css';
+import '../common/ModalWindow.css';
 
 class ScheduleEditor extends React.Component {
   render() {
@@ -54,9 +53,11 @@ class ScheduleEditor extends React.Component {
           />
           <ScheduleEditorRowComponent
               label="Departs on"
-              value={DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                  this.getDayOfWeekTag(dayOfWeek, this.props.flight.schedule.departureDaysOfWeek)
-               ))}/>
+              value={this.props.flight.schedule.departureDaysOfWeek}
+              valueRender={(input) => (
+                  <ScheduleDaysOfWeekEditor initialValue={input} />
+              )}
+          />
         </div>
     )
   }
@@ -65,22 +66,6 @@ class ScheduleEditor extends React.Component {
     let timeFormatOptions = {hour: "2-digit", minute: "2-digit"};
     return Intl.DateTimeFormat("en-US", timeFormatOptions)
         .format(new Date(2017, 0, 1, time.hours, time.minutes));
-  }
-
-  getDayOfWeekTag(dayOfWeek, departureDaysOfWeek) {
-    let departsOnThisDay = (departureDaysOfWeek.indexOf(dayOfWeek) !== -1);
-    return (
-        <div key={dayOfWeek} className="scheduleEditorDepartureDayBlock">
-          <div>{this.getDayOfWeekName(dayOfWeek)}</div>
-          <input type="checkbox" id={dayOfWeek} disabled="disabled" checked={departsOnThisDay}/>
-        </div>
-    );
-  }
-
-  getDayOfWeekName(dayOfWeek) {
-    let timeFormatOptions = { weekday: "short" };
-    /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
-    return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
 }
 
