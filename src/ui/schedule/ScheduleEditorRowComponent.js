@@ -3,33 +3,40 @@ import ScheduleEditorRow from './ScheduleEditorRow.js';
 import Objects from '../../aux/Objects.js';
 
 const integrateChecks = {
-  flightNumber: (flights, flightIndex, input) => (
+  flightNumber: (flights, thisFlight, input) => (
       !Boolean(flights.find((flight) => (flight && flight.flightNumber === input)))),
   route: {
-    arrivalAirportCode: (flights, flightIndex, input) => (
-        input !== flights[flightIndex].route.departureAirportCode),
-    departureAirportCode: (flights, flightIndex, input) => (
-        input !== flights[flightIndex].route.arrivalAirportCode),
+    arrivalAirportCode: (flights, thisFlight, input) => (
+        input !== thisFlight.route.departureAirportCode),
+    departureAirportCode: (flights, thisFlight, input) => (
+        input !== thisFlight.route.arrivalAirportCode),
   },
   schedule: {
-    departureTime: (flights, flightIndex, input) => {
+    departureTime: (flights, thisFlight, input) => {
       return input.hours >= 0 && input.hours < 24 &&
               input.minutes >= 0 && input.minutes < 60;
     },
-    departureDaysOfWeek: (flights, flightIndex, input) => {
+    departureDaysOfWeek: (flights, thisFlight, input) => {
       return input.includes(true);
     }
   },
-  airplaneIndex: (flights, flightIndex, input) => true,
+  airplaneIndex: (flights, thisFlight, input) => true,
 };
 
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
   if (ownProps.flightIndex !== undefined && ownProps.value === undefined) {
-    let flight = state.flights[ownProps.flightIndex];
-    extraProps.canIntegrate =
-        Objects.getObjectValueByPath(integrateChecks, ownProps.path)
-            .bind(null, state.flights, ownProps.flightIndex);
+    let flight = null;
+    if (ownProps.flightIndex >= 0) {
+      flight = state.flights[ownProps.flightIndex];
+    } else {
+      // TODO: add a field to state to hold new flight data.
+      flight = null;
+    }
+    extraProps.canIntegrate = (input) => {
+      return Objects.getObjectValueByPath(integrateChecks, ownProps.path)
+          .call(null, state.flights, flight, input);
+    };
     if (ownProps.value === undefined) {
       extraProps.value = Objects.getObjectValueByPath(flight, ownProps.path);
     }
