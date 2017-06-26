@@ -7,7 +7,8 @@
     "flow-bin": "^0.47.0",
     "react-scripts": "0.9.2",
     "react-test-renderer": "^15.6.1",
-    "redux-devtools": "^3.3.2"
+    "redux-devtools": "^3.3.2",
+    "sinon": "^2.3.5"
   },
   "dependencies": {
     "react": "^15.4.2",
