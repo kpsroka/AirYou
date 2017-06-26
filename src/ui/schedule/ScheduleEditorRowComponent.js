@@ -23,16 +23,24 @@ const integrateChecks = {
   airplaneIndex: (flights, thisFlight, input) => true,
 };
 
+function getFlightByIndex(state, flightIndex) {
+  if (typeof flightIndex === 'number' && flightIndex >= 0) {
+    return state.flights[flightIndex];
+  } else if (flightIndex === -1) {
+    if (Boolean(state.newFlight)) {
+      return state.newFlight;
+    } else {
+      throw new Error("New flight is not initialized.");
+    }
+  } else {
+    throw new Error("Illegal argument given: " + flightIndex);
+  }
+}
+
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
   if (ownProps.flightIndex !== undefined && ownProps.value === undefined) {
-    let flight = null;
-    if (ownProps.flightIndex >= 0) {
-      flight = state.flights[ownProps.flightIndex];
-    } else {
-      // TODO: add a field to state to hold new flight data.
-      flight = null;
-    }
+    const flight = getFlightByIndex(state, ownProps.flightIndex);
     extraProps.canIntegrate = (input) => {
       return Objects.getObjectValueByPath(integrateChecks, ownProps.path)
           .call(null, state.flights, flight, input);

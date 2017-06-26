@@ -43,7 +43,8 @@ export type StateFlight = {
 export type State = {
   time:StateTime,
   airplanesInFlight:Array<StateAirplaneInFlight>,
-  flights:Array<StateFlight>
+  flights:Array<StateFlight>,
+  newFlight:?StateFlight
 }
 
 export const CreateRouteFn = (
