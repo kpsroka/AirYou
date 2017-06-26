@@ -23,32 +23,28 @@ const integrateChecks = {
   airplaneIndex: (flights, thisFlight, input) => true,
 };
 
-function getFlightByIndex(state, flightIndex) {
-  if (typeof flightIndex === 'number' && flightIndex >= 0) {
+function getFlight(state, props) {
+  if (props.flightIndex !== undefined) {
     return state.flights[flightIndex];
-  } else if (flightIndex === -1) {
-    if (Boolean(state.newFlight)) {
-      return state.newFlight;
-    } else {
-      throw new Error("New flight is not initialized.");
-    }
+  } else if (props.flight !== undefined) {
+    return props.flight;
   } else {
-    throw new Error("Illegal argument given: " + flightIndex);
+    throw new Error("Neither flight nor flight index are provided");
   }
 }
 
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
-  if (ownProps.flightIndex !== undefined && ownProps.value === undefined) {
-    const flight = getFlightByIndex(state, ownProps.flightIndex);
-    extraProps.canIntegrate = (input) => {
-      return Objects.getObjectValueByPath(integrateChecks, ownProps.path)
-          .call(null, state.flights, flight, input);
-    };
-    if (ownProps.value === undefined) {
-      extraProps.value = Objects.getObjectValueByPath(flight, ownProps.path);
-    }
+  const flight = getFlight(state, ownProps);
+  extraProps.canIntegrate = (input) => {
+    return Objects.getObjectValueByPath(integrateChecks, ownProps.path)
+        .call(null, state.flights, flight, input);
+  };
+
+  if (ownProps.value === undefined) {
+    extraProps.value = Objects.getObjectValueByPath(flight, ownProps.path);
   }
+
   return Object.assign({}, ownProps, extraProps);
 }
 
