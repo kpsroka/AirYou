@@ -25,7 +25,7 @@ const integrateChecks = {
 
 function getFlight(state, props) {
   if (props.flightIndex !== undefined) {
-    return state.flights[flightIndex];
+    return state.flights[props.flightIndex];
   } else if (props.flight !== undefined) {
     return props.flight;
   } else {
