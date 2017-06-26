@@ -12,11 +12,10 @@ import '../common/ModalWindow.css';
 
 class ScheduleEditor extends React.Component {
   render() {
-    let flightCode = `${AirlineIataCode}${this.props.flight.flightNumber}`;
     return (
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
-          <div className="modalWindowTitle">AirYou flight {flightCode}</div>
+          <div className="modalWindowTitle">{this.props.title}</div>
           <ScheduleEditorRowComponent
               label="Flight number"
               flightIndex={this.props.flightIndex}

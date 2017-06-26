@@ -2,6 +2,7 @@ import React from 'react';
 import ScheduleList from './ScheduleList.js';
 import ScheduleEditor from './ScheduleEditor.js';
 import './ScheduleListControl.css';
+import { AirlineIataCode } from '../../Constants.js';
 
 class ScheduleListControl extends React.Component {
   constructor(props) {
@@ -49,13 +50,16 @@ class ScheduleListControl extends React.Component {
       return "";
     }
   }
+
   maybeRenderScheduleEditor() {
     if (this.state.flightUnderEdition !== null &&
         this.props.flights[this.state.flightUnderEdition]) {
-      let flight = this.props.flights[this.state.flightUnderEdition];
+      const flight = this.props.flights[this.state.flightUnderEdition];
+      const flightCode = `${AirlineIataCode}${flight.flightNumber}`;
       return (
           <ScheduleEditor
               flight={flight}
+              title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.flightUnderEdition}
               canIntegrateFlightNumber={
                 (newFlightNumber) => this.props.canIntegrateFlightNumber(newFlightNumber)}
