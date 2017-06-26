@@ -34,6 +34,9 @@ class ScheduleList extends React.Component {
             </div>
           )
         })}
+        <span className="scheduleListAddScheduleLabel">
+          Add new schedule
+        </span>
       </div>
     );
   }
