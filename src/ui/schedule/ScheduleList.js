@@ -55,10 +55,6 @@ class ScheduleList extends React.Component {
     return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
 
-  deleteSchedule(index) {
-    this.props.deleteSchedule(index);
-  }
-
   formatTime(hours, minutes) {
     let timeFormatOptions = { hour: "2-digit", minute: "2-digit" };
     return Intl.DateTimeFormat("en-US", timeFormatOptions)
