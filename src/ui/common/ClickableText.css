@@ -1,0 +1,8 @@
+.clickableText {
+  font-variant: small-caps;
+}
+
+.clickableText:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

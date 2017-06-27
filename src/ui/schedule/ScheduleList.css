@@ -35,11 +35,5 @@
 .scheduleListAddScheduleLabel {
   margin: 8px;
   color: #0a4;
-  font-variant: small-caps;
   font-size: 18px;
-}
-
-.scheduleListAddScheduleLabel:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
