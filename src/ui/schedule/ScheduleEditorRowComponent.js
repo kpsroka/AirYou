@@ -23,9 +23,9 @@ const integrateChecks = {
   airplaneIndex: (flights, thisFlight, input) => true,
 };
 
-function getFlight(state, props) {
+function getFlight(flights, props) {
   if (props.flightIndex !== undefined) {
-    return state.flights[props.flightIndex];
+    return flights[props.flightIndex];
   } else if (props.flight !== undefined) {
     return props.flight;
   } else {
@@ -35,7 +35,7 @@ function getFlight(state, props) {
 
 function mapStateToProps(state, ownProps) {
   let extraProps = {};
-  const flight = getFlight(state, ownProps);
+  const flight = getFlight(state.flights, ownProps);
   extraProps.canIntegrate = (input) => {
     return Objects.getObjectValueByPath(integrateChecks, ownProps.path)
         .call(null, state.flights, flight, input);
