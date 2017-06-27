@@ -11,7 +11,12 @@ import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 
 class ScheduleEditor extends React.Component {
+  saveInputByPath(path, value) {
+    this.props.integrateSchedule(this.props.flightIndex, path, value);
+  }
+
   render() {
+    let saveInputByPath = this.saveInputByPath.bind(this);
     return (
         <div className="modalWindow scheduleEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
@@ -22,18 +27,21 @@ class ScheduleEditor extends React.Component {
               path={["flightNumber"]}
               valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
               editComponent={<ScheduleFlightCodeEditor/>}
+              onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="From"
               flightIndex={this.props.flightIndex}
               path={["route", "departureAirportCode"]}
               editComponent={<ScheduleAirportEditor/>}
+              onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="To"
               flightIndex={this.props.flightIndex}
               path={["route", "arrivalAirportCode"]}
               editComponent={<ScheduleAirportEditor/>}
+              onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="Airplane model"
@@ -42,6 +50,7 @@ class ScheduleEditor extends React.Component {
               valueRender={(airplaneIndex) => (
                   `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
               editComponent={<ScheduleAirplaneEditor/>}
+              onSave={saveInputByPath}
               />
           <ScheduleEditorRowComponent
               label="Departure time"
@@ -49,6 +58,7 @@ class ScheduleEditor extends React.Component {
               path={["schedule", "departureTime"]}
               valueRender={(time) => this.formatTime(time)}
               editComponent={<ScheduleClockTimeEditor />}
+              onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="Departs on"
@@ -58,6 +68,7 @@ class ScheduleEditor extends React.Component {
                   <ScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
               )}
               editComponent={<ScheduleDaysOfWeekEditor />}
+              onSave={saveInputByPath}
           />
         </div>
     )

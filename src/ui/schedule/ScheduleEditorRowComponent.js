@@ -48,15 +48,6 @@ function mapStateToProps(state, ownProps) {
   return Object.assign({}, ownProps, extraProps);
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    integrateSchedule: (index, path, value) => dispatch({
-      type: 'INTEGRATE_SCHEDULE',
-      payload: {flightIndex: index, propertyPath: path, propertyValue: value}
-    })
-  }
-}
-
-const ScheduleEditorRowComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleEditorRow);
+const ScheduleEditorRowComponent = connect(mapStateToProps)(ScheduleEditorRow);
 
 export default ScheduleEditorRowComponent;

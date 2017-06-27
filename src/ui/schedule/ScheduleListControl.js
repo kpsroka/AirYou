@@ -1,6 +1,6 @@
 import React from 'react';
 import ScheduleList from './ScheduleList.js';
-import ScheduleEditor from './ScheduleEditor.js';
+import ScheduleEditorComponent from './ScheduleEditorComponent.js';
 import './ScheduleListControl.css';
 import { AirlineIataCode } from '../../Constants.js';
 
@@ -57,7 +57,7 @@ class ScheduleListControl extends React.Component {
       const flight = this.props.flights[this.state.flightUnderEdition];
       const flightCode = `${AirlineIataCode}${flight.flightNumber}`;
       return (
-          <ScheduleEditor
+          <ScheduleEditorComponent
               flight={flight}
               title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.flightUnderEdition}
