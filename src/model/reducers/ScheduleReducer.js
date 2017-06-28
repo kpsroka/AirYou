@@ -2,7 +2,10 @@
 
 import { type Action, type DeleteScheduleAction, type IntegrateScheduleAction }
     from '../Actions.js';
-import { type StateFlight } from '../State.js';
+import { AIRPLANES } from '../Airplanes.js';
+import { AIRPORTS } from '../Airports.js';
+import { type StateFlight, CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn }
+    from '../State.js';
 import Objects from '../../aux/Objects.js';
 
 const ScheduleReducer = (
@@ -28,9 +31,36 @@ const ScheduleReducer = (
       newSchedules[integrateScheduleAction.payload.flightIndex] = newFlight;
       return newSchedules;
     }
+    case 'ADD_SCHEDULE': {
+      let newSchedules = stateSchedules.slice();
+      newSchedules.push(createNewSchedule(stateSchedules));
+      return newSchedules;
+    }
     default:
       return stateSchedules;
   }
 };
+
+function createNewSchedule(schedules:Array<StateFlight>):StateFlight {
+  return CreateFlightFn(
+      findNextAvailableFlightNumber(schedules),
+      AIRPLANES[0].shortName,
+      CreateRouteFn(AIRPORTS[0].code, AIRPORTS[1].code),
+      CreateFlightScheduleFn()
+  );
+}
+
+function findNextAvailableFlightNumber(schedules:Array<StateFlight>):string {
+  let flightNumbers = schedules.map(schedule => Number(schedule.flightNumber)).sort();
+  let nextCandidateNumber = 1;
+  for (let i = 0; i < flightNumbers.length; i++) {
+    if (flightNumbers[i] > nextCandidateNumber) {
+      break;
+    } else if (flightNumbers[i] === nextCandidateNumber) {
+      nextCandidateNumber++;
+    }
+  }
+  return String(nextCandidateNumber);
+}
 
 export default ScheduleReducer;
