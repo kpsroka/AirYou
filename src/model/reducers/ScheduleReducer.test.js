@@ -57,13 +57,14 @@ describe("ScheduleReducer", () => {
     expect(newFlights[0].flightNumber).toBe("1");
     expect(newFlights[1].flightNumber).toBe("2");
 
-    newFlights[1].flightNumber = "3";
+    newFlights[1].flightNumber = "10";
     newFlights = ScheduleReducer(newFlights, { type: 'ADD_SCHEDULE' });
     newFlights = ScheduleReducer(newFlights, { type: 'ADD_SCHEDULE' });
     expect(newFlights).toHaveLength(4);
     expect(newFlights[0].flightNumber).toBe("1");
-    expect(newFlights[1].flightNumber).toBe("3");
+    expect(newFlights[1].flightNumber).toBe("10");
     expect(newFlights[2].flightNumber).toBe("2");
-    expect(newFlights[3].flightNumber).toBe("4");
+    expect(newFlights[3].flightNumber).toBe("3");
   });
 });
+

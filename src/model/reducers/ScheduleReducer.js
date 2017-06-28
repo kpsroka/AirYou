@@ -51,7 +51,8 @@ function createNewSchedule(schedules:Array<StateFlight>):StateFlight {
 }
 
 function findNextAvailableFlightNumber(schedules:Array<StateFlight>):string {
-  let flightNumbers = schedules.map(schedule => Number(schedule.flightNumber)).sort();
+  let flightNumbers = schedules.map(schedule => Number(schedule.flightNumber))
+      .sort((a, b) => (a - b));
   let nextCandidateNumber = 1;
   for (let i = 0; i < flightNumbers.length; i++) {
     if (flightNumbers[i] > nextCandidateNumber) {
@@ -60,6 +61,7 @@ function findNextAvailableFlightNumber(schedules:Array<StateFlight>):string {
       nextCandidateNumber++;
     }
   }
+
   return String(nextCandidateNumber);
 }
 
