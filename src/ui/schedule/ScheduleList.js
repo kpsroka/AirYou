@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDayOfWeek, formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
 
 import './ScheduleList.css';
@@ -24,11 +25,15 @@ class ScheduleList extends React.Component {
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
               </div>
               <div className="scheduleListItemDepartureTime">
-                {this.formatTime(flight.schedule.departureTime.hours, flight.schedule.departureTime.minutes)}
+                {formatTime(
+                    new Date(
+                        2017, 0, 1,
+                        flight.schedule.departureTime.hours,
+                        flight.schedule.departureTime.minutes))}
               </div>
               <div>
                 {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                  this.getDayOfWeekTag(dayOfWeek, flight.schedule)
+                  ScheduleList.getDayOfWeekTag(dayOfWeek, flight.schedule)
                 ))}
               </div>
               <div className="clickableText"
@@ -45,24 +50,12 @@ class ScheduleList extends React.Component {
     );
   }
 
-  getDayOfWeekTag(dayOfWeek, schedule) {
+  static getDayOfWeekTag(dayOfWeek, schedule) {
     let tagClassName = schedule.departureDaysOfWeek[dayOfWeek] ?
         "activeDayOfWeek" : "inactiveDayOfWeek";
     return (
-        <span key={dayOfWeek} className={tagClassName}>{this.getDayOfWeekName(dayOfWeek)}</span>
+        <span key={dayOfWeek} className={tagClassName}>{formatDayOfWeek(dayOfWeek)}</span>
     );
-  }
-
-  getDayOfWeekName(dayOfWeek) {
-    let timeFormatOptions = { weekday: "narrow" };
-    /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
-    return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
-  }
-
-  formatTime(hours, minutes) {
-    let timeFormatOptions = { hour: "2-digit", minute: "2-digit" };
-    return Intl.DateTimeFormat("en-US", timeFormatOptions)
-        .format(new Date(2017, 0, 1, hours, minutes));
   }
 }
 

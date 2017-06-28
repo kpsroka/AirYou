@@ -5,6 +5,7 @@ import ScheduleClockTimeEditor from './ScheduleClockTimeEditor.js';
 import ScheduleDaysOfWeekEditor from './ScheduleDaysOfWeekEditor.js';
 import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
+import { formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
 import './ScheduleEditor.css';
@@ -56,7 +57,7 @@ class ScheduleEditor extends React.Component {
               label="Departure time"
               flightIndex={this.props.flightIndex}
               path={["schedule", "departureTime"]}
-              valueRender={(time) => this.formatTime(time)}
+              valueRender={(time) => formatTime(new Date(2017, 0, 1, time.hours, time.minutes))}
               editComponent={<ScheduleClockTimeEditor />}
               onSave={saveInputByPath}
           />
@@ -72,12 +73,6 @@ class ScheduleEditor extends React.Component {
           />
         </div>
     )
-  }
-
-  formatTime(time) {
-    let timeFormatOptions = {hour: "2-digit", minute: "2-digit"};
-    return Intl.DateTimeFormat("en-US", timeFormatOptions)
-        .format(new Date(2017, 0, 1, time.hours, time.minutes));
   }
 }
 

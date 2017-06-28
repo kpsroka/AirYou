@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDayOfWeek } from '../common/DateTimeFormatter.js';
 import './ScheduleDaysOfWeekEditor.css';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
@@ -23,7 +24,7 @@ class ScheduleDaysOfWeekEditor extends React.Component {
   getDayOfWeekTag(dayOfWeek, departureDaysOfWeek) {
     return (
         <div key={dayOfWeek} className="scheduleEditorDayBlock">
-          <div>{this.getDayOfWeekName(dayOfWeek)}</div>
+          <div>{formatDayOfWeek(dayOfWeek)}</div>
           <input
               type="checkbox"
               id={dayOfWeek}
@@ -32,12 +33,6 @@ class ScheduleDaysOfWeekEditor extends React.Component {
               onChange={(event) => {this.onCheckboxChange(dayOfWeek, event.target.checked)}}/>
         </div>
     );
-  }
-
-  getDayOfWeekName(dayOfWeek) {
-    let timeFormatOptions = { weekday: "short" };
-    /* May 1 2017 was Monday, so the day of May 2017 will match the desired day of week. */
-    return Intl.DateTimeFormat("en-US", timeFormatOptions).format(new Date(2017, 4, dayOfWeek));
   }
 
   onCheckboxChange(dayOfWeek, checked) {

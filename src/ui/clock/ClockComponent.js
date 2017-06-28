@@ -1,30 +1,14 @@
 import { connect } from 'react-redux';
 import Clock from './Clock.js';
+import { formatDate, formatTime } from '../common/DateTimeFormatter.js';
 import { Time } from '../../Constants.js';
-
-
-let DATE_FORMAT_OPTIONS = {
-  year: "numeric", month: "short", day: "numeric"
-};
-
-let TIME_FORMAT_OPTIONS = {
-  hour: "2-digit", minute: "2-digit"
-};
 
 function mapStateToProps(state) {
   return {
-    displayDate: toDisplayDate(state.time.millis),
-    displayTime: toDisplayTime(state.time.millis),
+    displayDate: formatDate(state.time.millis),
+    displayTime: formatTime(state.time.millis),
     tickSpeedSymbol: toTickSpeedSymbol(state.time.tick)
   };
-}
-
-function toDisplayDate(millis) {
-  return new Intl.DateTimeFormat("en-US", DATE_FORMAT_OPTIONS).format(millis);
-}
-
-function toDisplayTime(millis) {
-  return new Intl.DateTimeFormat("en-US", TIME_FORMAT_OPTIONS).format(millis);
 }
 
 function toTickSpeedSymbol(tick) {
