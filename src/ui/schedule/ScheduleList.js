@@ -43,7 +43,8 @@ class ScheduleList extends React.Component {
             </div>
           )
         })}
-        <span className="scheduleListAddScheduleLabel clickableText">
+        <span className="scheduleListAddScheduleLabel clickableText"
+            onClick={() => this.props.onAddSchedule()}>
           Add new schedule
         </span>
       </div>

@@ -41,6 +41,7 @@ class ScheduleListControl extends React.Component {
       return (
             <ScheduleList
                 flights={this.props.flights}
+                onAddSchedule={this.props.addSchedule}
                 onDeleteSchedule={this.props.deleteSchedule}
                 onEditSchedule={(flightIndex) => this.editSchedule(flightIndex)}
                 onCloseWindowRequest={() => this.toggleScheduleList()}
