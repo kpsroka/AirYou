@@ -37,4 +37,24 @@ describe("ScheduleEditor", () => {
       expect(childRows.at(i).props().flightIndex).toEqual(testIndex);
     }
   });
+
+  test("class props.integrateSchedule on child row onSave", () => {
+    const testIndex = 386;
+    const integrateScheduleSpy = sinon.spy();
+    const scheduleEditor = shallow(
+        <ScheduleEditor
+            integrateSchedule={integrateScheduleSpy}
+            flightIndex={testIndex} />);
+
+    const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
+    expect(childRows.length).toBeGreaterThan(0);
+    expect(integrateScheduleSpy.called).toBe(false);
+
+    const testPath = ["some", "path"];
+    const testValue = "VaLuE";
+    childRows.at(0).props().onSave(testPath, testValue);
+
+    expect(integrateScheduleSpy.callCount).toBe(1);
+    expect(integrateScheduleSpy.calledWith(testIndex, testPath, testValue)).toBe(true);
+  });
 });
