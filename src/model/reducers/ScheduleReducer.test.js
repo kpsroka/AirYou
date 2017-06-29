@@ -47,7 +47,7 @@ describe("ScheduleReducer", () => {
     expect(updatedFlights).toEqual([flights[0], newFlight, flights[2]]);
   });
 
-  test("creates new flight with first available number", () => {
+  test("creates new flight an ADD_SCHEDULE with no payload with first available number", () => {
     let newFlights = ScheduleReducer([], { type: 'ADD_SCHEDULE' });
     expect(newFlights).toHaveLength(1);
     expect(newFlights[0].flightNumber).toBe("1");
@@ -66,5 +66,15 @@ describe("ScheduleReducer", () => {
     expect(newFlights[2].flightNumber).toBe("2");
     expect(newFlights[3].flightNumber).toBe("3");
   });
-});
 
+  test("adds new schedule on ADD_SCHEDULE with payload", () => {
+    let newFlight = CreateFlightFn(
+        "123",
+        "someAirplane",
+        CreateRouteFn("ABC", "DEF"),
+        CreateFlightScheduleFn());
+    let newFlights = ScheduleReducer([], { type: 'ADD_SCHEDULE', payload: newFlight });
+    expect(newFlights).toHaveLength(1);
+    expect(newFlights[0]).toBe(newFlight);
+  });
+});

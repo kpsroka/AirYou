@@ -1,5 +1,7 @@
 /* @flow */
 
+import { type StateFlight } from './State.js';
+
 export type Action = {
   type:string
 }
@@ -21,4 +23,9 @@ export type IntegrateScheduleAction = {
     propertyPath:Array<string>,
     propertyValue:any
   }
+}
+
+export type AddScheduleAction = {
+  type: 'ADD_SCHEDULE',
+  payload:?StateFlight
 }

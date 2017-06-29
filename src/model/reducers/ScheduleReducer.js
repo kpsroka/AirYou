@@ -1,7 +1,7 @@
 /* @flow */
 
-import { type Action, type DeleteScheduleAction, type IntegrateScheduleAction }
-    from '../Actions.js';
+import { type Action, type AddScheduleAction, type DeleteScheduleAction,
+  type IntegrateScheduleAction } from '../Actions.js';
 import { AIRPLANES } from '../Airplanes.js';
 import { AIRPORTS } from '../Airports.js';
 import { type StateFlight, CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn }
@@ -32,8 +32,13 @@ const ScheduleReducer = (
       return newSchedules;
     }
     case 'ADD_SCHEDULE': {
+      let addScheduleAction = ((action: any): AddScheduleAction);
       let newSchedules = stateSchedules.slice();
-      newSchedules.push(createNewSchedule(stateSchedules));
+      if (addScheduleAction.payload) {
+        newSchedules.push(addScheduleAction.payload);
+      } else {
+        newSchedules.push(createNewSchedule(stateSchedules));
+      }
       return newSchedules;
     }
     default:
