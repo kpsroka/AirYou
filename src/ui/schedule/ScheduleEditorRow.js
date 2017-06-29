@@ -6,8 +6,7 @@ class ScheduleEditorRow extends React.Component {
     super(props);
     this.state = {
       input: this.props.value,
-      editMode: false,
-      validInput: true,
+      editMode: false
     }
   }
 
