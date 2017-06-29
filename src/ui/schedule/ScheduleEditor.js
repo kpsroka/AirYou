@@ -19,11 +19,10 @@ class ScheduleEditor extends React.Component {
   }
 
   saveInputByPath(path, value) {
-    if (this.props.batchMode) {
-      this.setState((prevState) => ({
-        input: Objects.updateObject(prevState.input, path, value)
-      }));
-    } else {
+    this.setState((prevState) => ({
+      input: Objects.updateObject(prevState.input, path, value)
+    }));
+    if (!this.props.batchMode) {
       this.props.integrateSchedule(this.props.flightIndex, path, value);
     }
   }
@@ -36,7 +35,7 @@ class ScheduleEditor extends React.Component {
           <div className="modalWindowTitle">{this.props.title}</div>
           <ScheduleEditorRowComponent
               label="Flight number"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["flightNumber"]}
               valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
               editComponent={<ScheduleFlightCodeEditor/>}
@@ -44,21 +43,21 @@ class ScheduleEditor extends React.Component {
           />
           <ScheduleEditorRowComponent
               label="From"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["route", "departureAirportCode"]}
               editComponent={<ScheduleAirportEditor/>}
               onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="To"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["route", "arrivalAirportCode"]}
               editComponent={<ScheduleAirportEditor/>}
               onSave={saveInputByPath}
           />
           <ScheduleEditorRowComponent
               label="Airplane model"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["airplaneIndex"]}
               valueRender={(airplaneIndex) => (
                   `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
@@ -67,7 +66,7 @@ class ScheduleEditor extends React.Component {
               />
           <ScheduleEditorRowComponent
               label="Departure time"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["schedule", "departureTime"]}
               valueRender={(time) => formatTime(new Date(2017, 0, 1, time.hours, time.minutes))}
               editComponent={<ScheduleClockTimeEditor />}
@@ -75,7 +74,7 @@ class ScheduleEditor extends React.Component {
           />
           <ScheduleEditorRowComponent
               label="Departs on"
-              flightIndex={this.props.flightIndex}
+              flight={this.state.input}
               path={["schedule", "departureDaysOfWeek"]}
               valueRender={(input) => (
                   <ScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
