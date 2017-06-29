@@ -45,7 +45,7 @@ function mapStateToProps(state, ownProps) {
     extraProps.value = Objects.getObjectValueByPath(flight, ownProps.path);
   }
 
-  return Object.assign({}, ownProps, extraProps);
+  return extraProps;
 }
 
 const ScheduleEditorRowComponent = connect(mapStateToProps)(ScheduleEditorRow);
