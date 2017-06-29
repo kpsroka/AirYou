@@ -7,13 +7,25 @@ import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
 import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import { formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
+import Objects from '../../aux/Objects.js'
 import { AIRPLANES } from '../../model/Airplanes.js';
 import './ScheduleEditor.css';
 import '../common/ModalWindow.css';
 
 class ScheduleEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { input: props.flight };
+  }
+
   saveInputByPath(path, value) {
-    this.props.integrateSchedule(this.props.flightIndex, path, value);
+    if (this.props.batchMode) {
+      this.setState((prevState) => ({
+        input: Objects.updateObject(prevState.input, path, value)
+      }));
+    } else {
+      this.props.integrateSchedule(this.props.flightIndex, path, value);
+    }
   }
 
   render() {
@@ -71,8 +83,25 @@ class ScheduleEditor extends React.Component {
               editComponent={<ScheduleDaysOfWeekEditor />}
               onSave={saveInputByPath}
           />
+          {this.renderBatchModeElement()}
         </div>
     )
+  }
+
+  renderBatchModeElement() {
+    if (this.props.batchMode) {
+      return (
+          <div className="clickableText"
+               onClick={() => {
+                 this.props.addSchedule(this.state.input);
+                 this.props.onCloseWindowRequest();
+               }}>
+            Save schedule
+          </div>
+      );
+    } else {
+      return "";
+    }
   }
 }
 
