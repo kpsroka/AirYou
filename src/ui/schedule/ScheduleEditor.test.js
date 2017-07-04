@@ -35,32 +35,30 @@ describe("ScheduleEditor", () => {
     expect(onClickSpy.callCount).toEqual(2);
   });
 
-  test("passes flight to child rows", () => {
+  test("passes values to child rows", () => {
     const scheduleEditor = shallow(
         <ScheduleEditor flight={testFlight}>
-          <ScheduleEditorRowComponent />
-          <ScheduleEditorRowComponent />
+          <ScheduleEditorRowComponent path={["flightNumber"]} />
+          <ScheduleEditorRowComponent path={["airplaneIndex"]} />
         </ScheduleEditor>
     );
     const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
 
-    expect(childRows.length).toBeGreaterThan(0);  // If this fails, the test is useless.
-
-    for (let i = 0; i < childRows.length; i++) {
-      expect(childRows.at(i).props().flight).toEqual(testFlight);
-    }
+    expect(childRows.length).toEqual(2);
+    expect(childRows.at(0).props().value).toEqual(testFlight.flightNumber);
+    expect(childRows.at(1).props().value).toEqual(testFlight.airplaneIndex);
   });
 
   test("class props.integrateSchedule on child row onSave", () => {
     const testflightIndex = 123;
+    const testPath = ["route", "departureAirportCode"];
     const integrateScheduleSpy = sinon.spy();
     const scheduleEditor = shallow(
         <ScheduleEditor
             integrateSchedule={integrateScheduleSpy}
             flightIndex={testflightIndex}
             flight={testFlight}>
-          <ScheduleEditorRowComponent />
-          <ScheduleEditorRowComponent />
+          <ScheduleEditorRowComponent path={testPath} />
         </ScheduleEditor>
     );
 
@@ -68,7 +66,6 @@ describe("ScheduleEditor", () => {
     expect(childRows.length).toBeGreaterThan(0);
     expect(integrateScheduleSpy.called).toBe(false);
 
-    const testPath = ["route", "departureAirportCode"];
     const testValue = "VaLuE";
     childRows.at(0).props().onSave(testPath, testValue);
 

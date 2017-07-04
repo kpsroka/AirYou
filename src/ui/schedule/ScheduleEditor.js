@@ -34,7 +34,8 @@ class ScheduleEditor extends React.Component {
     return React.Children.map(children, (child) => {
       return React.cloneElement(child, {
         onSave: onSaveCallback,
-        flight: this.state.input
+        value: Objects.getObjectValueByPath(this.state.input, child.props.path),
+        canIntegrate: (input) => this.props.canIntegrate(child.props.path, input)
       });
     });
   }
