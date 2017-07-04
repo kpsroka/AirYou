@@ -1,7 +1,9 @@
 /* @flow */
 
-import { type Position, distanceBetween } from './Position.js';
-import { type Airport, AIRPORTS } from './Airports.js';
+import type { Position } from './Position.js';
+import { distanceBetween } from './Position.js';
+import type { Airport } from './Airports.js';
+import { AIRPORTS } from './Airports.js';
 import { AIRPLANES } from './Airplanes.js';
 
 export type StateTime = {

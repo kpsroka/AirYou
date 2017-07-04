@@ -1,11 +1,10 @@
 /* @flow */
 
-import { type Action, type AddScheduleAction, type DeleteScheduleAction,
-  type IntegrateScheduleAction } from '../Actions.js';
+import type { Action, AddScheduleAction, DeleteScheduleAction, IntegrateScheduleAction } from '../Actions.js';
 import { AIRPLANES } from '../Airplanes.js';
 import { AIRPORTS } from '../Airports.js';
-import { type StateFlight, CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn }
-    from '../State.js';
+import type { StateFlight } from '../State.js';
+import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../State.js';
 import Objects from '../../aux/Objects.js';
 
 const ScheduleReducer = (

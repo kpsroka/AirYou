@@ -1,6 +1,6 @@
 /* @flow */
 
-import { type StateFlight } from './State.js';
+import type { StateFlight } from './State.js';
 
 export type Action = {
   type:string

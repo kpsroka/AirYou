@@ -1,6 +1,6 @@
 /* @flow */
 
-import { type Position } from './Position.js';
+import type { Position } from './Position.js';
 
 export type Airport = {
   code:string,

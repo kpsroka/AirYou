@@ -1,9 +1,8 @@
 /* @flow */
 
 import { Time } from '../Constants.js';
-import {
-  type State, type StateFlight, type StateTime,
-  CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from './State.js';
+import type { State, StateFlight, StateTime } from './State.js';
+import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from './State.js';
 
 const DefaultState:State = createDefaultState();
 

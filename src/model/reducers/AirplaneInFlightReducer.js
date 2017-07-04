@@ -1,8 +1,8 @@
 /* @flow */
 
-import { type Action, type NewFlightAction } from '../Actions.js';
-import { type StateAirplaneInFlight, type StateFlight,
-  CreateAirplaneInFlightFn } from '../State.js';
+import type { Action, NewFlightAction } from '../Actions.js';
+import type { StateAirplaneInFlight, StateFlight } from '../State.js';
+import { CreateAirplaneInFlightFn } from '../State.js';
 
 const AirplaneInFlightReducer = (
     stateAirplanesInFlight:Array<StateAirplaneInFlight>,

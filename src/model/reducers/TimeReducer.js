@@ -1,10 +1,9 @@
 /* @flow */
 
 import { Time } from '../../Constants.js';
-import { type Action } from '../Actions.js';
-import { CreateAirplaneInFlightFn,
-  type State, type StateAirplaneInFlight, type StateFlight, type StateSchedule,
-  type StateTime } from '../State.js';
+import type { Action } from '../Actions.js';
+import type { State, StateAirplaneInFlight, StateFlight, StateSchedule, StateTime } from '../State.js';
+import { CreateAirplaneInFlightFn } from '../State.js';
 
 type TimeUpdate = {
   oldMillis:number,
@@ -61,7 +60,7 @@ function launchFlightsByIndices(
     :Array<StateAirplaneInFlight> {
   let newFlights:Array<?StateAirplaneInFlight> = flightIndices.map((flightIndex) => {
     let maybeFlight:?StateFlight = state.flights[flightIndex];
-    if (maybeFlight != null) {
+    if (maybeFlight) {
       return CreateAirplaneInFlightFn(maybeFlight);
     } else {
       return null;
