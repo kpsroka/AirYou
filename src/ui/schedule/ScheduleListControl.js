@@ -62,8 +62,6 @@ class ScheduleListControl extends React.Component {
               flight={flight}
               title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.flightUnderEdition}
-              canIntegrateFlightNumber={
-                (newFlightNumber) => this.props.canIntegrateFlightNumber(newFlightNumber)}
               onCloseWindowRequest={() => this.editSchedule(null)} />
       )
     } else {
