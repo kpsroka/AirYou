@@ -36,7 +36,12 @@ describe("ScheduleEditor", () => {
   });
 
   test("passes flight to child rows", () => {
-    const scheduleEditor = shallow(<ScheduleEditor flight={testFlight} />);
+    const scheduleEditor = shallow(
+        <ScheduleEditor flight={testFlight}>
+          <ScheduleEditorRowComponent />
+          <ScheduleEditorRowComponent />
+        </ScheduleEditor>
+    );
     const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
 
     expect(childRows.length).toBeGreaterThan(0);  // If this fails, the test is useless.
@@ -53,7 +58,11 @@ describe("ScheduleEditor", () => {
         <ScheduleEditor
             integrateSchedule={integrateScheduleSpy}
             flightIndex={testflightIndex}
-            flight={testFlight} />);
+            flight={testFlight}>
+          <ScheduleEditorRowComponent />
+          <ScheduleEditorRowComponent />
+        </ScheduleEditor>
+    );
 
     const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
     expect(childRows.length).toBeGreaterThan(0);

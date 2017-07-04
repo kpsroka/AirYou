@@ -2,7 +2,15 @@ import React from 'react';
 import ScheduleList from './ScheduleList.js';
 import ScheduleEditorComponent from './ScheduleEditorComponent.js';
 import './ScheduleListControl.css';
+import ScheduleAirplaneEditor from './ScheduleAirplaneEditor.js';
+import ScheduleAirportEditor from './ScheduleAirportEditor.js';
+import ScheduleClockTimeEditor from './ScheduleClockTimeEditor.js';
+import ScheduleDaysOfWeekEditor from './ScheduleDaysOfWeekEditor.js';
+import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
+import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
+import { formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
+import { AIRPLANES } from '../../model/Airplanes.js';
 
 class ScheduleListControl extends React.Component {
   constructor(props) {
@@ -62,7 +70,45 @@ class ScheduleListControl extends React.Component {
               flight={flight}
               title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.flightUnderEdition}
-              onCloseWindowRequest={() => this.editSchedule(null)} />
+              onCloseWindowRequest={() => this.editSchedule(null)}>
+            <ScheduleEditorRowComponent
+                label="Flight number"
+                path={["flightNumber"]}
+                valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
+                editComponent={<ScheduleFlightCodeEditor/>}
+            />
+            <ScheduleEditorRowComponent
+                label="From"
+                path={["route", "departureAirportCode"]}
+                editComponent={<ScheduleAirportEditor/>}
+            />
+            <ScheduleEditorRowComponent
+                label="To"
+                path={["route", "arrivalAirportCode"]}
+                editComponent={<ScheduleAirportEditor/>}
+            />
+            <ScheduleEditorRowComponent
+                label="Airplane model"
+                path={["airplaneIndex"]}
+                valueRender={(airplaneIndex) => (
+                    `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
+                editComponent={<ScheduleAirplaneEditor/>}
+            />
+            <ScheduleEditorRowComponent
+                label="Departure time"
+                path={["schedule", "departureTime"]}
+                valueRender={(time) => formatTime(new Date(2017, 0, 1, time.hours, time.minutes))}
+                editComponent={<ScheduleClockTimeEditor />}
+            />
+            <ScheduleEditorRowComponent
+                label="Departs on"
+                path={["schedule", "departureDaysOfWeek"]}
+                valueRender={(input) => (
+                    <ScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
+                )}
+                editComponent={<ScheduleDaysOfWeekEditor />}
+            />
+          </ScheduleEditorComponent>
       )
     } else {
       return "";
