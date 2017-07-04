@@ -3,8 +3,17 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import ScheduleEditor from './ScheduleEditor.js';
 import ScheduleEditorRowComponent from './ScheduleEditorRowComponent.js';
+import { AIRPLANES } from '../../model/Airplanes.js';
+import { AIRPORTS } from '../../model/Airports.js';
+import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../../model/State.js';
 
 describe("ScheduleEditor", () => {
+  let testFlight = CreateFlightFn(
+      "101",
+      AIRPLANES[0].shortName,
+      CreateRouteFn(AIRPORTS[0].code, AIRPORTS[1].code),
+      CreateFlightScheduleFn());
+
   test("displays title from props", () => {
     const testString = "Schedule Editor Test";
     const scheduleEditor = shallow(<ScheduleEditor title={testString} />);
@@ -26,35 +35,36 @@ describe("ScheduleEditor", () => {
     expect(onClickSpy.callCount).toEqual(2);
   });
 
-  test("passes flightIndex to child rows", () => {
-    const testIndex = 321;
-    const scheduleEditor = shallow(<ScheduleEditor flightIndex={testIndex} />);
+  test("passes flight to child rows", () => {
+    const scheduleEditor = shallow(<ScheduleEditor flight={testFlight} />);
     const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
 
     expect(childRows.length).toBeGreaterThan(0);  // If this fails, the test is useless.
 
     for (let i = 0; i < childRows.length; i++) {
-      expect(childRows.at(i).props().flightIndex).toEqual(testIndex);
+      expect(childRows.at(i).props().flight).toEqual(testFlight);
     }
   });
 
   test("class props.integrateSchedule on child row onSave", () => {
-    const testIndex = 386;
+    const testflightIndex = 123;
     const integrateScheduleSpy = sinon.spy();
     const scheduleEditor = shallow(
         <ScheduleEditor
             integrateSchedule={integrateScheduleSpy}
-            flightIndex={testIndex} />);
+            flightIndex={testflightIndex}
+            flight={testFlight} />);
 
     const childRows = scheduleEditor.find(ScheduleEditorRowComponent);
     expect(childRows.length).toBeGreaterThan(0);
     expect(integrateScheduleSpy.called).toBe(false);
 
-    const testPath = ["some", "path"];
+    const testPath = ["route", "departureAirportCode"];
     const testValue = "VaLuE";
     childRows.at(0).props().onSave(testPath, testValue);
 
     expect(integrateScheduleSpy.callCount).toBe(1);
-    expect(integrateScheduleSpy.calledWith(testIndex, testPath, testValue)).toBe(true);
+    expect(integrateScheduleSpy.calledWith(testflightIndex, testPath, testValue))
+        .toBe(true);
   });
 });
