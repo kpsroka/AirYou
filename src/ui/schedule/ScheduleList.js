@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatDayOfWeek, formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
+import { AIRPLANES } from '../../model/Airplanes.js';
 
 import './ScheduleList.css';
 import '../common/ClickableText.css';
@@ -19,8 +20,12 @@ class ScheduleList extends React.Component {
             <div
               key={index}
               className="scheduleListItem">
-              <div className="scheduleListItemFlightCode">{AirlineIataCode}{flight.flightNumber}</div>
-              <div className="scheduleListItemAirplaneShortName">{flight.airplane}</div>
+              <div className="scheduleListItemFlightCode">
+                {AirlineIataCode}{flight.flightNumber}
+              </div>
+              <div className="scheduleListItemAirplaneShortName">
+                {AIRPLANES[flight.airplaneIndex].shortName}
+              </div>
               <div className="scheduleListItemRoute">
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
               </div>
