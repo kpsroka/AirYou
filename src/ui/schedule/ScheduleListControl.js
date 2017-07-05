@@ -56,7 +56,7 @@ class ScheduleListControl extends React.Component {
                 flights={this.props.flights}
                 onAddSchedule={() => this.onAddSchedule()}
                 onDeleteSchedule={this.props.deleteSchedule}
-                onEditSchedule={(flightIndex) => this.editSchedule(flightIndex)}
+                onEditSchedule={(flightIndex) => this.editFlightByIndex(flightIndex)}
                 onCloseWindowRequest={() => this.toggleScheduleList()}
             />
       )
@@ -77,7 +77,7 @@ class ScheduleListControl extends React.Component {
               flight={flight}
               title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.editedFlightIndex}
-              onCloseWindowRequest={() => this.editSchedule(null)}>
+              onCloseWindowRequest={() => this.onEditorClosing()}>
             <ScheduleEditorRow
                 label="Flight number"
                 path={["flightNumber"]}
@@ -126,7 +126,18 @@ class ScheduleListControl extends React.Component {
     this.props.addSchedule();
   }
 
-  editSchedule(flightIndex) {
+  onEditorClosing() {
+    this.setState({
+      editedFlight: null,
+      editedFlightIndex: null
+    });
+  }
+
+  editFlight(flight) {
+    this.setState({editedFlight: flight});
+  }
+
+  editFlightByIndex(flightIndex) {
     this.setState({editedFlightIndex: flightIndex});
   }
 

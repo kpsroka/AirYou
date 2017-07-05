@@ -13,7 +13,7 @@ class ScheduleEditor extends React.Component {
     this.setState((prevState) => ({
       input: Objects.updateObject(prevState.input, path, value)
     }));
-    if (!this.props.batchMode) {
+    if (this.props.flightIndex) {
       this.props.integrateSchedule(this.props.flightIndex, path, value);
     }
   }
@@ -25,7 +25,7 @@ class ScheduleEditor extends React.Component {
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">{this.props.title}</div>
           {this.enrichChildren(this.props.children, saveInputByPath)}
-          {this.renderBatchModeElement()}
+          {this.renderSaveFlightElement()}
         </div>
     )
   }
@@ -40,8 +40,8 @@ class ScheduleEditor extends React.Component {
     });
   }
 
-  renderBatchModeElement() {
-    if (this.props.batchMode) {
+  renderSaveFlightElement() {
+    if (!this.props.flightIndex) {
       return (
           <div className="clickableText"
                onClick={() => {
