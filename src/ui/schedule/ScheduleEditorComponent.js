@@ -24,7 +24,7 @@ const integrateChecks = {
 };
 
 function getFlight(flights, props) {
-  if (props.flightIndex !== undefined) {
+  if (typeof props.flightIndex === 'number') {
     return flights[props.flightIndex];
   } else if (props.flight !== undefined) {
     return props.flight;

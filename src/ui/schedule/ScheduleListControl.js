@@ -16,7 +16,11 @@ import './ScheduleListControl.css';
 class ScheduleListControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {scheduleListVisible: false, editedFlightIndex: null};
+    this.state = {
+      scheduleListVisible: false,
+      editedFlightIndex: null,
+      editedFlight: null
+    };
   }
 
   render() {
@@ -62,9 +66,11 @@ class ScheduleListControl extends React.Component {
   }
 
   maybeRenderScheduleEditor() {
-    if (this.state.editedFlightIndex !== null &&
-        this.props.flights[this.state.editedFlightIndex]) {
-      const flight = this.props.flights[this.state.editedFlightIndex];
+    if (this.state.editedFlightIndex !== null || this.state.editedFlight !== null) {
+      const flight =
+          this.state.editedFlight !== null ?
+              this.state.editedFlight :
+              this.props.flights[this.state.editedFlightIndex];
       const flightCode = `${AirlineIataCode}${flight.flightNumber}`;
       return (
           <ScheduleEditorComponent
@@ -127,7 +133,8 @@ class ScheduleListControl extends React.Component {
   toggleScheduleList() {
     this.setState((prevState) => ({
       scheduleListVisible: !prevState.scheduleListVisible,
-      editedFlightIndex: null
+      editedFlightIndex: null,
+      editedFlight: null,
     }));
   }
 }
