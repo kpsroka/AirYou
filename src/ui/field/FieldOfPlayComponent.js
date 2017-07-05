@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import FieldOfPlay from './FieldOfPlay.js';
 import { AIRPORTS } from '../../model/Airports.js';
+import { distanceBetween } from '../../model/Position.js'
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +18,10 @@ function mapStateToProps(state) {
 function getAirplanePosition(route, distanceRemainingM) {
   let departurePosition = findAirportPosition(route.departureAirportCode);
   let arrivalPosition = findAirportPosition(route.arrivalAirportCode);
-  let progressPct = calculateFlightProgress(route.distanceKm, distanceRemainingM);
+  let progressPct = calculateFlightProgress(
+      departurePosition,
+      arrivalPosition,
+      distanceRemainingM);
 
   return positionToXYCoords(departurePosition, arrivalPosition, progressPct);
 }
@@ -26,8 +30,9 @@ function findAirportPosition(departureAirportCode) {
   return AIRPORTS.find((airport) => airport.code === departureAirportCode).position;
 }
 
-function calculateFlightProgress(distanceKm, distanceRemainingM) {
-  return 100 - (100 * ((distanceRemainingM) / (distanceKm * 1000)));
+function calculateFlightProgress(departurePostion, arrivalPosition, distanceRemainingM) {
+  let distanceM = distanceBetween(departurePostion, arrivalPosition) * 1000;
+  return 100 - (100 * (distanceRemainingM / distanceM));
 }
 
 function positionToXYCoords(departurePosition, arrivalPosition, flightProgressPct) {

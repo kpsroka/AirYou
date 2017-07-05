@@ -24,7 +24,6 @@ export type StateSchedule = {
 export type StateRoute = {
   departureAirportCode:string,
   arrivalAirportCode:string,
-  distanceKm:number
 }
 
 export type StateAirplaneInFlight = {
@@ -55,9 +54,6 @@ export const CreateRouteFn = (
   return {
     departureAirportCode: departureAirportCode,
     arrivalAirportCode: arrivalAirportCode,
-    distanceKm: distanceBetween(
-        getAirportPosition(departureAirportCode),
-        getAirportPosition(arrivalAirportCode)),
   }
 };
 
@@ -74,11 +70,6 @@ export const CreateFlightFn = (
     schedule: schedule
   }
 };
-
-function getAirportPosition(airportCode:string):Position {
-  let maybeAirport:?Airport = AIRPORTS.find((airport) => (airport.code === airportCode));
-  return maybeAirport ? maybeAirport.position : { x: 0, y: 0 };
-}
 
 export const CreateFlightScheduleFn = (
     departureHours:number = 0,
@@ -98,12 +89,23 @@ function getAirplaneSpeedMps(airplaneIndex:number):number {
   return AIRPLANES[airplaneIndex].speedKmph / 3.6;
 }
 
+function getAirportPosition(airportCode:string):Position {
+  let maybeAirport:?Airport = AIRPORTS.find((airport) => (airport.code === airportCode));
+  return maybeAirport ? maybeAirport.position : { x: 0, y: 0 };
+}
+
+function getRouteDistance(route) {
+  return distanceBetween(
+      getAirportPosition(route.departureAirportCode),
+      getAirportPosition(route.arrivalAirportCode));
+}
+
 export const CreateAirplaneInFlightFn = (flight:StateFlight):StateAirplaneInFlight => {
   return {
     flightNumber: flight.flightNumber,
     airplaneIndex: flight.airplaneIndex,
     route: flight.route,
-    distanceRemainingM: flight.route.distanceKm * 1000,
+    distanceRemainingM: getRouteDistance(flight.route) * 1000,
     speedMps: getAirplaneSpeedMps(flight.airplaneIndex),
   };
 };
