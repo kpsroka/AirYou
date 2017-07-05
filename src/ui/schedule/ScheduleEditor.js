@@ -43,7 +43,7 @@ class ScheduleEditor extends React.Component {
   renderSaveFlightElement() {
     if (!this.props.flightIndex) {
       return (
-          <div className="clickableText"
+          <div className="saveScheduleButton clickableText"
                onClick={() => {
                  this.props.addSchedule(this.state.input);
                  this.props.onCloseWindowRequest();

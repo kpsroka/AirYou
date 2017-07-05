@@ -11,3 +11,8 @@
   align-items: center;
   margin: 0 2px;
 }
+
+.saveScheduleButton {
+  margin: 8px;
+  font-size: 18px;
+}
