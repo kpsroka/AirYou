@@ -16,7 +16,7 @@ import './ScheduleListControl.css';
 class ScheduleListControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {scheduleListVisible: false, flightUnderEdition: null};
+    this.state = {scheduleListVisible: false, editedFlightIndex: null};
   }
 
   render() {
@@ -50,7 +50,7 @@ class ScheduleListControl extends React.Component {
       return (
             <ScheduleList
                 flights={this.props.flights}
-                onAddSchedule={this.props.addSchedule}
+                onAddSchedule={() => this.onAddSchedule()}
                 onDeleteSchedule={this.props.deleteSchedule}
                 onEditSchedule={(flightIndex) => this.editSchedule(flightIndex)}
                 onCloseWindowRequest={() => this.toggleScheduleList()}
@@ -62,15 +62,15 @@ class ScheduleListControl extends React.Component {
   }
 
   maybeRenderScheduleEditor() {
-    if (this.state.flightUnderEdition !== null &&
-        this.props.flights[this.state.flightUnderEdition]) {
-      const flight = this.props.flights[this.state.flightUnderEdition];
+    if (this.state.editedFlightIndex !== null &&
+        this.props.flights[this.state.editedFlightIndex]) {
+      const flight = this.props.flights[this.state.editedFlightIndex];
       const flightCode = `${AirlineIataCode}${flight.flightNumber}`;
       return (
           <ScheduleEditorComponent
               flight={flight}
               title={`AirYou flight ${flightCode}`}
-              flightIndex={this.state.flightUnderEdition}
+              flightIndex={this.state.editedFlightIndex}
               onCloseWindowRequest={() => this.editSchedule(null)}>
             <ScheduleEditorRow
                 label="Flight number"
@@ -116,14 +116,18 @@ class ScheduleListControl extends React.Component {
     }
   }
 
+  onAddSchedule() {
+    this.props.addSchedule();
+  }
+
   editSchedule(flightIndex) {
-    this.setState({flightUnderEdition: flightIndex});
+    this.setState({editedFlightIndex: flightIndex});
   }
 
   toggleScheduleList() {
     this.setState((prevState) => ({
       scheduleListVisible: !prevState.scheduleListVisible,
-      flightUnderEdition: null
+      editedFlightIndex: null
     }));
   }
 }
