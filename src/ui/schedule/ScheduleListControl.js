@@ -10,7 +10,8 @@ import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
 import { formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
-
+import { AIRPORTS } from "../../model/Airports.js";
+import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../../model/State.js';
 import './ScheduleListControl.css';
 
 class ScheduleListControl extends React.Component {
@@ -123,7 +124,31 @@ class ScheduleListControl extends React.Component {
   }
 
   onAddSchedule() {
-    this.props.addSchedule();
+    this.editFlight(this.createNewFlight(this.props.flights));
+  }
+
+  createNewFlight(flights) {
+    return CreateFlightFn(
+        this.findNextAvailableFlightNumber(flights),
+        AIRPLANES[0].shortName,
+        CreateRouteFn(AIRPORTS[0].code, AIRPORTS[1].code),
+        CreateFlightScheduleFn()
+    );
+  }
+
+  findNextAvailableFlightNumber(flights) {
+    let flightNumbers =
+        flights.map(schedule => Number(schedule.flightNumber)).sort((a, b) => (a - b));
+    let nextCandidateNumber = 1;
+    for (let i = 0; i < flightNumbers.length; i++) {
+      if (flightNumbers[i] > nextCandidateNumber) {
+        break;
+      } else if (flightNumbers[i] === nextCandidateNumber) {
+        nextCandidateNumber++;
+      }
+    }
+
+    return String(nextCandidateNumber);
   }
 
   onEditorClosing() {
