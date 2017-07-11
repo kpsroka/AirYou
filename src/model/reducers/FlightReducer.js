@@ -7,7 +7,7 @@ import type { StateFlight } from '../State.js';
 import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../State.js';
 import Objects from '../../aux/Objects.js';
 
-const ScheduleReducer = (
+const FlightReducer = (
     stateSchedules:Array<StateFlight>,
     action:Action)
     :Array<StateFlight> => {
@@ -69,4 +69,4 @@ function findNextAvailableFlightNumber(schedules:Array<StateFlight>):string {
   return String(nextCandidateNumber);
 }
 
-export default ScheduleReducer;
+export default FlightReducer;
