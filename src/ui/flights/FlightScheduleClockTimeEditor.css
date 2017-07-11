@@ -1,9 +1,9 @@
-.scheduleClockTimeEditor {
+.flightScheduleClockTimeEditor {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 }
 
-.scheduleClockTimeEditor > input {
+.flightScheduleClockTimeEditor > input {
   width: 24px;
 }

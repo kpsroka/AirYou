@@ -1,7 +1,7 @@
 import React from 'react';
-import './ScheduleClockTimeEditor.css';
+import './FlightScheduleClockTimeEditor.css';
 
-class ScheduleClockTimeEditor extends React.Component {
+class FlightScheduleClockTimeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = props.initialValue;
@@ -9,7 +9,7 @@ class ScheduleClockTimeEditor extends React.Component {
 
   render() {
     return (
-      <div className="scheduleClockTimeEditor">
+      <div className="flightScheduleClockTimeEditor">
         <input id="hours"
                type="number"
                autoComplete="off"
@@ -40,4 +40,4 @@ class ScheduleClockTimeEditor extends React.Component {
   }
 }
 
-export default ScheduleClockTimeEditor;
+export default FlightScheduleClockTimeEditor;

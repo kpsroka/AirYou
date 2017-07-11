@@ -1,20 +1,20 @@
 import React from 'react';
-import ScheduleList from './ScheduleList.js';
-import ScheduleEditorComponent from './ScheduleEditorComponent.js';
-import ScheduleEditorRow from './ScheduleEditorRow.js';
-import ScheduleAirplaneEditor from './ScheduleAirplaneEditor.js';
-import ScheduleAirportEditor from './ScheduleAirportEditor.js';
-import ScheduleClockTimeEditor from './ScheduleClockTimeEditor.js';
-import ScheduleDaysOfWeekEditor from './ScheduleDaysOfWeekEditor.js';
-import ScheduleFlightCodeEditor from './ScheduleFlightCodeEditor.js';
+import FlightEditorComponent from './FlightEditorComponent.js';
+import FlightEditorRow from './FlightEditorRow.js';
+import FlightAirplaneEditor from './FlightAirplaneEditor.js';
+import FlightAirportEditor from './FlightAirportEditor.js';
+import FlightScheduleClockTimeEditor from './FlightScheduleClockTimeEditor.js';
+import FlightScheduleDaysOfWeekEditor from './FlightScheduleDaysOfWeekEditor.js';
+import FlightCodeEditor from './FlightCodeEditor.js';
+import FlightsList from './FlightsList.js';
 import { formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
 import { AIRPORTS } from "../../model/Airports.js";
 import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../../model/State.js';
-import './ScheduleListControl.css';
+import './FlightsListControl.css';
 
-class ScheduleListControl extends React.Component {
+class FlightsListControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +27,7 @@ class ScheduleListControl extends React.Component {
   render() {
     if (this.state.scheduleListVisible) {
       return (
-          <div className="scheduleListWrapper">
+          <div className="flightsListWrapper">
             {this.renderInnerContent(true)}
           </div>
       );
@@ -38,11 +38,11 @@ class ScheduleListControl extends React.Component {
 
   renderInnerContent(renderScheduleList) {
     return (
-        <div className="scheduleListControl">
+        <div className="flightsListControl">
           <button
-              className="scheduleListToggleButton"
+              className="flightsListToggleButton"
               onClick={() => {this.toggleScheduleList()}}>
-            Schedules
+            Flights
           </button>
           {this.maybeRenderScheduleList(renderScheduleList)}
           {this.maybeRenderScheduleEditor()}
@@ -53,7 +53,7 @@ class ScheduleListControl extends React.Component {
   maybeRenderScheduleList(renderScheduleList=false) {
     if (renderScheduleList) {
       return (
-            <ScheduleList
+            <FlightsList
                 flights={this.props.flights}
                 onAddSchedule={() => this.onAddSchedule()}
                 onDeleteSchedule={this.props.deleteSchedule}
@@ -74,49 +74,49 @@ class ScheduleListControl extends React.Component {
               this.props.flights[this.state.editedFlightIndex];
       const flightCode = `${AirlineIataCode}${flight.flightNumber}`;
       return (
-          <ScheduleEditorComponent
+          <FlightEditorComponent
               flight={flight}
               title={`AirYou flight ${flightCode}`}
               flightIndex={this.state.editedFlightIndex}
               onCloseWindowRequest={() => this.onEditorClosing()}>
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="Flight number"
                 path={["flightNumber"]}
                 valueRender={(flightNumber) => (`${AirlineIataCode}${flightNumber}`)}
-                editComponent={<ScheduleFlightCodeEditor/>}
+                editComponent={<FlightCodeEditor/>}
             />
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="From"
                 path={["route", "departureAirportCode"]}
-                editComponent={<ScheduleAirportEditor/>}
+                editComponent={<FlightAirportEditor/>}
             />
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="To"
                 path={["route", "arrivalAirportCode"]}
-                editComponent={<ScheduleAirportEditor/>}
+                editComponent={<FlightAirportEditor/>}
             />
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="Airplane model"
                 path={["airplaneIndex"]}
                 valueRender={(airplaneIndex) => (
                     `${AIRPLANES[airplaneIndex].manufacturer} ${AIRPLANES[airplaneIndex].model}`)}
-                editComponent={<ScheduleAirplaneEditor/>}
+                editComponent={<FlightAirplaneEditor/>}
             />
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="Departure time"
                 path={["schedule", "departureTime"]}
                 valueRender={(time) => formatTime(new Date(2017, 0, 1, time.hours, time.minutes))}
-                editComponent={<ScheduleClockTimeEditor />}
+                editComponent={<FlightScheduleClockTimeEditor />}
             />
-            <ScheduleEditorRow
+            <FlightEditorRow
                 label="Departs on"
                 path={["schedule", "departureDaysOfWeek"]}
                 valueRender={(input) => (
-                    <ScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
+                    <FlightScheduleDaysOfWeekEditor initialValue={input} disabled="disabled" />
                 )}
-                editComponent={<ScheduleDaysOfWeekEditor />}
+                editComponent={<FlightScheduleDaysOfWeekEditor />}
             />
-          </ScheduleEditorComponent>
+          </FlightEditorComponent>
       )
     } else {
       return "";
@@ -175,4 +175,4 @@ class ScheduleListControl extends React.Component {
   }
 }
 
-export default ScheduleListControl;
+export default FlightsListControl;

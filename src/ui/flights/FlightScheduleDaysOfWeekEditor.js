@@ -1,10 +1,10 @@
 import React from 'react';
 import { formatDayOfWeek } from '../common/DateTimeFormatter.js';
-import './ScheduleDaysOfWeekEditor.css';
+import './FlightScheduleDaysOfWeekEditor.css';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
-class ScheduleDaysOfWeekEditor extends React.Component {
+class FlightScheduleDaysOfWeekEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ class ScheduleDaysOfWeekEditor extends React.Component {
 
   render() {
     return (
-        <div className="scheduleDaysOfWeekEditor">
+        <div className="flightScheduleDaysOfWeekEditor">
           {DAYS_OF_WEEK_RANGE.map(
               dayOfWeek => this.getDayOfWeekTag(dayOfWeek, this.state.daysOfWeek))}
         </div>
@@ -26,7 +26,7 @@ class ScheduleDaysOfWeekEditor extends React.Component {
       console.log("Rendering sunday with val: " + departureDaysOfWeek[dayOfWeek]);
     }
     return (
-        <div key={dayOfWeek} className="scheduleEditorDayBlock">
+        <div key={dayOfWeek} className="flightScheduleEditorDayBlock">
           <div>{formatDayOfWeek(dayOfWeek)}</div>
           <input
               type="checkbox"
@@ -55,4 +55,4 @@ class ScheduleDaysOfWeekEditor extends React.Component {
   }
 }
 
-export default ScheduleDaysOfWeekEditor;
+export default FlightScheduleDaysOfWeekEditor;

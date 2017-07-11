@@ -1,10 +1,10 @@
-.scheduleEditor {
+.flightEditor {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.scheduleEditorDepartureDayBlock {
+.flightScheduleEditorDepartureDayBlock {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@
   margin: 0 2px;
 }
 
-.saveScheduleButton {
+.saveFlightButton {
   margin: 8px;
   font-size: 18px;
 }

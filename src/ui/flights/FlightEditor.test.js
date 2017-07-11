@@ -1,13 +1,13 @@
 import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import ScheduleEditor from './ScheduleEditor.js';
-import ScheduleEditorRow from './ScheduleEditorRow.js';
+import FlightEditor from './FlightEditor.js';
+import FlightEditorRow from './FlightEditorRow.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
 import { AIRPORTS } from '../../model/Airports.js';
 import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from '../../model/State.js';
 
-describe("ScheduleEditor", () => {
+describe("FlightEditor", () => {
   let testFlight = CreateFlightFn(
       "101",
       AIRPLANES[0].shortName,
@@ -16,14 +16,14 @@ describe("ScheduleEditor", () => {
 
   test("displays title from props", () => {
     const testString = "Schedule Editor Test";
-    const scheduleEditor = shallow(<ScheduleEditor title={testString} />);
+    const scheduleEditor = shallow(<FlightEditor title={testString} />);
     expect(scheduleEditor.find(".modalWindowTitle").length).toEqual(1);
     expect(scheduleEditor.find(".modalWindowTitle").text()).toEqual(testString);
   });
 
   test("launches provided fn on close click", () => {
     const onClickSpy = sinon.spy();
-    const scheduleEditor = shallow(<ScheduleEditor onCloseWindowRequest={onClickSpy} />);
+    const scheduleEditor = shallow(<FlightEditor onCloseWindowRequest={onClickSpy} />);
     expect(scheduleEditor.find(".modalWindowClose").length).toEqual(1);
 
     const scheduleCloseLabel = scheduleEditor.find(".modalWindowClose").at(0);
@@ -37,12 +37,12 @@ describe("ScheduleEditor", () => {
 
   test("passes values to child rows", () => {
     const scheduleEditor = shallow(
-        <ScheduleEditor flight={testFlight}>
+        <FlightEditor flight={testFlight}>
           <ScheduleEditorRow path={["flightNumber"]} />
           <ScheduleEditorRow path={["airplaneIndex"]} />
-        </ScheduleEditor>
+        </FlightEditor>
     );
-    const childRows = scheduleEditor.find(ScheduleEditorRow);
+    const childRows = scheduleEditor.find(FlightEditorRow);
 
     expect(childRows.length).toEqual(2);
     expect(childRows.at(0).props().value).toEqual(testFlight.flightNumber);
@@ -54,15 +54,15 @@ describe("ScheduleEditor", () => {
     const testPath = ["route", "departureAirportCode"];
     const integrateScheduleSpy = sinon.spy();
     const scheduleEditor = shallow(
-        <ScheduleEditor
+        <FlightEditor
             integrateSchedule={integrateScheduleSpy}
             flightIndex={testflightIndex}
             flight={testFlight}>
           <ScheduleEditorRow path={testPath} />
-        </ScheduleEditor>
+        </FlightEditor>
     );
 
-    const childRows = scheduleEditor.find(ScheduleEditorRow);
+    const childRows = scheduleEditor.find(FlightEditorRow);
     expect(childRows.length).toBeGreaterThan(0);
     expect(integrateScheduleSpy.called).toBe(false);
 

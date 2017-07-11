@@ -1,7 +1,7 @@
 import React from 'react';
 import { AIRPLANES } from '../../model/Airplanes.js';
 
-class ScheduleAirplaneEditor extends React.Component {
+class FlightAirplaneEditor extends React.Component {
   render() {
     return (
         <select
@@ -17,4 +17,4 @@ class ScheduleAirplaneEditor extends React.Component {
   }
 }
 
-export default ScheduleAirplaneEditor;
+export default FlightAirplaneEditor;

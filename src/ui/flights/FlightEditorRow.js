@@ -1,7 +1,7 @@
 import React from 'react';
-import './ScheduleEditorRow.css';
+import './FlightEditorRow.css';
 
-class ScheduleEditorRow extends React.Component {
+class FlightEditorRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,9 +12,9 @@ class ScheduleEditorRow extends React.Component {
 
   render() {
     return (
-      <div className="scheduleEditorRow">
-        <div className="scheduleEditorLabel">{this.props.label}</div>
-        <div className="scheduleEditorValue">
+      <div className="flightEditorRow">
+        <div className="flightEditorLabel">{this.props.label}</div>
+        <div className="flightEditorValue">
           {this.renderValue()}
         </div>
         <div className={this.getEditButtonClassNames()}
@@ -35,17 +35,17 @@ class ScheduleEditorRow extends React.Component {
   }
 
   getEditButtonClassNames() {
-    return "scheduleEditorButton" + (this.state.editMode ? " hidden" : "");
+    return "flightEditorButton" + (this.state.editMode ? " hidden" : "");
   }
 
   getSaveButtonClassNames() {
-    return "scheduleEditorButton" +
+    return "flightEditorButton" +
         (this.state.editMode ? "" : " hidden") +
         (this.isSaveable() ? "" : " disabled");
   }
 
   getCancelButtonClassNames() {
-    return "scheduleEditorButton" + (this.state.editMode ? "" : " hidden");
+    return "flightEditorButton" + (this.state.editMode ? "" : " hidden");
   }
 
   setEditMode(value) {
@@ -88,4 +88,4 @@ class ScheduleEditorRow extends React.Component {
   }
 }
 
-export default ScheduleEditorRow;
+export default FlightEditorRow;

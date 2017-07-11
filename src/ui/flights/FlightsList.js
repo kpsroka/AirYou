@@ -3,33 +3,33 @@ import { formatDayOfWeek, formatTime } from '../common/DateTimeFormatter.js';
 import { AirlineIataCode } from '../../Constants.js';
 import { AIRPLANES } from '../../model/Airplanes.js';
 
-import './ScheduleList.css';
+import './FlightsList.css';
 import '../common/ClickableText.css';
 import '../common/ModalWindow.css';
 
 let DAYS_OF_WEEK_RANGE = [0, 1, 2, 3, 4, 5, 6];
 
-class ScheduleList extends React.Component {
+class FlightsList extends React.Component {
   render() {
     return (
-      <div className="modalWindow scheduleList">
+      <div className="modalWindow flightsList">
         <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
         <div className="modalWindowTitle">AirYou flight schedules</div>
         {this.props.flights.map((flight, index) => {
           return (
             <div
               key={index}
-              className="scheduleListItem">
-              <div className="scheduleListItemFlightCode">
+              className="flightsListItem">
+              <div className="flightsListItemFlightCode">
                 {AirlineIataCode}{flight.flightNumber}
               </div>
-              <div className="scheduleListItemAirplaneShortName">
+              <div className="flightsListItemAirplaneShortName">
                 {AIRPLANES[flight.airplaneIndex].shortName}
               </div>
-              <div className="scheduleListItemRoute">
+              <div className="flightsListItemRoute">
                 {flight.route.departureAirportCode}-{flight.route.arrivalAirportCode}
               </div>
-              <div className="scheduleListItemDepartureTime">
+              <div className="flightsListItemDepartureTime">
                 {formatTime(
                     new Date(
                         2017, 0, 1,
@@ -38,7 +38,7 @@ class ScheduleList extends React.Component {
               </div>
               <div>
                 {DAYS_OF_WEEK_RANGE.map((dayOfWeek) => (
-                  ScheduleList.getDayOfWeekTag(dayOfWeek, flight.schedule)
+                  FlightsList.getDayOfWeekTag(dayOfWeek, flight.schedule)
                 ))}
               </div>
               <div className="clickableText"
@@ -48,9 +48,9 @@ class ScheduleList extends React.Component {
             </div>
           )
         })}
-        <span className="scheduleListAddScheduleLabel clickableText"
+        <span className="addFlightLabel clickableText"
             onClick={() => this.props.onAddSchedule()}>
-          Add new schedule
+          Add new flight
         </span>
       </div>
     );
@@ -65,4 +65,4 @@ class ScheduleList extends React.Component {
   }
 }
 
-export default ScheduleList;
+export default FlightsList;

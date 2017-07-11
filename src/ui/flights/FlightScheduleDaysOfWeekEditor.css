@@ -1,9 +1,9 @@
-.scheduleDaysOfWeekEditor {
+.flightScheduleDaysOfWeekEditor {
   display: flex;
   flex-direction: row;
 }
 
-.scheduleEditorDayBlock {
+.flightScheduleEditorDayBlock {
   display: flex;
   flex-direction: column;
   justify-content: center;

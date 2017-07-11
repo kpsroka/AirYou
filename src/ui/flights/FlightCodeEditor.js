@@ -1,8 +1,8 @@
 import React from 'react';
-import './ScheduleFlightCodeEditor.css';
+import './FlightCodeEditor.css';
 import { AirlineIataCode } from '../../Constants.js';
 
-class ScheduleFlightCodeEditor extends React.Component {
+class FlightCodeEditor extends React.Component {
   render() {
     return (
         <div>
@@ -19,4 +19,4 @@ class ScheduleFlightCodeEditor extends React.Component {
   }
 }
 
-export default ScheduleFlightCodeEditor;
+export default FlightCodeEditor;

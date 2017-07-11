@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ScheduleEditor from './ScheduleEditor.js';
+import FlightEditor from './FlightEditor.js';
 import Objects from '../../aux/Objects.js';
 
 const integrateChecks = {
@@ -56,6 +56,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const ScheduleEditorComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleEditor);
+const FlightEditorComponent = connect(mapStateToProps, mapDispatchToProps)(FlightEditor);
 
-export default ScheduleEditorComponent;
+export default FlightEditorComponent;

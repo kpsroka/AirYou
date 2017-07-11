@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ScheduleListControl from './ScheduleListControl.js';
+import FlightsListControl from './FlightsListControl.js';
 
 function mapStateToProps(state) {
   return {
@@ -13,6 +13,6 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-const ScheduleListComponent = connect(mapStateToProps, mapDispatchToProps)(ScheduleListControl);
+const FlightsListComponent = connect(mapStateToProps, mapDispatchToProps)(FlightsListControl);
 
-export default ScheduleListComponent;
+export default FlightsListComponent;

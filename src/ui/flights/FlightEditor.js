@@ -1,9 +1,9 @@
 import React from 'react';
 import Objects from '../../aux/Objects.js'
-import './ScheduleEditor.css';
+import './FlightEditor.css';
 import '../common/ModalWindow.css';
 
-class ScheduleEditor extends React.Component {
+class FlightEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = { input: props.flight };
@@ -21,7 +21,7 @@ class ScheduleEditor extends React.Component {
   render() {
     let saveInputByPath = this.saveInputByPath.bind(this);
     return (
-        <div className="modalWindow scheduleEditor">
+        <div className="modalWindow flightEditor">
           <div className="modalWindowClose" onClick={() => this.props.onCloseWindowRequest()}>✖</div>
           <div className="modalWindowTitle">{this.props.title}</div>
           {this.enrichChildren(this.props.children, saveInputByPath)}
@@ -43,7 +43,7 @@ class ScheduleEditor extends React.Component {
   renderSaveFlightElement() {
     if (!this.props.flightIndex) {
       return (
-          <div className="saveScheduleButton clickableText"
+          <div className="saveFlightButton clickableText"
                onClick={() => {
                  this.props.addSchedule(this.state.input);
                  this.props.onCloseWindowRequest();
@@ -57,4 +57,4 @@ class ScheduleEditor extends React.Component {
   }
 }
 
-export default ScheduleEditor;
+export default FlightEditor;

@@ -1,4 +1,4 @@
-.scheduleEditorRow {
+.flightEditorRow {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -7,27 +7,27 @@
   flex-shrink: 0;
 }
 
-.scheduleEditorRow:hover {
+.flightEditorRow:hover {
   background-color: #031;
 }
 
-.scheduleEditorRow > div {
+.flightEditorRow > div {
   flex: 1;
 }
 
-.scheduleEditorLabel {
+.flightEditorLabel {
   width: 180px;
   margin-right: 20px;
 }
 
-.scheduleEditorValue {
+.flightEditorValue {
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 240px;
 }
 
-.scheduleEditorButton {
+.flightEditorButton {
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
   padding-left: 6px;
 }
 
-.scheduleEditorButton > div {
+.flightEditorButton > div {
   flex: 1;
 }
 
