@@ -4,6 +4,7 @@ import type { Position } from './Position.js';
 
 export type Airport = {
   code:string,
+  fullName:string,
   position:Position,
   size:number
 };
@@ -39,6 +40,7 @@ export function createAirport(
     :Airport {
   return {
     code: code,
+    fullName: `${code} Airport`,
     position: {
       x: positionX,
       y: positionY
