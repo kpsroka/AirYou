@@ -3,19 +3,27 @@ import './AirportList.css';
 import '../common/ModalWindow.css';
 
 class AirportList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { selectedAirport: null };
+  }
   render() {
     return (
-        <div className="modalWindow">
+        <div className="modalWindow airportListWindow">
           <div className="airportListContainer">
-            {this.props.airports.map((airport) => AirportList.renderAirportEntry(airport))}
+            {this.props.airports.map((airport) => this.renderAirportEntry(airport))}
+          </div>
+          <div>
+            {this.renderAiportDetails()}
           </div>
         </div>
     );
   }
 
-  static renderAirportEntry(airport) {
+  renderAirportEntry(airport) {
     return (
-      <div key={airport.code} className="airportListEntry">
+      <div key={airport.code} className="airportListEntry"
+          onClick={() => this.selectAirport(airport.code)}>
         <div className="airportListName">{airport.fullName}</div>
         <div>
           {AirportList.renderAirportRank(airport.size)}
@@ -24,11 +32,23 @@ class AirportList extends React.Component {
     );
   }
 
+  selectAirport(airportCode) {
+    this.setState({selectedAirport: airportCode});
+  }
+
   static renderAirportRank(airportSize, accumulator="") {
     if (airportSize > 0) {
       return AirportList.renderAirportRank(airportSize - 20, accumulator + "★");
     } else {
       return accumulator;
+    }
+  }
+
+  renderAiportDetails() {
+    if (this.state.selectedAirport !== null) {
+      return "Selected Airport: " + this.state.selectedAirport;
+    } else {
+      return "";
     }
   }
 }
