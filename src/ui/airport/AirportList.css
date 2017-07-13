@@ -1,0 +1,23 @@
+.airportListContainer {
+  width: 200px;
+}
+
+.airportListEntry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 16px;
+}
+
+.airportListEntry:hover {
+  background-color: #031;
+  cursor: pointer;
+}
+
+.airportListName {
+  font-weight: bold;
+}
+
+.airportListEntry + .airportListEntry {
+  margin-top: 16px;
+}

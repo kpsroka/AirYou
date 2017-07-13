@@ -1,22 +1,25 @@
 import React from 'react';
+import './AirportList.css';
 import '../common/ModalWindow.css';
 
 class AirportList extends React.Component {
   render() {
     return (
         <div className="modalWindow">
-          {this.props.airports.map((airport) => AirportList.renderAirportEntry(airport))}
+          <div className="airportListContainer">
+            {this.props.airports.map((airport) => AirportList.renderAirportEntry(airport))}
+          </div>
         </div>
     );
   }
 
   static renderAirportEntry(airport) {
     return (
-      <div key={airport.code}>
-        <div>{airport.fullName}</div>
-        <span>
+      <div key={airport.code} className="airportListEntry">
+        <div className="airportListName">{airport.fullName}</div>
+        <div>
           {AirportList.renderAirportRank(airport.size)}
-        </span>
+        </div>
       </div>
     );
   }
