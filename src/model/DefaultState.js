@@ -1,7 +1,9 @@
 /* @flow */
 
+import type { Airport } from './Airports.js';
+import { AIRPORTS } from './Airports.js';
 import { Time } from '../Constants.js';
-import type { State, StateFlight, StateTime } from './State.js';
+import type { State, StateAirportDetails, StateFlight, StatePassengerGroup, StateTime } from './State.js';
 import { CreateFlightFn, CreateFlightScheduleFn, CreateRouteFn } from './State.js';
 
 const DefaultState:State = createDefaultState();
@@ -10,7 +12,8 @@ function createDefaultState():State {
   return {
     time: createDefaultTime(),
     airplanesInFlight: [],
-    flights: createFlights()
+    flights: createFlights(),
+    airportDetails: createDefaultAirportDetails(),
   }
 }
 
@@ -42,6 +45,26 @@ function createFlights():Array<StateFlight> {
         CreateRouteFn("SFO", "MCI"),
         CreateFlightScheduleFn(now.getHours() + 1, now.getMinutes())),
   ];
+}
+
+function createDefaultAirportDetails():Array<StateAirportDetails> {
+  return AIRPORTS.map((airport) => ({
+    passengerDemand: createPassengerDemand(airport)
+  }));
+}
+
+function createPassengerDemand(departureAirport:Airport):Array<StatePassengerGroup> {
+  let passengerDemand:Array<StatePassengerGroup> = [];
+  AIRPORTS.forEach((destinationAirport) => {
+    if (destinationAirport !== departureAirport) {
+      passengerDemand.push({
+        departureAiportCode: departureAirport.code,
+        destinationAirportCode: destinationAirport.code,
+        count: Math.floor(Math.random() * (departureAirport.size + destinationAirport.size)),
+      });
+    }
+  });
+  return passengerDemand;
 }
 
 export default DefaultState;

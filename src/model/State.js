@@ -41,10 +41,21 @@ export type StateFlight = {
   route:StateRoute
 };
 
+export type StatePassengerGroup = {
+  departureAiportCode:string,
+  destinationAirportCode:string,
+  count:number,
+}
+
+export type StateAirportDetails = {
+  passengerDemand:Array<StatePassengerGroup>
+}
+
 export type State = {
   time:StateTime,
   airplanesInFlight:Array<StateAirplaneInFlight>,
-  flights:Array<StateFlight>
+  flights:Array<StateFlight>,
+  airportDetails:Array<StateAirportDetails>
 }
 
 export const CreateRouteFn = (
