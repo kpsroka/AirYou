@@ -49,7 +49,8 @@ function createFlights():Array<StateFlight> {
 
 function createDefaultAirportDetails():Array<StateAirportDetails> {
   return AIRPORTS.map((airport) => ({
-    passengerDemand: createPassengerDemand(airport)
+    airportCode: airport.code,
+    passengerDemand: createPassengerDemand(airport),
   }));
 }
 

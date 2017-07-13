@@ -48,6 +48,7 @@ export type StatePassengerGroup = {
 }
 
 export type StateAirportDetails = {
+  airportCode:string,
   passengerDemand:Array<StatePassengerGroup>
 }
 
