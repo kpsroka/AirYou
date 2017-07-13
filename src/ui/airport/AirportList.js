@@ -1,6 +1,7 @@
 import React from 'react';
 import './AirportList.css';
 import '../common/ModalWindow.css';
+import AirportDetails from './AirportDetails.js';
 
 class AirportList extends React.Component {
   constructor(props) {
@@ -13,9 +14,7 @@ class AirportList extends React.Component {
           <div className="airportListContainer">
             {this.props.airports.map((airport) => this.renderAirportEntry(airport))}
           </div>
-          <div>
-            {this.renderAiportDetails()}
-          </div>
+          {this.renderAirportDetails()}
         </div>
     );
   }
@@ -44,9 +43,12 @@ class AirportList extends React.Component {
     }
   }
 
-  renderAiportDetails() {
+  renderAirportDetails() {
     if (this.state.selectedAirport !== null) {
-      return "Selected Airport: " + this.state.selectedAirport;
+      return <AirportDetails
+          airport={this.props.airports.find(
+              (airport) => (airport.code === this.state.selectedAirport))}
+      />
     } else {
       return "";
     }
